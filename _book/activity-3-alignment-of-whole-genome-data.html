@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 3 Activity 3: Alignment of whole genome data | EBIO4100: Bioinformatics in the Mountains</title>
+  <meta name="description" content="This bookdown organizes the course materials for EBIO4100: Intro to Bioinformatics, taught Summer 2025." />
+  <meta name="generator" content="bookdown 0.43 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 3 Activity 3: Alignment of whole genome data | EBIO4100: Bioinformatics in the Mountains" />
+  <meta property="og:type" content="book" />
+  <meta property="og:image" content="/images/logo_hagar.JPG" />
+  <meta property="og:description" content="This bookdown organizes the course materials for EBIO4100: Intro to Bioinformatics, taught Summer 2025." />
+  <meta name="github-repo" content="rstudio/bookdown-demo" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 3 Activity 3: Alignment of whole genome data | EBIO4100: Bioinformatics in the Mountains" />
+  
+  <meta name="twitter:description" content="This bookdown organizes the course materials for EBIO4100: Intro to Bioinformatics, taught Summer 2025." />
+  <meta name="twitter:image" content="/images/logo_hagar.JPG" />
+
+<meta name="author" content="Megan Frayer" />
+
+
+<meta name="date" content="2025-07-04" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="activity-2-fasta-files-and-visual-alignment-with-mega.html"/>
+<link rel="next" href="activity-4-variant-calling.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/codefolding-lua-1.1/codefolding-lua.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">EBIO4100: Bioinformatics in the Mountains</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="welcome-to-ebio4100-bioinformatics-in-the-mountains.html"><a href="welcome-to-ebio4100-bioinformatics-in-the-mountains.html"><i class="fa fa-check"></i>Welcome to EBIO4100: Bioinformatics in the Mountains!</a>
+<ul>
+<li class="chapter" data-level="0.1" data-path="welcome-to-ebio4100-bioinformatics-in-the-mountains.html"><a href="welcome-to-ebio4100-bioinformatics-in-the-mountains.html#how-to-use-this-ebook"><i class="fa fa-check"></i><b>0.1</b> How to use this ebook</a></li>
+<li class="chapter" data-level="0.2" data-path="welcome-to-ebio4100-bioinformatics-in-the-mountains.html"><a href="welcome-to-ebio4100-bioinformatics-in-the-mountains.html#goalslearning-objectives"><i class="fa fa-check"></i><b>0.2</b> Goals/Learning Objectives</a></li>
+<li class="chapter" data-level="0.3" data-path="welcome-to-ebio4100-bioinformatics-in-the-mountains.html"><a href="welcome-to-ebio4100-bioinformatics-in-the-mountains.html#how-to-succeed-in-this-course"><i class="fa fa-check"></i><b>0.3</b> How to succeed in this course:</a></li>
+<li class="chapter" data-level="0.4" data-path="welcome-to-ebio4100-bioinformatics-in-the-mountains.html"><a href="welcome-to-ebio4100-bioinformatics-in-the-mountains.html#important-links"><i class="fa fa-check"></i><b>0.4</b> Important Links</a></li>
+</ul></li>
+<li class="chapter" data-level="1" data-path="activity-1-computer-set-up-and-introduction-to-the-command-line.html"><a href="activity-1-computer-set-up-and-introduction-to-the-command-line.html"><i class="fa fa-check"></i><b>1</b> Activity 1: Computer set up and Introduction to the command line</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="activity-1-computer-set-up-and-introduction-to-the-command-line.html"><a href="activity-1-computer-set-up-and-introduction-to-the-command-line.html#get-oriented-to-the-cluster"><i class="fa fa-check"></i><b>1.1</b> Get oriented to the cluster</a></li>
+<li class="chapter" data-level="1.2" data-path="activity-1-computer-set-up-and-introduction-to-the-command-line.html"><a href="activity-1-computer-set-up-and-introduction-to-the-command-line.html#first-command"><i class="fa fa-check"></i><b>1.2</b> First command</a></li>
+<li class="chapter" data-level="1.3" data-path="activity-1-computer-set-up-and-introduction-to-the-command-line.html"><a href="activity-1-computer-set-up-and-introduction-to-the-command-line.html#how-to-navigate-a-file-system"><i class="fa fa-check"></i><b>1.3</b> How to navigate a file system</a></li>
+<li class="chapter" data-level="1.4" data-path="activity-1-computer-set-up-and-introduction-to-the-command-line.html"><a href="activity-1-computer-set-up-and-introduction-to-the-command-line.html#basic-file-manipulation"><i class="fa fa-check"></i><b>1.4</b> Basic file manipulation</a></li>
+<li class="chapter" data-level="1.5" data-path="activity-1-computer-set-up-and-introduction-to-the-command-line.html"><a href="activity-1-computer-set-up-and-introduction-to-the-command-line.html#assignment"><i class="fa fa-check"></i><b>1.5</b> Assignment</a></li>
+<li class="chapter" data-level="1.6" data-path="activity-1-computer-set-up-and-introduction-to-the-command-line.html"><a href="activity-1-computer-set-up-and-introduction-to-the-command-line.html#if-you-have-extra-time"><i class="fa fa-check"></i><b>1.6</b> If you have extra time…</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="activity-2-fasta-files-and-visual-alignment-with-mega.html"><a href="activity-2-fasta-files-and-visual-alignment-with-mega.html"><i class="fa fa-check"></i><b>2</b> Activity 2: FASTA files and visual alignment with MEGA</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="activity-2-fasta-files-and-visual-alignment-with-mega.html"><a href="activity-2-fasta-files-and-visual-alignment-with-mega.html#exploring-a-fasta-file"><i class="fa fa-check"></i><b>2.1</b> Exploring a fasta file</a></li>
+<li class="chapter" data-level="2.2" data-path="activity-2-fasta-files-and-visual-alignment-with-mega.html"><a href="activity-2-fasta-files-and-visual-alignment-with-mega.html#visual-alignment"><i class="fa fa-check"></i><b>2.2</b> Visual Alignment</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="activity-3-alignment-of-whole-genome-data.html"><a href="activity-3-alignment-of-whole-genome-data.html"><i class="fa fa-check"></i><b>3</b> Activity 3: Alignment of whole genome data</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="activity-3-alignment-of-whole-genome-data.html"><a href="activity-3-alignment-of-whole-genome-data.html#explore-the-sequencing-data-and-reference-genome"><i class="fa fa-check"></i><b>3.1</b> Explore the sequencing data and reference genome</a></li>
+<li class="chapter" data-level="3.2" data-path="activity-3-alignment-of-whole-genome-data.html"><a href="activity-3-alignment-of-whole-genome-data.html#fastqc"><i class="fa fa-check"></i><b>3.2</b> FASTQC</a></li>
+<li class="chapter" data-level="3.3" data-path="activity-3-alignment-of-whole-genome-data.html"><a href="activity-3-alignment-of-whole-genome-data.html#trimming"><i class="fa fa-check"></i><b>3.3</b> Trimming</a></li>
+<li class="chapter" data-level="3.4" data-path="activity-3-alignment-of-whole-genome-data.html"><a href="activity-3-alignment-of-whole-genome-data.html#alignment-with-bwa"><i class="fa fa-check"></i><b>3.4</b> Alignment with BWA</a></li>
+<li class="chapter" data-level="3.5" data-path="activity-3-alignment-of-whole-genome-data.html"><a href="activity-3-alignment-of-whole-genome-data.html#read-groups"><i class="fa fa-check"></i><b>3.5</b> Read Groups</a></li>
+<li class="chapter" data-level="3.6" data-path="activity-3-alignment-of-whole-genome-data.html"><a href="activity-3-alignment-of-whole-genome-data.html#how-good-was-our-alignment"><i class="fa fa-check"></i><b>3.6</b> How good was our alignment?</a></li>
+<li class="chapter" data-level="3.7" data-path="activity-3-alignment-of-whole-genome-data.html"><a href="activity-3-alignment-of-whole-genome-data.html#assignment-1"><i class="fa fa-check"></i><b>3.7</b> Assignment</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="activity-4-variant-calling.html"><a href="activity-4-variant-calling.html"><i class="fa fa-check"></i><b>4</b> Activity 4: Variant calling</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="activity-4-variant-calling.html"><a href="activity-4-variant-calling.html#call-variants-with-gatk"><i class="fa fa-check"></i><b>4.1</b> Call Variants with GATK</a></li>
+<li class="chapter" data-level="4.2" data-path="activity-4-variant-calling.html"><a href="activity-4-variant-calling.html#call-variants-with-bcftools"><i class="fa fa-check"></i><b>4.2</b> Call variants with bcftools</a></li>
+<li class="chapter" data-level="4.3" data-path="activity-4-variant-calling.html"><a href="activity-4-variant-calling.html#are-they-all-the-same"><i class="fa fa-check"></i><b>4.3</b> Are they all the same?</a></li>
+<li class="chapter" data-level="4.4" data-path="activity-4-variant-calling.html"><a href="activity-4-variant-calling.html#assignment-2"><i class="fa fa-check"></i><b>4.4</b> Assignment</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="activity-5-variant-filtering.html"><a href="activity-5-variant-filtering.html"><i class="fa fa-check"></i><b>5</b> Activity 5: Variant filtering</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="activity-5-variant-filtering.html"><a href="activity-5-variant-filtering.html#introduction-to-bcftools"><i class="fa fa-check"></i><b>5.1</b> Introduction to BCFtools</a></li>
+<li class="chapter" data-level="5.2" data-path="activity-5-variant-filtering.html"><a href="activity-5-variant-filtering.html#filter-for-quality"><i class="fa fa-check"></i><b>5.2</b> Filter for quality</a></li>
+<li class="chapter" data-level="5.3" data-path="activity-5-variant-filtering.html"><a href="activity-5-variant-filtering.html#filter-for-biallelic-snps"><i class="fa fa-check"></i><b>5.3</b> Filter for biallelic SNPs</a></li>
+<li class="chapter" data-level="5.4" data-path="activity-5-variant-filtering.html"><a href="activity-5-variant-filtering.html#filter-for-frequency"><i class="fa fa-check"></i><b>5.4</b> Filter for frequency</a></li>
+<li class="chapter" data-level="5.5" data-path="activity-5-variant-filtering.html"><a href="activity-5-variant-filtering.html#assignment-3"><i class="fa fa-check"></i><b>5.5</b> Assignment</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="activity-6-phylogeny.html"><a href="activity-6-phylogeny.html"><i class="fa fa-check"></i><b>6</b> Activity 6: Phylogeny</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="activity-6-phylogeny.html"><a href="activity-6-phylogeny.html#try-hand-calculating-a-neighbor-joining-tree"><i class="fa fa-check"></i><b>6.1</b> Try hand calculating a neighbor joining tree</a></li>
+<li class="chapter" data-level="6.2" data-path="activity-6-phylogeny.html"><a href="activity-6-phylogeny.html#iq-tree"><i class="fa fa-check"></i><b>6.2</b> IQ-TREE</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="activity-7-annotation.html"><a href="activity-7-annotation.html"><i class="fa fa-check"></i><b>7</b> Activity 7: Annotation</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="activity-7-annotation.html"><a href="activity-7-annotation.html#igv"><i class="fa fa-check"></i><b>7.1</b> IGV</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="activity-8-blast-and-genome-browser.html"><a href="activity-8-blast-and-genome-browser.html"><i class="fa fa-check"></i><b>8</b> Activity 8: BLAST and Genome Browser</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="activity-8-blast-and-genome-browser.html"><a href="activity-8-blast-and-genome-browser.html#blast-activity"><i class="fa fa-check"></i><b>8.1</b> BLAST Activity</a></li>
+<li class="chapter" data-level="8.2" data-path="activity-8-blast-and-genome-browser.html"><a href="activity-8-blast-and-genome-browser.html#genome-browser"><i class="fa fa-check"></i><b>8.2</b> Genome Browser</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="activity-9-reproducibility.html"><a href="activity-9-reproducibility.html"><i class="fa fa-check"></i><b>9</b> Activity 9: Reproducibility</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="activity-9-reproducibility.html"><a href="activity-9-reproducibility.html#peanut-butter-sandwiches"><i class="fa fa-check"></i><b>9.1</b> Peanut Butter Sandwiches</a></li>
+<li class="chapter" data-level="9.2" data-path="activity-9-reproducibility.html"><a href="activity-9-reproducibility.html#practice-annotating-code"><i class="fa fa-check"></i><b>9.2</b> Practice annotating code</a></li>
+<li class="chapter" data-level="9.3" data-path="activity-9-reproducibility.html"><a href="activity-9-reproducibility.html#explore-github"><i class="fa fa-check"></i><b>9.3</b> Explore github</a></li>
+<li class="chapter" data-level="9.4" data-path="activity-9-reproducibility.html"><a href="activity-9-reproducibility.html#documentation"><i class="fa fa-check"></i><b>9.4</b> Documentation</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="activity-10-rna-seq.html"><a href="activity-10-rna-seq.html"><i class="fa fa-check"></i><b>10</b> Activity 10: RNA-SEQ</a>
+<ul>
+<li class="chapter" data-level="10.1" data-path="activity-10-rna-seq.html"><a href="activity-10-rna-seq.html#processing-the-data"><i class="fa fa-check"></i><b>10.1</b> Processing the data</a></li>
+<li class="chapter" data-level="10.2" data-path="activity-10-rna-seq.html"><a href="activity-10-rna-seq.html#differential-expression"><i class="fa fa-check"></i><b>10.2</b> Differential expression</a></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="extras.html"><a href="extras.html"><i class="fa fa-check"></i><b>11</b> Extras</a>
+<ul>
+<li class="chapter" data-level="11.1" data-path="extras.html"><a href="extras.html#resources-for-further-learning"><i class="fa fa-check"></i><b>11.1</b> Resources for further learning</a></li>
+<li class="chapter" data-level="11.2" data-path="extras.html"><a href="extras.html#tips-for-advancing-in-bioinformatics"><i class="fa fa-check"></i><b>11.2</b> Tips for advancing in bioinformatics</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">EBIO4100: Bioinformatics in the Mountains</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="activity-3-alignment-of-whole-genome-data" class="section level1 hasAnchor" number="3">
+<h1><span class="header-section-number">Chapter 3</span> Activity 3: Alignment of whole genome data<a href="activity-3-alignment-of-whole-genome-data.html#activity-3-alignment-of-whole-genome-data" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="explore-the-sequencing-data-and-reference-genome" class="section level2 hasAnchor" number="3.1">
+<h2><span class="header-section-number">3.1</span> Explore the sequencing data and reference genome<a href="activity-3-alignment-of-whole-genome-data.html#explore-the-sequencing-data-and-reference-genome" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p><strong>1. Set up a folder for today’s activity, and start an interactive job. </strong></p>
+<details class=chunk-details><summary class=chunk-summary><span class=chunk-summary-text>Code</span></summary>
+<pre class="foldable"><code>mkdir day3
+#or
+mkdir alignment 
+
+sinteractive --partition=amilan -t 4:00:00</code></pre>
+</details>
+<p><strong>2. Look at the data we will be using today. What kinds of file formats are these? What kind of information do they contain? </strong></p>
+<details class=chunk-details><summary class=chunk-summary><span class=chunk-summary-text>Code</span></summary>
+<pre class="foldable"><code>cd shared/genome_data/
+less chickadee_1_R1.fastq</code></pre>
+</details>
+<p><strong>3. How many files are in the folder? How many individual sequences does this correspond to? </strong></p>
+<details class=chunk-details><summary class=chunk-summary><span class=chunk-summary-text>Code</span></summary>
+<pre class="foldable"><code># how many fastq files
+ls *.fastq | wc -l 
+# BUT these are paired end reads, so...
+ls *_R1.fastq | wc -l </code></pre>
+</details>
+<p><strong>4. What files are present in the reference genome folder?</strong></p>
+<details class=chunk-details><summary class=chunk-summary><span class=chunk-summary-text>Code</span></summary>
+<pre class="foldable"><code>ls shared/reference
+grep &gt; ref.fna</code></pre>
+</details>
+</div>
+<div id="fastqc" class="section level2 hasAnchor" number="3.2">
+<h2><span class="header-section-number">3.2</span> FASTQC<a href="activity-3-alignment-of-whole-genome-data.html#fastqc" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p><strong>5. How many reads are in the first fastq file? </strong></p>
+<details class=chunk-details><summary class=chunk-summary><span class=chunk-summary-text>Code</span></summary>
+<pre class="foldable"><code>wc -l fastq # then divide by 4 </code></pre>
+</details>
+<p>We can’t go through all of this information by hand, so we need to start analyzing this data in other ways. For fastq files, we can check them using FastQC.</p>
+<p><strong>6. First, copy the file <code>mountain_chickadee_R1.fastq.gz</code> to your own scratch folder. </strong></p>
+<details class=chunk-details><summary class=chunk-summary><span class=chunk-summary-text>Code</span></summary>
+<pre class="foldable"><code>cp ebio4100/day3/mountain_chickadee_R*.fastq.gz /scratch/alpine/usrname/</code></pre>
+</details>
+<p><strong>7. Run FastQC on the first file. </strong></p>
+<details class=chunk-details><summary class=chunk-summary><span class=chunk-summary-text>Code</span></summary>
+<pre class="foldable"><code>module load fastqc 
+fastqc mountain_chickadee_R1.fastq.gz </code></pre>
+</details>
+<p><strong>8. What output files does it make? </strong></p>
+<details class=chunk-details><summary class=chunk-summary><span class=chunk-summary-text>Code</span></summary>
+<pre class="foldable"><code>ls</code></pre>
+</details>
+<p>Take a look at the html output file (you may need to download it from the OnDemand Portal). How do the results look?</p>
+<p>If you want more information on any of the stats, check out the <a href="https://www.bioinformatics.babraham.ac.uk/projects/fastqc/Help/">documentation here.</a></p>
+<p><strong>9. Repeat fastqc with the second set of reads. How do the results compare? </strong></p>
+<details class=chunk-details><summary class=chunk-summary><span class=chunk-summary-text>Code</span></summary>
+<pre class="foldable"><code>fastqc mountain_chickadee_R2.fastq.gz </code></pre>
+</details>
+</div>
+<div id="trimming" class="section level2 hasAnchor" number="3.3">
+<h2><span class="header-section-number">3.3</span> Trimming<a href="activity-3-alignment-of-whole-genome-data.html#trimming" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p><strong>10. Use trimmomatic to trim the reads. </strong></p>
+<p>When you load the module, it will give you cluster-specific instructions for running the program.</p>
+<details class=chunk-details><summary class=chunk-summary><span class=chunk-summary-text>Code</span></summary>
+<pre class="foldable"><code>module load trimmomatic 
+
+java -jar $TRIMMOMATIC PE mountain_chickadee_R1.fastq.gz mountain_chickadee_R2.fastq.gz -trimlog mountain.trimlog -baseout mountain_chickadee_trimmed ILLUMINACLIP:$ADAPTERS/NexteraPE-PE.fa:2:30:10 LEADING:15 TRAILING:15 SLIDINGWINDOW:5:10 MINLEN:50</code></pre>
+</details>
+</div>
+<div id="alignment-with-bwa" class="section level2 hasAnchor" number="3.4">
+<h2><span class="header-section-number">3.4</span> Alignment with BWA<a href="activity-3-alignment-of-whole-genome-data.html#alignment-with-bwa" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p><strong>11. Align the reads with <code>bwa mem</code>. </strong></p>
+<details class=chunk-details><summary class=chunk-summary><span class=chunk-summary-text>Code</span></summary>
+<pre class="foldable"><code>bwa mem -t 1 -M -R &#39;@RG\tID:moch21\tLB:moch21\tPL:ILLUMINA\tSM:moch21&#39; /scratch/alpine/mefr3284/ebio4100/reference_genome/moch.dovetail.reference.hap1.scaffolds.renamed.fasta mountain_chickadee_trimmed_1P mountain_chickadee_trimmed_2P &gt; mountain_chickadee.sam</code></pre>
+</details>
+<p>We will name this sample <code>moch21</code>. Names for samples should be as simple as possible, while still being unique. They should not contain spaces.</p>
+<p>What output files were made? What format are these in?</p>
+<p><strong>12. We can now use the program <code>samtools</code> to further process this alignment file. First we can filter out low quality alignments. For most analyses, we filter the alignment for reads with an alignment quality above 20.</strong></p>
+<details class=chunk-details><summary class=chunk-summary><span class=chunk-summary-text>Code</span></summary>
+<pre class="foldable"><code>module load samtools 
+samtools view -q 20 mountain_chickadee.sam &gt; mountain_chickadee.filtered.sam</code></pre>
+</details>
+<p>How much smaller is the file now?</p>
+<details class=chunk-details><summary class=chunk-summary><span class=chunk-summary-text>Code</span></summary>
+<pre class="foldable"><code>wc -l *sam</code></pre>
+</details>
+<p><strong>13. If we look at this file, we will notice that the locations of the reads are random. For many downstream analyses, we will want to sort it. We can also do this with SAMtools. The <code>-T</code> flag specifies a prefix for temporary files created during sorting. </strong></p>
+<details class=chunk-details><summary class=chunk-summary><span class=chunk-summary-text>Code</span></summary>
+<pre class="foldable"><code>samtools sort mountain_chickadee.filtered.sam -T tmp_mntchck &gt; mountain_chickadee.filtered.sorted.sam</code></pre>
+</details>
+<p>If we look at the file now, we can see that the reads are in order by location.</p>
+<p><strong>14. There is a lot of information within this SAM file, and that means the file will get quite large as we add more reads. For this reason, we typically use the binary alternative: BAM files. We can ask <code>samtools</code> to create a BAM file rather than a SAM file. </strong></p>
+<p>You will notice we have also created several versions of this SAM file. Sometimes, you will want to keep these intermediate files for special analyses, but usually we do not need them. You could delete them once you’ve made your final file, but you could also skip creating these files altogether by using pipes to connect our commands. The pipe (<code>|</code>) tells the terminal to pass the output directly into the next command, rather than into a file.</p>
+<details class=chunk-details><summary class=chunk-summary><span class=chunk-summary-text>Code</span></summary>
+<pre class="foldable"><code>bwa mem -t 1 -M -R &#39;@RG\tID:moch21\tLB:moch21\tPL:ILLUMINA\tSM:moch21&#39; ../ebio4100/reference_genome/moch.dovetail.reference.hap1.scaffolds.renamed.fasta mountain_chickadee_trimmed_1P mountain_chickadee_trimmed_2P | samtools view -q 20 -b | samtools sort -T tmp_mntchck &gt; mountain_chickadee.filtered.sorted.bam</code></pre>
+</details>
+<p>Note that the <code>-b</code> flag added to the <code>samtools view</code> command is what tells <code>samtools</code> we want a BAM file output, rather than SAM.</p>
+<p><strong>15. Finally, most programs will expect BAM files to be indexed. This allows programs to quickly navigate large files. </strong></p>
+<details class=chunk-details><summary class=chunk-summary><span class=chunk-summary-text>Code</span></summary>
+<pre class="foldable"><code>samtools index mountain_chickadee.filtered.sorted.bam</code></pre>
+</details>
+<p>We can also see that a new file called <code>mountain_chickadee.filtered.sorted.bam.bai</code> was created. This is the index and downstream programs will expect it to be in the same folder as the main file.</p>
+</div>
+<div id="read-groups" class="section level2 hasAnchor" number="3.5">
+<h2><span class="header-section-number">3.5</span> Read Groups<a href="activity-3-alignment-of-whole-genome-data.html#read-groups" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Earlier we used the -R flag to add a string to our file. This was the read group. Some downstream programs will require read group information. If we want to merge BAM files together, we will also want the reads assigned to groups. If you do not add a group, or if a downstream program requires different group information, you can add or change read groups in a bam file. There are several ways to do this, but below is an example using <code>samtools</code>.</p>
+<details class=chunk-details><summary class=chunk-summary><span class=chunk-summary-text>Code</span></summary>
+<pre class="foldable"><code>
+samtools addreplacerg -r &quot;ID:HNJTWDSX3:2&quot; -r &quot;LB:2&quot; -r &quot;PL:ILLUMINA&quot; -r &quot;PU:HNJTWDSX3:2:moch21&quot; -r &quot;SM:moch21&quot; mountain_chickadee.filtered.sorted.bam -o mountain_chickadee.filtered.sorted.newrg.bam 
+
+samtools index mountain_chickadee.filtered.sorted.newrg.bam 
+</code></pre>
+</details>
+</div>
+<div id="how-good-was-our-alignment" class="section level2 hasAnchor" number="3.6">
+<h2><span class="header-section-number">3.6</span> How good was our alignment?<a href="activity-3-alignment-of-whole-genome-data.html#how-good-was-our-alignment" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p><strong>16. Use <code>samtools flagstat</code> to look at some metrics for our alignment. </strong></p>
+<details class=chunk-details><summary class=chunk-summary><span class=chunk-summary-text>Code</span></summary>
+<pre class="foldable"><code>
+samtools flagstat mountain_chickadee.filtered.sorted.bam &gt; flagstat.txt
+
+cat flagstat.txt
+</code></pre>
+</details>
+</div>
+<div id="assignment-1" class="section level2 hasAnchor" number="3.7">
+<h2><span class="header-section-number">3.7</span> Assignment<a href="activity-3-alignment-of-whole-genome-data.html#assignment-1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Create a script that will copy the files <code>/projects/mefr3284/chickadee_data/MOCH/20H102_S21_L002_R1_001.fastq.gz</code> and <code>/projects/mefr3284/chickadee_data/MOCH/20H102_S21_L002_R2_001.fastq.gz</code> to your scratch directory, and then trim, align, and sort the bam file. You can also add the read group using the same read group information we used above. Try running the script, which will probably run past the end of class. Copy the script to the folder <code>/gpfs/alpine1/scratch/mefr3284/Assignments/day_3/</code> to turn it in. (Add your name to the file name!)</p>
+<p><em>Hint 1:</em></p>
+<details class=chunk-details><summary class=chunk-summary><span class=chunk-summary-text>Code</span></summary>
+<pre class="foldable"><code>The header of your script should look something like: 
+#!/bin/bash
+
+#SBATCH --nodes=1
+#SBATCH --ntasks=1
+#SBATCH --time=6:00:00
+#SBATCH --partition=amilan 
+#SBATCH --output=bamfiles.out</code></pre>
+</details>
+<p><em>Hint 2:</em></p>
+<details class=chunk-details><summary class=chunk-summary><span class=chunk-summary-text>Code</span></summary>
+<pre class="foldable"><code>Do not forget to load the modules you need. </code></pre>
+</details>
+<div class="learning" data="latex=&quot;&quot;">
+<p>If you would like more information on the programs we tried today, here are links to check out.</p>
+<p><a href="https://www.htslib.org/doc/samtools.html">Samtools Documentation</a></p>
+<p><a href="https://samtools.github.io/bcftools/bcftools.html">BCFtools Manual</a></p>
+</div>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="activity-2-fasta-files-and-visual-alignment-with-mega.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="activity-4-variant-calling.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+  "sharing": null,
+  "fontsettings": {
+    "theme": "white",
+    "family": "sans",
+    "size": 2
+  },
+  "edit": {
+    "link": "https://github.com/USERNAME/REPO/edit/BRANCH/04-alignment.Rmd",
+    "text": "Edit"
+  },
+  "history": {
+    "link": null,
+    "text": null
+  },
+  "view": {
+    "link": null,
+    "text": null
+  },
+  "download": ["_main.pdf", "_main.epub"],
+  "search": {
+    "engine": "fuse",
+    "options": null
+  },
+  "toc": {
+    "collapse": "subsection",
+    "scroll_highlight": true
+  }
+});
+});
+</script>
+
+</body>
+
+</html>

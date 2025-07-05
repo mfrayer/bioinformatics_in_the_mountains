@@ -1,0 +1,19 @@
+--- 
+title: "EBIO4100: Bioinformatics in the Mountains"
+author: "Megan Frayer"
+date: "`r Sys.Date()`"
+site: bookdown::bookdown_site
+documentclass: book
+bibliography: [book.bib, packages.bib]
+# url: your book url like https://bookdown.org/yihui/bookdown
+cover-image:  images/logo_hagar.JPG
+description: |
+  This bookdown organizes the course materials for EBIO4100: Intro to Bioinformatics, taught Summer 2025. 
+link-citations: yes
+github-repo: rstudio/bookdown-demo
+---
+
+
+
+
+

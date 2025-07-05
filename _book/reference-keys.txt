@@ -1,0 +1,11 @@
+how-to-use-this-ebook
+goalslearning-objectives
+how-to-succeed-in-this-course
+important-links
+activity-1-computer-set-up-and-introduction-to-the-command-line
+get-oriented-to-the-cluster
+first-command
+how-to-navigate-a-file-system
+basic-file-manipulation
+assignment
+if-we-have-extra-time

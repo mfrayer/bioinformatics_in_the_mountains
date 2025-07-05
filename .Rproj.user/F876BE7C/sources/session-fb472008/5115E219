@@ -1,0 +1,26 @@
+{
+    "id": "5115E219",
+    "path": "~/5_bioinformaticsCourse/course_website/intro_to_bioinformatics/02-setup.Rmd",
+    "project_path": "02-setup.Rmd",
+    "type": "r_markdown",
+    "hash": "0",
+    "contents": "",
+    "dirty": false,
+    "created": 1749755982645.0,
+    "source_on_save": false,
+    "relative_order": 3,
+    "properties": {
+        "source_window_id": "",
+        "Source": "Source",
+        "cursorPosition": "70,8",
+        "scrollLine": "0"
+    },
+    "folds": "",
+    "lastKnownWriteTime": 1751650545,
+    "encoding": "UTF-8",
+    "collab_server": "",
+    "source_window": "",
+    "last_content_update": 1751650545919,
+    "read_only": false,
+    "read_only_alternatives": []
+}

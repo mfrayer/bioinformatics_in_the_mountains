@@ -1,0 +1,6 @@
+h1:hands-on-variant-filtering-and-genome-structure Hands On: Variant filtering and genome structure
+h2:introduction-to-bcftools Introduction to BCFtools
+h2:filter-for-quality Filter for quality
+h2:filter-for-biallelic-snps Filter for biallelic SNPs
+h2:filter-for-frequency Filter for frequency
+

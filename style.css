@@ -1,0 +1,32 @@
+.learning {
+  color: black; 
+  padding: 1em 1em 1em 5em; 
+  border-radius: 12px; 
+  border: 4px solid #398E98; 
+  background: white 5px center/5em no-repeat;
+  background-image: url("images/mnt_icon.png");
+}
+
+.caution {
+  color: black; 
+  padding: 1em 1em 1em 5em; 
+  border-radius: 12px; 
+  border: 4px solid #880015; 
+  background: white 5px center/5em no-repeat;
+  background-image: url("images/caution_icon.png");
+}
+
+p.caption {
+  color: #777;
+  margin-top: 10px;
+}
+p code {
+  white-space: inherit;
+}
+pre {
+  word-break: normal;
+  word-wrap: normal;
+}
+pre code {
+  white-space: inherit;
+}

@@ -1,0 +1,20 @@
+bookdown::gitbook:
+  css: style.css
+  code_folding: hide
+  config:
+    sharing: null
+    toc:
+      before: |
+        <li><a href="./">EBIO4100: Bioinformatics in the Mountains</a></li>
+      after: |
+        <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+      scroll_highlight: true
+    edit: https://github.com/USERNAME/REPO/edit/BRANCH/%s
+    download: ["pdf", "epub"]
+bookdown::pdf_book:
+  includes:
+    in_header: preamble.tex
+  latex_engine: xelatex
+  citation_package: natbib
+  keep_tex: yes
+bookdown::epub_book: default

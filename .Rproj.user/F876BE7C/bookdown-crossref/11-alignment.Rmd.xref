@@ -1,0 +1,7 @@
+h1:hands-on-alignment-of-whole-genome-data Hands On: Alignment of whole genome data
+h2:explore-the-sequencing-data-and-reference-genome Explore the sequencing data and reference genome
+h2:fastqc FASTQC
+h2:basic-algorithm Basic Algorithm
+h2:alignment-with-bwa Alignment with BWA
+h2:sort-and-dedup-the-bam-file Sort and dedup the BAM file
+

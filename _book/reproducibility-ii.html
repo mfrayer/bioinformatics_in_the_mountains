@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 27 Reproducibility (II) | EBIO4100: Bioinformatics in the Mountains</title>
+  <meta name="description" content="This bookdown organizes the course materials for EBIO4100: Intro to Bioinformatics, taught Summer 2025." />
+  <meta name="generator" content="bookdown 0.43 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 27 Reproducibility (II) | EBIO4100: Bioinformatics in the Mountains" />
+  <meta property="og:type" content="book" />
+  <meta property="og:image" content="/images/logo_hagar.JPG" />
+  <meta property="og:description" content="This bookdown organizes the course materials for EBIO4100: Intro to Bioinformatics, taught Summer 2025." />
+  <meta name="github-repo" content="rstudio/bookdown-demo" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 27 Reproducibility (II) | EBIO4100: Bioinformatics in the Mountains" />
+  
+  <meta name="twitter:description" content="This bookdown organizes the course materials for EBIO4100: Intro to Bioinformatics, taught Summer 2025." />
+  <meta name="twitter:image" content="/images/logo_hagar.JPG" />
+
+<meta name="author" content="Megan Frayer" />
+
+
+<meta name="date" content="2025-06-03" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="reproducible-1.html"/>
+<link rel="next" href="hands-on-reproducibility.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/codefolding-lua-1.1/codefolding-lua.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">EBIO4100: Bioinformatics in the Mountains</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="welcome.html"><a href="welcome.html"><i class="fa fa-check"></i>Welcome</a>
+<ul>
+<li class="chapter" data-level="0.1" data-path="welcome.html"><a href="welcome.html#how-to-use-this-ebook"><i class="fa fa-check"></i><b>0.1</b> How to use this ebook</a></li>
+<li class="chapter" data-level="0.2" data-path="welcome.html"><a href="welcome.html#important-links"><i class="fa fa-check"></i><b>0.2</b> Important Links</a></li>
+</ul></li>
+<li class="chapter" data-level="1" data-path="overview.html"><a href="overview.html"><i class="fa fa-check"></i><b>1</b> Overview</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="overview.html"><a href="overview.html#goalslearning-objectives"><i class="fa fa-check"></i><b>1.1</b> Goals/Learning Objectives</a></li>
+<li class="chapter" data-level="1.2" data-path="overview.html"><a href="overview.html#how-to-succeed-in-this-course"><i class="fa fa-check"></i><b>1.2</b> How to succeed in this course:</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="what-is-bioinformatics.html"><a href="what-is-bioinformatics.html"><i class="fa fa-check"></i><b>2</b> What is bioinformatics?</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="what-is-bioinformatics.html"><a href="what-is-bioinformatics.html#bioinformatics"><i class="fa fa-check"></i><b>2.1</b> Bioinformatics</a></li>
+<li class="chapter" data-level="2.2" data-path="what-is-bioinformatics.html"><a href="what-is-bioinformatics.html#why-would-i-want-to-learn-bioinformatics"><i class="fa fa-check"></i><b>2.2</b> Why would I want to learn bioinformatics?</a></li>
+<li class="chapter" data-level="2.3" data-path="what-is-bioinformatics.html"><a href="what-is-bioinformatics.html#what-type-of-skills-or-jobs-would-this-be-useful-for"><i class="fa fa-check"></i><b>2.3</b> What type of skills or jobs would this be useful for?</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="introduction-to-the-command-line.html"><a href="introduction-to-the-command-line.html"><i class="fa fa-check"></i><b>3</b> Introduction to the command line</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="introduction-to-the-command-line.html"><a href="introduction-to-the-command-line.html#section"><i class="fa fa-check"></i><b>3.1</b> </a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="activity-1-computer-set-up-and-introduction-to-the-command-line.html"><a href="activity-1-computer-set-up-and-introduction-to-the-command-line.html"><i class="fa fa-check"></i><b>4</b> Activity 1: Computer set up and Introduction to the command line</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="activity-1-computer-set-up-and-introduction-to-the-command-line.html"><a href="activity-1-computer-set-up-and-introduction-to-the-command-line.html#get-oriented-to-the-cluster"><i class="fa fa-check"></i><b>4.1</b> Get oriented to the cluster</a></li>
+<li class="chapter" data-level="4.2" data-path="activity-1-computer-set-up-and-introduction-to-the-command-line.html"><a href="activity-1-computer-set-up-and-introduction-to-the-command-line.html#how-to-navigate-a-file-system"><i class="fa fa-check"></i><b>4.2</b> How to navigate a file system</a></li>
+<li class="chapter" data-level="4.3" data-path="activity-1-computer-set-up-and-introduction-to-the-command-line.html"><a href="activity-1-computer-set-up-and-introduction-to-the-command-line.html#basic-file-manipulation"><i class="fa fa-check"></i><b>4.3</b> Basic file manipulation</a></li>
+<li class="chapter" data-level="4.4" data-path="activity-1-computer-set-up-and-introduction-to-the-command-line.html"><a href="activity-1-computer-set-up-and-introduction-to-the-command-line.html#syntax"><i class="fa fa-check"></i><b>4.4</b> Syntax</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="dna-sequencing.html"><a href="dna-sequencing.html"><i class="fa fa-check"></i><b>5</b> DNA Sequencing</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="dna-sequencing.html"><a href="dna-sequencing.html#central-dogma"><i class="fa fa-check"></i><b>5.1</b> Central Dogma</a></li>
+<li class="chapter" data-level="5.2" data-path="dna-sequencing.html"><a href="dna-sequencing.html#how-sequencing-works"><i class="fa fa-check"></i><b>5.2</b> How sequencing works</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="common-file-formats.html"><a href="common-file-formats.html"><i class="fa fa-check"></i><b>6</b> Common file formats</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="common-file-formats.html"><a href="common-file-formats.html#fasta"><i class="fa fa-check"></i><b>6.1</b> fasta</a></li>
+<li class="chapter" data-level="6.2" data-path="common-file-formats.html"><a href="common-file-formats.html#sambam"><i class="fa fa-check"></i><b>6.2</b> SAM/BAM</a></li>
+<li class="chapter" data-level="6.3" data-path="common-file-formats.html"><a href="common-file-formats.html#vcf"><i class="fa fa-check"></i><b>6.3</b> VCF</a></li>
+<li class="chapter" data-level="6.4" data-path="common-file-formats.html"><a href="common-file-formats.html#bed-files"><i class="fa fa-check"></i><b>6.4</b> BED files</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="hands-on-fasta-files-and-visual-alignment-with-mega.html"><a href="hands-on-fasta-files-and-visual-alignment-with-mega.html"><i class="fa fa-check"></i><b>7</b> Hands On: FASTA files and visual alignment with MEGA</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="hands-on-fasta-files-and-visual-alignment-with-mega.html"><a href="hands-on-fasta-files-and-visual-alignment-with-mega.html#exploring-a-fasta-file"><i class="fa fa-check"></i><b>7.1</b> Exploring a fasta file</a></li>
+<li class="chapter" data-level="7.2" data-path="hands-on-fasta-files-and-visual-alignment-with-mega.html"><a href="hands-on-fasta-files-and-visual-alignment-with-mega.html#visual-alignment"><i class="fa fa-check"></i><b>7.2</b> Visual Alignment</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="sequencing-techniques-part-ii.html"><a href="sequencing-techniques-part-ii.html"><i class="fa fa-check"></i><b>8</b> Sequencing techniques (Part II)</a></li>
+<li class="chapter" data-level="9" data-path="basic-algorithms.html"><a href="basic-algorithms.html"><i class="fa fa-check"></i><b>9</b> Basic algorithms</a></li>
+<li class="chapter" data-level="10" data-path="hands-on-alignment-of-whole-genome-data.html"><a href="hands-on-alignment-of-whole-genome-data.html"><i class="fa fa-check"></i><b>10</b> Hands On: Alignment of whole genome data</a>
+<ul>
+<li class="chapter" data-level="10.1" data-path="hands-on-alignment-of-whole-genome-data.html"><a href="hands-on-alignment-of-whole-genome-data.html#explore-the-sequencing-data-and-reference-genome"><i class="fa fa-check"></i><b>10.1</b> Explore the sequencing data and reference genome</a></li>
+<li class="chapter" data-level="10.2" data-path="hands-on-alignment-of-whole-genome-data.html"><a href="hands-on-alignment-of-whole-genome-data.html#fastqc"><i class="fa fa-check"></i><b>10.2</b> FASTQC</a></li>
+<li class="chapter" data-level="10.3" data-path="hands-on-alignment-of-whole-genome-data.html"><a href="hands-on-alignment-of-whole-genome-data.html#basic-algorithm"><i class="fa fa-check"></i><b>10.3</b> Basic Algorithm</a></li>
+<li class="chapter" data-level="10.4" data-path="hands-on-alignment-of-whole-genome-data.html"><a href="hands-on-alignment-of-whole-genome-data.html#alignment-with-bwa"><i class="fa fa-check"></i><b>10.4</b> Alignment with BWA</a></li>
+<li class="chapter" data-level="10.5" data-path="hands-on-alignment-of-whole-genome-data.html"><a href="hands-on-alignment-of-whole-genome-data.html#sort-and-dedup-the-bam-file"><i class="fa fa-check"></i><b>10.5</b> Sort and dedup the BAM file</a></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="genetic-variation.html"><a href="genetic-variation.html"><i class="fa fa-check"></i><b>11</b> Genetic variation</a>
+<ul>
+<li class="chapter" data-level="11.1" data-path="genetic-variation.html"><a href="genetic-variation.html#what-are-the-types-of-variation-we-find-in-the-genome"><i class="fa fa-check"></i><b>11.1</b> What are the types of variation we find in the genome?</a></li>
+<li class="chapter" data-level="11.2" data-path="genetic-variation.html"><a href="genetic-variation.html#single-nucleotide-polymorphisms"><i class="fa fa-check"></i><b>11.2</b> Single Nucleotide Polymorphisms</a></li>
+<li class="chapter" data-level="11.3" data-path="genetic-variation.html"><a href="genetic-variation.html#structural-variants"><i class="fa fa-check"></i><b>11.3</b> Structural variants</a></li>
+<li class="chapter" data-level="11.4" data-path="genetic-variation.html"><a href="genetic-variation.html#repetitive-dna"><i class="fa fa-check"></i><b>11.4</b> Repetitive DNA</a></li>
+<li class="chapter" data-level="11.5" data-path="genetic-variation.html"><a href="genetic-variation.html#how-do-these-variation-arise"><i class="fa fa-check"></i><b>11.5</b> How do these variation arise?</a></li>
+<li class="chapter" data-level="11.6" data-path="genetic-variation.html"><a href="genetic-variation.html#how-common-are-different-types-of-variants"><i class="fa fa-check"></i><b>11.6</b> How common are different types of variants?</a></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="variant-calling.html"><a href="variant-calling.html"><i class="fa fa-check"></i><b>12</b> Variant calling</a>
+<ul>
+<li class="chapter" data-level="12.1" data-path="variant-calling.html"><a href="variant-calling.html#we-already-aligned-the-genomes-why-do-we-need-to-call-variants-anyway"><i class="fa fa-check"></i><b>12.1</b> We already aligned the genomes, why do we need to call variants anyway?</a></li>
+<li class="chapter" data-level="12.2" data-path="variant-calling.html"><a href="variant-calling.html#pitfalls"><i class="fa fa-check"></i><b>12.2</b> Pitfalls</a></li>
+</ul></li>
+<li class="chapter" data-level="13" data-path="hands-on-variant-calling.html"><a href="hands-on-variant-calling.html"><i class="fa fa-check"></i><b>13</b> Hands On: Variant calling</a>
+<ul>
+<li class="chapter" data-level="13.1" data-path="hands-on-variant-calling.html"><a href="hands-on-variant-calling.html#call-variants-with-gatk"><i class="fa fa-check"></i><b>13.1</b> Call Variants with GATK</a></li>
+<li class="chapter" data-level="13.2" data-path="hands-on-variant-calling.html"><a href="hands-on-variant-calling.html#call-variants-with-samtools"><i class="fa fa-check"></i><b>13.2</b> Call variants with samtools</a></li>
+<li class="chapter" data-level="13.3" data-path="hands-on-variant-calling.html"><a href="hands-on-variant-calling.html#call-variants-with-bowtie"><i class="fa fa-check"></i><b>13.3</b> Call variants with bowtie</a></li>
+<li class="chapter" data-level="13.4" data-path="hands-on-variant-calling.html"><a href="hands-on-variant-calling.html#are-they-all-the-same"><i class="fa fa-check"></i><b>13.4</b> Are they all the same?</a></li>
+</ul></li>
+<li class="chapter" data-level="14" data-path="variant-filtering.html"><a href="variant-filtering.html"><i class="fa fa-check"></i><b>14</b> Variant filtering</a>
+<ul>
+<li class="chapter" data-level="14.1" data-path="variant-filtering.html"><a href="variant-filtering.html#why-do-we-filter-variants"><i class="fa fa-check"></i><b>14.1</b> Why do we filter variants?</a></li>
+<li class="chapter" data-level="14.2" data-path="variant-filtering.html"><a href="variant-filtering.html#what-can-filtering-help-us-do"><i class="fa fa-check"></i><b>14.2</b> What can filtering help us do?</a></li>
+</ul></li>
+<li class="chapter" data-level="15" data-path="genome-structure.html"><a href="genome-structure.html"><i class="fa fa-check"></i><b>15</b> Genome structure</a></li>
+<li class="chapter" data-level="16" data-path="hands-on-variant-filtering-and-genome-structure.html"><a href="hands-on-variant-filtering-and-genome-structure.html"><i class="fa fa-check"></i><b>16</b> Hands On: Variant filtering and genome structure</a>
+<ul>
+<li class="chapter" data-level="16.1" data-path="hands-on-variant-filtering-and-genome-structure.html"><a href="hands-on-variant-filtering-and-genome-structure.html#introduction-to-bcftools"><i class="fa fa-check"></i><b>16.1</b> Introduction to BCFtools</a></li>
+<li class="chapter" data-level="16.2" data-path="hands-on-variant-filtering-and-genome-structure.html"><a href="hands-on-variant-filtering-and-genome-structure.html#filter-for-quality"><i class="fa fa-check"></i><b>16.2</b> Filter for quality</a></li>
+<li class="chapter" data-level="16.3" data-path="hands-on-variant-filtering-and-genome-structure.html"><a href="hands-on-variant-filtering-and-genome-structure.html#filter-for-biallelic-snps"><i class="fa fa-check"></i><b>16.3</b> Filter for biallelic SNPs</a></li>
+<li class="chapter" data-level="16.4" data-path="hands-on-variant-filtering-and-genome-structure.html"><a href="hands-on-variant-filtering-and-genome-structure.html#filter-for-frequency"><i class="fa fa-check"></i><b>16.4</b> Filter for frequency</a></li>
+</ul></li>
+<li class="chapter" data-level="17" data-path="molecular-evolution.html"><a href="molecular-evolution.html"><i class="fa fa-check"></i><b>17</b> Molecular evolution</a>
+<ul>
+<li class="chapter" data-level="17.1" data-path="molecular-evolution.html"><a href="molecular-evolution.html#how-do-dna-sequences-change-over-time"><i class="fa fa-check"></i><b>17.1</b> How do DNA sequences change over time?</a></li>
+<li class="chapter" data-level="17.2" data-path="molecular-evolution.html"><a href="molecular-evolution.html#what-can-this-tell-us-about-evolution"><i class="fa fa-check"></i><b>17.2</b> What can this tell us about evolution?</a></li>
+</ul></li>
+<li class="chapter" data-level="18" data-path="phylogeny.html"><a href="phylogeny.html"><i class="fa fa-check"></i><b>18</b> Phylogeny</a>
+<ul>
+<li class="chapter" data-level="18.1" data-path="phylogeny.html"><a href="phylogeny.html#tree-thinking-101"><i class="fa fa-check"></i><b>18.1</b> Tree thinking 101</a></li>
+<li class="chapter" data-level="18.2" data-path="phylogeny.html"><a href="phylogeny.html#what-data-do-we-use-to-make-a-phylogeny"><i class="fa fa-check"></i><b>18.2</b> What data do we use to make a phylogeny?</a></li>
+</ul></li>
+<li class="chapter" data-level="19" data-path="hands-on-phylogeny.html"><a href="hands-on-phylogeny.html"><i class="fa fa-check"></i><b>19</b> Hands On: Phylogeny</a>
+<ul>
+<li class="chapter" data-level="19.1" data-path="hands-on-phylogeny.html"><a href="hands-on-phylogeny.html#try-hand-calculating-a-neighbor-joining-tree"><i class="fa fa-check"></i><b>19.1</b> Try hand calculating a neighbor joining tree</a></li>
+<li class="chapter" data-level="19.2" data-path="hands-on-phylogeny.html"><a href="hands-on-phylogeny.html#iq-tree"><i class="fa fa-check"></i><b>19.2</b> IQ-TREE</a></li>
+</ul></li>
+<li class="chapter" data-level="20" data-path="gene-ontology.html"><a href="gene-ontology.html"><i class="fa fa-check"></i><b>20</b> Gene ontology</a>
+<ul>
+<li class="chapter" data-level="20.1" data-path="gene-ontology.html"><a href="gene-ontology.html#section-1"><i class="fa fa-check"></i><b>20.1</b> </a></li>
+</ul></li>
+<li class="chapter" data-level="21" data-path="annotation.html"><a href="annotation.html"><i class="fa fa-check"></i><b>21</b> Annotation</a></li>
+<li class="chapter" data-level="22" data-path="hands-on-annotation.html"><a href="hands-on-annotation.html"><i class="fa fa-check"></i><b>22</b> Hands On: Annotation</a>
+<ul>
+<li class="chapter" data-level="22.1" data-path="hands-on-annotation.html"><a href="hands-on-annotation.html#igv"><i class="fa fa-check"></i><b>22.1</b> IGV</a></li>
+</ul></li>
+<li class="chapter" data-level="23" data-path="large-scale-sequencing-projects.html"><a href="large-scale-sequencing-projects.html"><i class="fa fa-check"></i><b>23</b> Large scale sequencing projects</a>
+<ul>
+<li class="chapter" data-level="23.1" data-path="large-scale-sequencing-projects.html"><a href="large-scale-sequencing-projects.html#sequencing-of-the-human-genome"><i class="fa fa-check"></i><b>23.1</b> Sequencing of the human genome</a></li>
+<li class="chapter" data-level="23.2" data-path="large-scale-sequencing-projects.html"><a href="large-scale-sequencing-projects.html#tree-of-life"><i class="fa fa-check"></i><b>23.2</b> Tree of Life</a></li>
+</ul></li>
+<li class="chapter" data-level="24" data-path="useful-databases.html"><a href="useful-databases.html"><i class="fa fa-check"></i><b>24</b> Useful databases</a>
+<ul>
+<li class="chapter" data-level="24.1" data-path="useful-databases.html"><a href="useful-databases.html#ncbi"><i class="fa fa-check"></i><b>24.1</b> NCBI</a></li>
+<li class="chapter" data-level="24.2" data-path="useful-databases.html"><a href="useful-databases.html#ucsc-genome-browser"><i class="fa fa-check"></i><b>24.2</b> UCSC Genome Browser</a></li>
+</ul></li>
+<li class="chapter" data-level="25" data-path="hands-on-blast-and-genome-browser.html"><a href="hands-on-blast-and-genome-browser.html"><i class="fa fa-check"></i><b>25</b> Hands On: BLAST and Genome Browser</a>
+<ul>
+<li class="chapter" data-level="25.1" data-path="hands-on-blast-and-genome-browser.html"><a href="hands-on-blast-and-genome-browser.html#blast-activity"><i class="fa fa-check"></i><b>25.1</b> BLAST Activity</a></li>
+<li class="chapter" data-level="25.2" data-path="hands-on-blast-and-genome-browser.html"><a href="hands-on-blast-and-genome-browser.html#genome-browser"><i class="fa fa-check"></i><b>25.2</b> Genome Browser</a></li>
+</ul></li>
+<li class="chapter" data-level="26" data-path="reproducible-1.html"><a href="reproducible-1.html"><i class="fa fa-check"></i><b>26</b> Reproducibility (I)</a>
+<ul>
+<li class="chapter" data-level="26.1" data-path="reproducible-1.html"><a href="reproducible-1.html#why-is-it-important-to-do-reproducible-research"><i class="fa fa-check"></i><b>26.1</b> Why is it important to do reproducible research?</a></li>
+</ul></li>
+<li class="chapter" data-level="27" data-path="reproducibility-ii.html"><a href="reproducibility-ii.html"><i class="fa fa-check"></i><b>27</b> Reproducibility (II)</a>
+<ul>
+<li class="chapter" data-level="27.1" data-path="reproducibility-ii.html"><a href="reproducibility-ii.html#annotating-code"><i class="fa fa-check"></i><b>27.1</b> Annotating Code</a></li>
+<li class="chapter" data-level="27.2" data-path="reproducibility-ii.html"><a href="reproducibility-ii.html#git"><i class="fa fa-check"></i><b>27.2</b> Git</a></li>
+<li class="chapter" data-level="27.3" data-path="reproducibility-ii.html"><a href="reproducibility-ii.html#github-bitbucket-etc."><i class="fa fa-check"></i><b>27.3</b> GitHub, BitBucket, etc.</a></li>
+<li class="chapter" data-level="27.4" data-path="reproducibility-ii.html"><a href="reproducibility-ii.html#resources"><i class="fa fa-check"></i><b>27.4</b> Resources</a></li>
+</ul></li>
+<li class="chapter" data-level="28" data-path="hands-on-reproducibility.html"><a href="hands-on-reproducibility.html"><i class="fa fa-check"></i><b>28</b> Hands-on: Reproducibility</a>
+<ul>
+<li class="chapter" data-level="28.1" data-path="hands-on-reproducibility.html"><a href="hands-on-reproducibility.html#peanut-butter-sandwiches"><i class="fa fa-check"></i><b>28.1</b> Peanut Butter Sandwiches</a></li>
+<li class="chapter" data-level="28.2" data-path="hands-on-reproducibility.html"><a href="hands-on-reproducibility.html#practice-annotating-code"><i class="fa fa-check"></i><b>28.2</b> Practice annotating code</a></li>
+<li class="chapter" data-level="28.3" data-path="hands-on-reproducibility.html"><a href="hands-on-reproducibility.html#explore-github"><i class="fa fa-check"></i><b>28.3</b> Explore github</a></li>
+<li class="chapter" data-level="28.4" data-path="hands-on-reproducibility.html"><a href="hands-on-reproducibility.html#documentation"><i class="fa fa-check"></i><b>28.4</b> Documentation</a></li>
+</ul></li>
+<li class="chapter" data-level="29" data-path="beyond-whole-genome-sequencing.html"><a href="beyond-whole-genome-sequencing.html"><i class="fa fa-check"></i><b>29</b> Beyond whole genome sequencing</a></li>
+<li class="chapter" data-level="30" data-path="rna-seq.html"><a href="rna-seq.html"><i class="fa fa-check"></i><b>30</b> RNA-SEQ</a>
+<ul>
+<li class="chapter" data-level="30.1" data-path="rna-seq.html"><a href="rna-seq.html#what-can-we-learn-from-it"><i class="fa fa-check"></i><b>30.1</b> What can we learn from it?</a></li>
+</ul></li>
+<li class="chapter" data-level="31" data-path="hands-on-rna-seq.html"><a href="hands-on-rna-seq.html"><i class="fa fa-check"></i><b>31</b> Hands On: RNA-SEQ</a>
+<ul>
+<li class="chapter" data-level="31.1" data-path="hands-on-rna-seq.html"><a href="hands-on-rna-seq.html#processing-the-data"><i class="fa fa-check"></i><b>31.1</b> Processing the data</a></li>
+<li class="chapter" data-level="31.2" data-path="hands-on-rna-seq.html"><a href="hands-on-rna-seq.html#differential-expression"><i class="fa fa-check"></i><b>31.2</b> Differential expression</a></li>
+</ul></li>
+<li class="chapter" data-level="32" data-path="extras.html"><a href="extras.html"><i class="fa fa-check"></i><b>32</b> Extras</a>
+<ul>
+<li class="chapter" data-level="32.1" data-path="extras.html"><a href="extras.html#resources-for-further-learning"><i class="fa fa-check"></i><b>32.1</b> Resources for further learning</a></li>
+<li class="chapter" data-level="32.2" data-path="extras.html"><a href="extras.html#tips-for-advancing-in-bioinformatics"><i class="fa fa-check"></i><b>32.2</b> Tips for advancing in bioinformatics</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">EBIO4100: Bioinformatics in the Mountains</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="reproducibility-ii" class="section level1 hasAnchor" number="27">
+<h1><span class="header-section-number">Chapter 27</span> Reproducibility (II)<a href="reproducibility-ii.html#reproducibility-ii" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="annotating-code" class="section level2 hasAnchor" number="27.1">
+<h2><span class="header-section-number">27.1</span> Annotating Code<a href="reproducibility-ii.html#annotating-code" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+</div>
+<div id="git" class="section level2 hasAnchor" number="27.2">
+<h2><span class="header-section-number">27.2</span> Git<a href="reproducibility-ii.html#git" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+</div>
+<div id="github-bitbucket-etc." class="section level2 hasAnchor" number="27.3">
+<h2><span class="header-section-number">27.3</span> GitHub, BitBucket, etc.<a href="reproducibility-ii.html#github-bitbucket-etc." class="anchor-section" aria-label="Anchor link to header"></a></h2>
+</div>
+<div id="resources" class="section level2 hasAnchor" number="27.4">
+<h2><span class="header-section-number">27.4</span> Resources<a href="reproducibility-ii.html#resources" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>A great place to start for more information is Karl Broman’s <a href="https://kbroman.org/steps2rr/">Steps Toward Reproducible Research</a> tutorial and the <a href="https://kbroman.org/steps2rr/pages/resources.html">associated resources page</a>!</p>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="reproducible-1.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="hands-on-reproducibility.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+  "sharing": null,
+  "fontsettings": {
+    "theme": "white",
+    "family": "sans",
+    "size": 2
+  },
+  "edit": {
+    "link": "https://github.com/USERNAME/REPO/edit/BRANCH/27-reproducibility-1.Rmd",
+    "text": "Edit"
+  },
+  "history": {
+    "link": null,
+    "text": null
+  },
+  "view": {
+    "link": null,
+    "text": null
+  },
+  "download": ["_main.pdf", "_main.epub"],
+  "search": {
+    "engine": "fuse",
+    "options": null
+  },
+  "toc": {
+    "collapse": "subsection",
+    "scroll_highlight": true
+  }
+});
+});
+</script>
+
+</body>
+
+</html>

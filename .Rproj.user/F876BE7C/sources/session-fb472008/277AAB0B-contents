@@ -1,0 +1,122 @@
+# Activity 4: Variant calling
+
+Today we will use the bam file that we made in the last class to call variants (`mountain_chickadee.filtered.sorted.bam`). We will call variants using two popular approaches. 
+## Remove duplicates from the BAM file
+
+For many analyses, the last thing we need to do with the BAM file is remove duplicates. For this, we use Picard. Picard is a large and powerful program, you can look at [its manual](https://broadinstitute.github.io/picard/) for more information. After removing duplicates, we will need to re-index the file. 
+
+```{cat, class.source='foldable'}
+module load picard 
+picard MarkDuplicates -INPUT mountain_chickadee.filtered.sorted.bam -OUTPUT mountain_chickadee.filtered.sorted.nodup.bam -METRICS_FILE mountain_chickadee.duplicate.metrics -REMOVE_DUPLICATES true -ASSUME_SORTED true -TMP_DIR tmp_mountain_chickadee -VALIDATION_STRINGENCY LENIENT
+samtools index mountain_chickadee.filtered.sorted.nodup.bam
+```
+
+In the case of this small set of reads, there are no duplicates, so we have not changed anything in the file. If you look at the file `mountain_chickadee.duplicate.metrics` you can see the counts of reads that it examined. 
+
+## Call Variants with GATK
+
+Note: GATK provides cluster-specific instructions when you load the module. 
+
+```{cat, class.source='foldable'}
+
+module load gatk
+
+gatk --java-options "-Djava.io.tmpdir=$SLURM_SCRATCH" HaplotypeCaller -R /scratch/alpine/mefr3284/ebio4100/reference_genome/moch.dovetail.reference.hap1.scaffolds.renamed.fasta -I mountain_chickadee.filtered.sorted.bam -O moch_gatk.g.vcf.gz -ERC GVCF
+
+gatk --java-options "-Djava.io.tmpdir=$SLURM_SCRATCH" GenotypeGVCFs -R /scratch/alpine/mefr3284/ebio4100/reference_genome/moch.dovetail.reference.hap1.scaffolds.renamed.fasta -V moch_gatk.g.vcf.gz -O moch_gatk.vcf.gz
+
+```
+
+Notice that an index file was also made! (`moch21.g.vcf.gz.tbi`)
+
+## Call variants with bcftools 
+
+```{cat, class.source='foldable'}
+
+module load BCFtools
+
+bcftools mpileup -f /scratch/alpine/mefr3284/ebio4100/reference_genome/moch.dovetail.reference.hap1.scaffolds.renamed.fasta mountain_chickadee.filtered.sorted.bam -a DP,AD -Ou | bcftools call -mv -Oz -f GQ -o moch_bcftools.vcf.gz
+
+tabix -fp vcf moch_bcftools.vcf.gz
+
+```
+
+
+## Are they all the same? 
+
+Look at the files side by side. What is similar about them, and what is different?
+
+Run `bcftools stats` to calculate differences. 
+
+```{cat, class.source='foldable'}
+
+bcftools stats -s - moch_gatk.vcf.gz moch_bcftools.vcf.gz > stats.txt
+
+```
+
+Scroll through the output. There is a ton of information here, divided into sections. 
+
+One of the first sections is called "Definition of sets". Here, ID numbers are described. The first two (0 and 1) should be describe things that are unique to each of the files, and the third one (2) should describe things that are the same between the files. 
+
+```{cat, class.source='foldable'}
+
+grep -B2 "^ID\s" stats.txt
+
+# This command returns lines that start with (^) ID followed by white space.
+# The -B2 flag returns the two lines prior to any lines that match the criteria. 
+
+```
+
+Next, look at the section "Summary Numbers". How many records do the VCF files have in common? 
+
+```{cat, class.source='foldable'}
+
+grep -B1 "^SN\s" stats.txt
+
+```
+
+Next, look at the section "Per-sample counts" or "PSC". 
+
+```{cat, class.source='foldable'}
+
+grep PSC stats.txt
+
+```
+
+Below is a sample table (yours may or may not be identical). You will notice that `bcftools` called many more sites, and the category with the least agreement is the calling of indels (insertions or deletions). Calling indels is very tricky, and a big way for programs to diverge, especially when coverage is low. These files have artificially low coverage, and we will work with the higher coverage version of this dataset later. However, if this was our dataset, we would want to filter this dataset carefully. 
+
+
+|PSC|[2]id|[3]sample|[4]nRefHom|[5]nNonRefHom|[6]nHets|[7]nTransitions|[8]nTransversions|[9]nIndels|[10]average depth|[11]nSingletons|[12]nHapRef|[13]nHapAlt|[14]nMissing|
+|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+|PSC|0|moch21|0|94|0|43|51|227|1.9|321|0|0|0|
+|PSC|1|moch21|0|5263|0|3367|1896|202|1.0|5465|0|0|0|
+|PSC|2|moch21|0|2745|1|1878|868|30|2.0|2776|0|0|0|
+
+So which of these variant sets is right? 
+
+The hard truth is that we don't know the real genotypes-- both of these files provide different hypotheses for the genotypes based on the alignment we provided. It is important to think carefully about your data, the analyses you are trying to do, and the assumptions of the model in order to decide which program is right for your analysis.  
+
+## Assignment 
+
+Create a script that will call variants in the BAM file you made in yesterday's assignment (`20H102_S21_L002_R2_001`). You can use either program. When you are done, copy it to the folder `/gpfs/alpine1/scratch/mefr3284/Assignments/day_4/`. Make sure you add your name to the file name! Try to run it on the cluster, it may take a few hours. 
+
+*Hint:*
+
+```{cat, class.source='foldable'}
+
+Make sure you have the names and locations of the files correct! 
+
+```
+
+
+::: {.learning data=latex=""}
+If you would like more information on the programs we tried today, here are links to check out. 
+
+[GATK User Guide](https://gatk.broadinstitute.org/hc/en-us)
+
+[BCFtools Manual](https://samtools.github.io/bcftools/bcftools.html)
+
+[Picard Documentation](https://broadinstitute.github.io/picard/)
+
+:::
+
