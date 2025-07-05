@@ -10,7 +10,7 @@ cover-image:  images/logo_hagar.JPG
 description: |
   This bookdown organizes the course materials for EBIO4100: Intro to Bioinformatics, taught Summer 2025. 
 link-citations: yes
-github-repo: rstudio/bookdown-demo
+github-repo: mfrayer/bioinformatics_in_the_mountains
 ---
 
 

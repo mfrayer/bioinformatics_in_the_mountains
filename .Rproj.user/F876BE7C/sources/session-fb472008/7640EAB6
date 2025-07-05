@@ -3,7 +3,7 @@
     "path": "~/5_bioinformaticsCourse/course_website/intro_to_bioinformatics/index.Rmd",
     "project_path": "index.Rmd",
     "type": "r_markdown",
-    "hash": "0",
+    "hash": "2814930282",
     "contents": "",
     "dirty": false,
     "created": 1748284014635.0,
@@ -12,15 +12,15 @@
     "properties": {
         "source_window_id": "",
         "Source": "Source",
-        "cursorPosition": "12,34",
+        "cursorPosition": "12,52",
         "scrollLine": "0"
     },
     "folds": "",
-    "lastKnownWriteTime": 1748978406,
+    "lastKnownWriteTime": 1751738732,
     "encoding": "UTF-8",
     "collab_server": "",
     "source_window": "",
-    "last_content_update": 1748978406359,
+    "last_content_update": 1751738732509,
     "read_only": false,
     "read_only_alternatives": []
 }
