@@ -1,4 +1,6 @@
-# Activity 1: Computer set up and Introduction to the command line
+# Computer set up and Introduction to the command line
+
+This activity corresponds to Day 1 powerpoints available on Canvas. 
 
 ::: {.caution data=latex=""}
 The first thing we need to do is make sure everyone can log onto the cluster. We will use the cluster for the rest of the activities in this course. 
@@ -24,29 +26,24 @@ If you would like more information on the cluster, please see the documentation 
 
 ## First command 
 
-When you have accessed the Apline shell, type `echo "Hello World!". The argument will be printed below your command. Congratulations, you've run your first command!  
+When you have accessed the Alpine shell, type `echo "Hello World!"`. The argument will be printed below your command. Congratulations, you've run your first command!  
 
 
 ## How to navigate a file system 
 
 We will now familiarize ourselves with the file system. 
 
-[What does the home look like]
-
-[Where is the shared folder]
-
-
-**1. List the contents of your home folder.**
+**1. List the contents of your project folder.**
 
 ```{cat, class.source='foldable'}
-ls
+ls /projects/usrname/
 ```
 
-**2. Make a new folder called Day_1 and switch your location into that folder.**
+**2. Make a new folder in `projects` called Day_1 and switch your location into that folder.**
 
 ```{cat, class.source='foldable'}
-mkdir day_1
-cd day_1
+mkdir /projects/usrname/day_1
+cd /projects/usrname/day_1
 ```
 
 **3. What is the file path to this location?**
@@ -65,28 +62,25 @@ ls --help
 
 ## Basic file manipulation 
 
-**5. Copy the file `day1.txt` from our shared folder to your `day_1` folder. **
+**5. Copy the file `day1.txt` from our shared course folder to your `day_1` folder. **
+
+All the files that you need to complete activities during this course will be found in this location.
 
 ```{cat, class.source='foldable'}
-cp PATH/day1.txt day_1
+cp /scratch/alpine/mefr3284/ebio4100/day_1/day1.txt ./
 ```
 
 **6. Rename the file to `day_1_original.txt`. **
 
 ```{cat, class.source='foldable'}
-cd day_1
+
 mv day1.txt day_1_original.txt
-
-## or 
-
-mv day_1/day1.txt day_1/day_1_original.txt
 
 ```
 
 **7. Look at the whole file, then at just the first 5 lines, then at just the last 5 lines.**
 
 ```{cat, class.source='foldable'}
-cd day_1
 
 less day_1_original.txt
 
@@ -110,6 +104,14 @@ grep [aA]pple day_1_original.txt | wc -l
 
 ```
 
+**9. Replace all instances of the word "woodchuck" with "whistlepig". 
+
+```{cat, class.source='foldable'}
+
+sed 's/woodchuck/whistlepig/g' day_1_original.txt > day_1_mod.txt 
+
+```
+
 
 ## Assignment
 
@@ -124,7 +126,7 @@ When running jobs on the cluster, we will typically use scripts.
 
 Make a script in your `day_1` folder called `count_apples.sh`.  
 
-Fill out the script. 
+Fill out the script using the command you created for the assignment. 
 
 Run with with `sbatch count_apples.sh`.  
 
