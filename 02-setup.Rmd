@@ -23,6 +23,8 @@ If you would like more information on the cluster, please see the documentation 
 [CURC Cheatsheet](https://curc.readthedocs.io/en/latest/additional-resources/CURC-cheatsheet.html)
 :::
 
+Now that we have accounts, let's log in! Go to the [OpenOnDemand site](https://ondemand.rc.colorado.edu/pun/sys/dashboard/), and use the menu at the top to access the Alpine Shell. 
+
 
 ## First command 
 
