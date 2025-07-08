@@ -199,6 +199,15 @@ awk &#39;/^&gt;/{if (l!=&quot;&quot;) print l; print; l=0; next}{l+=length($0)}E
 <h2><span class="header-section-number">2.2</span> Visual Alignment<a href="fasta-files-and-visual-alignment-with-mafft.html#visual-alignment" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p><strong>8. In pairs, try to align these two sequences by hand. </strong></p>
 <p>These are protein sequences, so each letter represents an amino acid.</p>
+<details class=chunk-details><summary class=chunk-summary><span class=chunk-summary-text>Code</span></summary>
+<pre class="foldable"><code>
+&gt;seq1
+HEAGAWGHEE
+
+&gt;seq2
+PAWHEAE
+</code></pre>
+</details>
 <p>How many ways can you align these? What if you allow gaps?</p>
 </div>
 <div id="mafft-multiple-sequence-alignment" class="section level2 hasAnchor" number="2.3">

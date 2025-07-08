@@ -77,7 +77,7 @@ awk '/^>/{if (l!="") print l; print; l=0; next}{l+=length($0)}END{print l}' chic
 
 These are protein sequences, so each letter represents an amino acid. 
 
-```{cat}
+```{cat, class.source='foldable'}
 
 >seq1
 HEAGAWGHEE
