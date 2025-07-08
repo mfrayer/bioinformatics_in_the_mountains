@@ -9,3 +9,8 @@ how-to-navigate-a-file-system
 basic-file-manipulation
 assignment
 if-we-have-extra-time
+fasta-files-and-visual-alignment-with-mafft
+exploring-a-fasta-file
+visual-alignment
+mafft-multiple-sequence-alignment
+assignment-1

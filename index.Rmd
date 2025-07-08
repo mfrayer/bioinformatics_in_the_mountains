@@ -5,7 +5,7 @@ date: "`r Sys.Date()`"
 site: bookdown::bookdown_site
 output: bookdown::html_book
 documentclass: book
-bibliography: [book.bib]
+bibliography: [EBIO4100.bib]
 # url: your book url like https://bookdown.org/yihui/bookdown
 cover-image:  images/logo_hagar.JPG
 description: |

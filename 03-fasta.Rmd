@@ -1,0 +1,127 @@
+# FASTA files and visual alignment with MAFFT
+
+
+## Exploring a fasta file 
+
+**1. Start by making a new folder in your scratch directory and copying today's file there.**
+
+```{cat, class.source='foldable'}
+$ cd /scratch/alpine/usrname
+$ mkdir day_2
+$ cp /scratch/alpine/mefr3284/ebio4100/day_2/* day_2/
+$ ls 
+```
+
+**2. Look at the file. **
+
+```{cat, class.source='foldable'}
+$ less chickadee.fasta 
+```
+
+How are the headers marked? What information is included there?
+
+**3. How many samples are included in this file?  **
+
+```{cat, class.source='foldable'}
+$ grep ">" chickadee.fasta | wc -l 
+```
+
+
+**4. We can search for patterns within the data using grep. ** 
+
+```{cat, class.source='foldable'}
+grep --color=always 'TAAACAA' chickadee.fasta | head -10
+grep --color=always 'TA[TA]TA' chickadee.fasta | head -10
+```
+
+**5. How many times does the pattern TAAACAA appear in these sequences? ** 
+
+```{cat, class.source='foldable'}
+grep -o 'TAAACAA' chickadee.fasta | wc -l
+```
+
+**6. How many potential start codons are there? ** 
+
+Hint: The "start codon" initiates translation of an amino acid chain. The RNA codon is `AUG`. 
+
+```{cat, class.source='foldable'}
+grep -o 'ATG' chickadee.fasta | wc -l
+```
+
+::: {.learning data=latex=""}
+The command `grep` is really powerful! If you're interested in trying more grep commands, [here's a useful list of things you can do with grep.](https://bioinformaticsworkbook.org/Appendix/Unix/unix-basics-3grep.html#gsc.tab=0) 
+:::
+
+
+**7. How long are each of these sequences?**
+
+This sounds like an easy question, but it is harder than it looks! We need to take into account:
+
+1. Each read is split across multiple lines. 
+2. Each individual is represented by both an identifier line and a sequence line. 
+3. We want to count only the length of the sequence lines, but associate them with the sample lines. 
+
+Using what we have learned so far, this would be challenging. But I think it is useful to think about. The structure of the fasta file (and the possible variations on it) make things challenging, and this problem gets bigger as the file formats get more complicated. That is why in general, it is a great idea to use existing programs to process data, particularly ones that are well documented and have been thoroughly tested. 
+
+```{cat, class.source='foldable'}
+Because I do not want to leave the question unanswered, here is a command that will work. It uses awk, which is a really useful linux program for processing.  
+  
+awk '/^>/{if (l!="") print l; print; l=0; next}{l+=length($0)}END{print l}' chickadee.fasta  
+```
+
+
+
+## Visual Alignment
+
+**8. In pairs, try to align these two sequences by hand. **
+
+These are protein sequences, so each letter represents an amino acid. 
+
+```{cat}
+
+>seq1
+HEAGAWGHEE
+
+>seq2
+PAWHEAE
+
+```
+
+How many ways can you align these? What if you allow gaps? 
+
+
+## MAFFT Multiple Sequence Alignment 
+
+Multiple sequence aligners do as the name suggests-- align multiple sequences at once. There are a variety of algorithms implemented in a variety of programs that perform multiple alignment. Today, we will be using MAFFT (Multiple Alignment Fast Fourier Transform), which is one of the most popular programs and can implement multiple algorithms.  
+
+Follow this link to the [online implementation of MAFFT](https://mafft.cbrc.jp/alignment/server/index.html).
+
+::: {.learning data=latex=""}
+We aren't going to discuss the inner workings of multiple sequence alignment, but here is a video and two papers you can check out if you are interested. 
+
+[Lecture walking through the process](https://www.youtube.com/watch?v=iOZvZJf3BzU)
+
+[An older but comprehensive comparison](https://www.sciencedirect.com/science/article/pii/S0959440X06000704) [@edgar_multiple_2006]
+
+[The most recent MAFFT paper](https://doi.org/10.1093/bib/bbx108) [@katoh_mafft_2019]
+:::
+
+
+**9. Copy and paste the sequences above into the text box and submit it. You should be able to use all of the default settings. **
+
+Is this alignment the same one you came up with? 
+
+
+**10. Now try running our chickadee dataset.**
+
+You will need to download it from the cluster-- I recommend using the OnDemand Portal. 
+
+Look at the resulting alignment in the View tab. What has been added to the input data? 
+
+Do you see any patterns in the data? (It's okay if you don't-- this is a difficult way to look at data!) 
+
+What other information can you get from MAFFT? 
+
+## Assignment
+
+Download the new fasta file from MAFFT, and then upload it to the cluster using the OnDemand portal. Copy it to `/scratch/alpine/mefr3284/Assignments/day_2/`, adding your name to the file name. 

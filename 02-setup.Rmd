@@ -41,7 +41,7 @@ We will now familiarize ourselves with the file system.
 ls /projects/usrname/
 ```
 
-**2. Make a new folder in `projects` called Day_1 and switch your location into that folder.**
+**2. Make a new folder in `projects` called day_1 and switch your location into that folder.**
 
 ```{cat, class.source='foldable'}
 mkdir /projects/usrname/day_1
@@ -69,14 +69,14 @@ ls --help
 All the files that you need to complete activities during this course will be found in this location.
 
 ```{cat, class.source='foldable'}
-cp /scratch/alpine/mefr3284/ebio4100/day_1/day1.txt ./
+cp /scratch/alpine/mefr3284/ebio4100/day_1/day_1.txt ./
 ```
 
 **6. Rename the file to `day_1_original.txt`. **
 
 ```{cat, class.source='foldable'}
 
-mv day1.txt day_1_original.txt
+mv day_1.txt day_1_original.txt
 
 ```
 
@@ -117,7 +117,7 @@ sed 's/woodchuck/whistlepig/g' day_1_original.txt > day_1_mod.txt
 
 ## Assignment
 
-Write a command that makes a new file from `day_1_original.txt` that contains the first three lines with the word apple in them. Give the output file the name `yourlastname_day1.txt` and copy it to the shared folder `Assignments/Day1`. 
+Write a command that makes a new file from `day_1_original.txt` that contains the first three lines with the word apple in them. Give the output file the name `yourlastname_day1.txt` and copy it to the shared folder `Assignments/day_1`. 
 
 
 ## If we have extra time... 
