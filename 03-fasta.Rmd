@@ -6,16 +6,16 @@
 **1. Start by making a new folder in your scratch directory and copying today's file there.**
 
 ```{cat, class.source='foldable'}
-$ cd /scratch/alpine/usrname
-$ mkdir day_2
-$ cp /scratch/alpine/mefr3284/ebio4100/day_2/* day_2/
-$ ls 
+cd /scratch/alpine/usrname
+mkdir day_2
+cp /scratch/alpine/mefr3284/ebio4100/day_2/* day_2/
+ls 
 ```
 
 **2. Look at the file. **
 
 ```{cat, class.source='foldable'}
-$ less chickadee.fasta 
+less chickadee.fasta 
 ```
 
 How are the headers marked? What information is included there?
@@ -23,7 +23,7 @@ How are the headers marked? What information is included there?
 **3. How many samples are included in this file?  **
 
 ```{cat, class.source='foldable'}
-$ grep ">" chickadee.fasta | wc -l 
+grep ">" chickadee.fasta | wc -l 
 ```
 
 

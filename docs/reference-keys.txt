@@ -14,3 +14,12 @@ exploring-a-fasta-file
 visual-alignment
 mafft-multiple-sequence-alignment
 assignment-1
+alignment-of-whole-genome-data
+environmental-variables
+explore-the-sequencing-data-and-reference-genome
+fastqc
+trimming
+alignment-with-bwa
+read-groups
+how-good-was-our-alignment
+assignment-2

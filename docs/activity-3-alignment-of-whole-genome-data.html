@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Activity 3 Activity 3: Alignment of whole genome data | EBIO4100: Bioinformatics in the Mountains</title>
+  <meta name="description" content="This bookdown organizes the course materials for EBIO4100: Intro to Bioinformatics, taught Summer 2025." />
+  <meta name="generator" content="bookdown 0.43 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Activity 3 Activity 3: Alignment of whole genome data | EBIO4100: Bioinformatics in the Mountains" />
+  <meta property="og:type" content="book" />
+  <meta property="og:image" content="/images/logo_hagar.JPG" />
+  <meta property="og:description" content="This bookdown organizes the course materials for EBIO4100: Intro to Bioinformatics, taught Summer 2025." />
+  <meta name="github-repo" content="mfrayer/bioinformatics_in_the_mountains" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Activity 3 Activity 3: Alignment of whole genome data | EBIO4100: Bioinformatics in the Mountains" />
+  
+  <meta name="twitter:description" content="This bookdown organizes the course materials for EBIO4100: Intro to Bioinformatics, taught Summer 2025." />
+  <meta name="twitter:image" content="/images/logo_hagar.JPG" />
+
+<meta name="author" content="Megan Frayer" />
+
+
+<meta name="date" content="2025-07-09" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="fasta-files-and-visual-alignment-with-mafft.html"/>
+<link rel="next" href="references.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/codefolding-lua-1.1/codefolding-lua.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">EBIO4100: Bioinformatics in the Mountains</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="welcome-to-ebio4100-bioinformatics-in-the-mountains.html"><a href="welcome-to-ebio4100-bioinformatics-in-the-mountains.html"><i class="fa fa-check"></i>Welcome to EBIO4100: Bioinformatics in the Mountains!</a>
+<ul>
+<li class="chapter" data-level="0.1" data-path="welcome-to-ebio4100-bioinformatics-in-the-mountains.html"><a href="welcome-to-ebio4100-bioinformatics-in-the-mountains.html#how-to-use-this-ebook"><i class="fa fa-check"></i><b>0.1</b> How to use this ebook</a></li>
+<li class="chapter" data-level="0.2" data-path="welcome-to-ebio4100-bioinformatics-in-the-mountains.html"><a href="welcome-to-ebio4100-bioinformatics-in-the-mountains.html#goalslearning-objectives"><i class="fa fa-check"></i><b>0.2</b> Goals/Learning Objectives</a></li>
+<li class="chapter" data-level="0.3" data-path="welcome-to-ebio4100-bioinformatics-in-the-mountains.html"><a href="welcome-to-ebio4100-bioinformatics-in-the-mountains.html#how-to-succeed-in-this-course"><i class="fa fa-check"></i><b>0.3</b> How to succeed in this course:</a></li>
+<li class="chapter" data-level="0.4" data-path="welcome-to-ebio4100-bioinformatics-in-the-mountains.html"><a href="welcome-to-ebio4100-bioinformatics-in-the-mountains.html#important-links"><i class="fa fa-check"></i><b>0.4</b> Important Links</a></li>
+</ul></li>
+<li class="chapter" data-level="1" data-path="computer-set-up-and-introduction-to-the-command-line.html"><a href="computer-set-up-and-introduction-to-the-command-line.html"><i class="fa fa-check"></i><b>1</b> Computer set up and Introduction to the command line</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="computer-set-up-and-introduction-to-the-command-line.html"><a href="computer-set-up-and-introduction-to-the-command-line.html#get-oriented-to-the-cluster"><i class="fa fa-check"></i><b>1.1</b> Get oriented to the cluster</a></li>
+<li class="chapter" data-level="1.2" data-path="computer-set-up-and-introduction-to-the-command-line.html"><a href="computer-set-up-and-introduction-to-the-command-line.html#first-command"><i class="fa fa-check"></i><b>1.2</b> First command</a></li>
+<li class="chapter" data-level="1.3" data-path="computer-set-up-and-introduction-to-the-command-line.html"><a href="computer-set-up-and-introduction-to-the-command-line.html#how-to-navigate-a-file-system"><i class="fa fa-check"></i><b>1.3</b> How to navigate a file system</a></li>
+<li class="chapter" data-level="1.4" data-path="computer-set-up-and-introduction-to-the-command-line.html"><a href="computer-set-up-and-introduction-to-the-command-line.html#basic-file-manipulation"><i class="fa fa-check"></i><b>1.4</b> Basic file manipulation</a></li>
+<li class="chapter" data-level="1.5" data-path="computer-set-up-and-introduction-to-the-command-line.html"><a href="computer-set-up-and-introduction-to-the-command-line.html#assignment"><i class="fa fa-check"></i><b>1.5</b> Assignment</a></li>
+<li class="chapter" data-level="1.6" data-path="computer-set-up-and-introduction-to-the-command-line.html"><a href="computer-set-up-and-introduction-to-the-command-line.html#if-we-have-extra-time"><i class="fa fa-check"></i><b>1.6</b> If we have extra time…</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="fasta-files-and-visual-alignment-with-mafft.html"><a href="fasta-files-and-visual-alignment-with-mafft.html"><i class="fa fa-check"></i><b>2</b> FASTA files and visual alignment with MAFFT</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="fasta-files-and-visual-alignment-with-mafft.html"><a href="fasta-files-and-visual-alignment-with-mafft.html#exploring-a-fasta-file"><i class="fa fa-check"></i><b>2.1</b> Exploring a fasta file</a></li>
+<li class="chapter" data-level="2.2" data-path="fasta-files-and-visual-alignment-with-mafft.html"><a href="fasta-files-and-visual-alignment-with-mafft.html#visual-alignment"><i class="fa fa-check"></i><b>2.2</b> Visual Alignment</a></li>
+<li class="chapter" data-level="2.3" data-path="fasta-files-and-visual-alignment-with-mafft.html"><a href="fasta-files-and-visual-alignment-with-mafft.html#mafft-multiple-sequence-alignment"><i class="fa fa-check"></i><b>2.3</b> MAFFT Multiple Sequence Alignment</a></li>
+<li class="chapter" data-level="2.4" data-path="fasta-files-and-visual-alignment-with-mafft.html"><a href="fasta-files-and-visual-alignment-with-mafft.html#assignment-1"><i class="fa fa-check"></i><b>2.4</b> Assignment</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="activity-3-alignment-of-whole-genome-data.html"><a href="activity-3-alignment-of-whole-genome-data.html"><i class="fa fa-check"></i><b>3</b> Activity 3: Alignment of whole genome data</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="activity-3-alignment-of-whole-genome-data.html"><a href="activity-3-alignment-of-whole-genome-data.html#environmental-variables"><i class="fa fa-check"></i><b>3.1</b> Environmental variables</a></li>
+<li class="chapter" data-level="3.2" data-path="activity-3-alignment-of-whole-genome-data.html"><a href="activity-3-alignment-of-whole-genome-data.html#explore-the-sequencing-data-and-reference-genome"><i class="fa fa-check"></i><b>3.2</b> Explore the sequencing data and reference genome</a></li>
+<li class="chapter" data-level="3.3" data-path="activity-3-alignment-of-whole-genome-data.html"><a href="activity-3-alignment-of-whole-genome-data.html#fastqc"><i class="fa fa-check"></i><b>3.3</b> FASTQC</a></li>
+<li class="chapter" data-level="3.4" data-path="activity-3-alignment-of-whole-genome-data.html"><a href="activity-3-alignment-of-whole-genome-data.html#trimming"><i class="fa fa-check"></i><b>3.4</b> Trimming</a></li>
+<li class="chapter" data-level="3.5" data-path="activity-3-alignment-of-whole-genome-data.html"><a href="activity-3-alignment-of-whole-genome-data.html#alignment-with-bwa"><i class="fa fa-check"></i><b>3.5</b> Alignment with BWA</a></li>
+<li class="chapter" data-level="3.6" data-path="activity-3-alignment-of-whole-genome-data.html"><a href="activity-3-alignment-of-whole-genome-data.html#read-groups"><i class="fa fa-check"></i><b>3.6</b> Read Groups</a></li>
+<li class="chapter" data-level="3.7" data-path="activity-3-alignment-of-whole-genome-data.html"><a href="activity-3-alignment-of-whole-genome-data.html#how-good-was-our-alignment"><i class="fa fa-check"></i><b>3.7</b> How good was our alignment?</a></li>
+<li class="chapter" data-level="3.8" data-path="activity-3-alignment-of-whole-genome-data.html"><a href="activity-3-alignment-of-whole-genome-data.html#assignment-2"><i class="fa fa-check"></i><b>3.8</b> Assignment</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">EBIO4100: Bioinformatics in the Mountains</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="activity-3-alignment-of-whole-genome-data" class="section level1 hasAnchor" number="3">
+<h1><span class="header-section-number">Activity 3</span> Activity 3: Alignment of whole genome data<a href="activity-3-alignment-of-whole-genome-data.html#activity-3-alignment-of-whole-genome-data" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="environmental-variables" class="section level2 hasAnchor" number="3.1">
+<h2><span class="header-section-number">3.1</span> Environmental variables<a href="activity-3-alignment-of-whole-genome-data.html#environmental-variables" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Before we start today, we are going to learn about environmental variables, and create one that will allow us to skip typing out the path to the course folders.</p>
+<p>Variables are a useful way to store data that can be referenced in other commands. For example, we could store the name of the file <code>super_long_file_name_37456392347283.txt</code> in the variable <code>$FILE</code>. This would allow us to then refer to the file using the variable, instead of typing out the name:</p>
+<details class=chunk-details><summary class=chunk-summary><span class=chunk-summary-text>Code</span></summary>
+<pre class="foldable"><code>FILE=super_long_file_name_37456392347283.txt
+
+wc -l $FILE</code></pre>
+</details>
+<p>The variable $FILE will only be available in context in which it was created (such as during one terminal session, or one script). However, there is a way to create variables that will apply to all of your terminal sessions. You do this by modifying your <code>.bashrc</code> file.</p>
+<p>Your <code>.bashrc</code> file is in your home directory, but you might not be able to see it. Unix systems treat file names beginning with <code>.</code> as hidden files. To see them in the terminal, you can use <code>ls -a ~/</code>. You will see there are a lot of files here! Using either the terminal or the OnDemand file system, add the following lines to the end of your <code>.bashrc</code> file.</p>
+<details class=chunk-details><summary class=chunk-summary><span class=chunk-summary-text>Code</span></summary>
+<pre class="foldable"><code>export shared=/scratch/alpine/mefr3284/ebio4100
+export turnin=/scratch/alpine/mefr3284/Assignments</code></pre>
+</details>
+<p>Now we can use the variables <code>$shared</code> and <code>$turnin</code> to refer to the folders where you get files for the activities and turn in your homework, respectively. This change will not take effect until you start a new terminal session (i.e. log out and log back in).</p>
+<p>You can set these variable names to whatever makes sense to you, but I will use these two names in the rest of the activities for consistency.</p>
+</div>
+<div id="explore-the-sequencing-data-and-reference-genome" class="section level2 hasAnchor" number="3.2">
+<h2><span class="header-section-number">3.2</span> Explore the sequencing data and reference genome<a href="activity-3-alignment-of-whole-genome-data.html#explore-the-sequencing-data-and-reference-genome" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p><strong>1. Start by making a new folder in your scratch directory and copying today’s file there.</strong></p>
+<details class=chunk-details><summary class=chunk-summary><span class=chunk-summary-text>Code</span></summary>
+<pre class="foldable"><code>cd /scratch/alpine/usrname
+mkdir day_3
+cp $shared/day_3/* day_3/
+cd day_3/
+ls </code></pre>
+</details>
+<p><strong>2. Start an interactive job. </strong></p>
+<details class=chunk-details><summary class=chunk-summary><span class=chunk-summary-text>Code</span></summary>
+<pre class="foldable"><code>sinteractive --partition=amilan -t 4:00:00</code></pre>
+</details>
+<p><strong>3. Look at the data we will be using today. What kinds of file formats are these? What kind of information do they contain? </strong></p>
+<details class=chunk-details><summary class=chunk-summary><span class=chunk-summary-text>Code</span></summary>
+<pre class="foldable"><code>less mountain_chickadee_R1.fastq.gz</code></pre>
+</details>
+<p><strong>4. How many files are in the folder? How many individual read sequences does this correspond to? </strong></p>
+<p>These files are gzipped (a specific type of file compression) to make them more compact (this is what the <code>.gz</code> on the end of the filename indicates). The command <code>less</code> works because it internally knows how to handle those types of files, but not all commands do. One way to deal with this is to use <code>zcat</code>. The command <code>cat</code> can print out the content of a file; <code>zcat</code> does the same, but in a way that can handle zipped files.</p>
+<details class=chunk-details><summary class=chunk-summary><span class=chunk-summary-text>Code</span></summary>
+<pre class="foldable"><code># how many fastq files
+zcat mountain_chickadee_R1.fastq.gz | wc -l 
+zcat mountain_chickadee_R2.fastq.gz | wc -l </code></pre>
+</details>
+<p>Fastq files have 4 lines for each read, so the number of lines divided by 4 should give you the number of reads.</p>
+<p><strong>5. What files are present in the reference genome folder?</strong></p>
+<details class=chunk-details><summary class=chunk-summary><span class=chunk-summary-text>Code</span></summary>
+<pre class="foldable"><code>ls $shared/reference</code></pre>
+</details>
+<p><strong>6. What are the scaffolds of the chickadee reference genome?</strong></p>
+<details class=chunk-details><summary class=chunk-summary><span class=chunk-summary-text>Code</span></summary>
+<pre class="foldable"><code>grep &#39;&gt;&#39; $shared/reference/moch.dovetail.reference.hap1.scaffolds.renamed.fasta</code></pre>
+</details>
+</div>
+<div id="fastqc" class="section level2 hasAnchor" number="3.3">
+<h2><span class="header-section-number">3.3</span> FASTQC<a href="activity-3-alignment-of-whole-genome-data.html#fastqc" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>The first step after getting new sequencing data (or any type of data) is to do quality control (QC). We can’t go through all of this information by hand, so we need to start analyzing this data in other ways. For fastq files, we can check them using FastQC.</p>
+<p>If we wanted to use FastQC on our own computers, we would need to download and install the program. The program is already available on the cluster, but it is stored in something called a module.</p>
+<p><strong>7. View the available modules and load FastQC.</strong></p>
+<details class=chunk-details><summary class=chunk-summary><span class=chunk-summary-text>Code</span></summary>
+<pre class="foldable"><code>module avail
+module load fastqc </code></pre>
+</details>
+<div class="caution" data="latex=&quot;&quot;">
+<p>On the Alpine cluster, modules are not available to be loaded on the login nodes. You should already be in an interactive job, but if you cannot view the list of available modules, you should check your location.</p>
+</div>
+<p><strong>8. Run FastQC on the first file. </strong></p>
+<details class=chunk-details><summary class=chunk-summary><span class=chunk-summary-text>Code</span></summary>
+<pre class="foldable"><code>fastqc mountain_chickadee_R1.fastq.gz </code></pre>
+</details>
+<p><strong>9. What output files does it make? </strong></p>
+<details class=chunk-details><summary class=chunk-summary><span class=chunk-summary-text>Code</span></summary>
+<pre class="foldable"><code>ls</code></pre>
+</details>
+<p>Take a look at the html output file (you may need to download it from the OnDemand Portal). How do the results look?</p>
+<p>If you want more information on any of the stats, check out the <a href="https://www.bioinformatics.babraham.ac.uk/projects/fastqc/Help/">documentation here.</a> This site also has examples of <a href="https://www.bioinformatics.babraham.ac.uk/projects/fastqc/good_sequence_short_fastqc.html">good</a> and <a href="https://www.bioinformatics.babraham.ac.uk/projects/fastqc/bad_sequence_fastqc.html">bad</a> data.</p>
+<p><strong>10. Repeat fastqc with the second set of reads. How do the results compare? </strong></p>
+<details class=chunk-details><summary class=chunk-summary><span class=chunk-summary-text>Code</span></summary>
+<pre class="foldable"><code>fastqc mountain_chickadee_R2.fastq.gz </code></pre>
+</details>
+</div>
+<div id="trimming" class="section level2 hasAnchor" number="3.4">
+<h2><span class="header-section-number">3.4</span> Trimming<a href="activity-3-alignment-of-whole-genome-data.html#trimming" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p><strong>11. Use trimmomatic to trim the reads. </strong></p>
+<p>When you load the module, it will give you cluster-specific instructions for running the program.</p>
+<details class=chunk-details><summary class=chunk-summary><span class=chunk-summary-text>Code</span></summary>
+<pre class="foldable"><code>module load trimmomatic 
+
+java -jar $TRIMMOMATIC PE mountain_chickadee_R1.fastq.gz mountain_chickadee_R2.fastq.gz -trimlog mountain.trimlog -baseout mountain_chickadee_trimmed ILLUMINACLIP:$ADAPTERS/TruSeq3-PE.fa:2:30:10 SLIDINGWINDOW:5:20 MINLEN:75</code></pre>
+</details>
+<p>Let’s break down this command.</p>
+<p><code>java -jar $TRIMMOMATIC</code> is our program. Here, <code>$TRIMMOMATIC</code> is an environmental variable set by the module when we loaded it. It tells the computer where to find the trimmomatic file.</p>
+<p><code>PE</code> tells trimmomatic that we are going to give it paired end reads.</p>
+<p><code>mountain_chickadee_R1.fastq.gz mountain_chickadee_R2.fastq.gz</code> are our input fastq files that we want it to trim.</p>
+<p><code>-trimlog mountain.trimlog</code> names an file for trimmomatic to use as a log. This will give us information on each read that it processes.</p>
+<p><code>-baseout mountain_chickadee_trimmed</code> will give this prefix to all the output fastqs.</p>
+<p><code>ILLUMINACLIP:$ADAPTERS/TruSeq3-PE.fa:2:30:10</code> tells trimmomatic how to deal with adapter sequences. First, <code>$ADAPTERS/TruSeq3-PE.fa</code> gives the location of the adapter file. These are stored on the cluster, and <code>$ADAPTERS</code> is another variable created when we loaded the module. The numbers provide thresholds for how closely the read must match the adapter sequence to be trimmed.</p>
+<p><code>SLIDINGWINDOW:5:20</code> defines quality filtering. Trimmomatic will go across the read in windows of 5 basepairs, and trim sites with a quality score below 20.</p>
+<p><code>MINLEN:75</code> tells trimmomatic to throw out any read that is less than 75 basepairs after trimming.</p>
+<p>There are other options we can use to tune our output, which you can read about <a href="https://github.com/usadellab/Trimmomatic">here</a>.</p>
+<p>After running this command, what output files have been made?</p>
+<p><strong>11. Rerun fastqc on one of the new files. Did it improve?</strong></p>
+<details class=chunk-details><summary class=chunk-summary><span class=chunk-summary-text>Code</span></summary>
+<pre class="foldable"><code>fastqc mountain_chickadee_trimmed_1P  </code></pre>
+</details>
+<div class="learning" data="latex=&quot;&quot;">
+<p>A useful program called <a href="https://github.com/MultiQC/MultiQC">MultiQC</a> can help visualize results for multiple steps of bioinformatic quality control. We won’t be using it in this course, but you can check it out <a href="https://github.com/MultiQC/MultiQC">here</a>.</p>
+</div>
+</div>
+<div id="alignment-with-bwa" class="section level2 hasAnchor" number="3.5">
+<h2><span class="header-section-number">3.5</span> Alignment with BWA<a href="activity-3-alignment-of-whole-genome-data.html#alignment-with-bwa" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p><strong>12. Load bwa and samtools modules.</strong></p>
+<details class=chunk-details><summary class=chunk-summary><span class=chunk-summary-text>Code</span></summary>
+<pre class="foldable"><code>module load bwa
+module load samtools </code></pre>
+</details>
+<p><strong>13. Align the reads with <code>bwa mem</code>, and then use samtools view to remove the low quality alignments. </strong></p>
+<details class=chunk-details><summary class=chunk-summary><span class=chunk-summary-text>Code</span></summary>
+<pre class="foldable"><code>bwa mem -t 1 -M -R &#39;@RG\tID:moch\tLB:moch\tPL:ILLUMINA\tSM:moch&#39; $shared/reference_genome/moch.dovetail.reference.hap1.scaffolds.renamed.fasta mountain_chickadee_trimmed_1P mountain_chickadee_trimmed_2P | samtools view -q20 -b &gt; mountain_chickadee.filtered.bam</code></pre>
+</details>
+<p>We will name this sample <code>moch</code>. Names for samples should be as simple as possible, while still being unique. They should not contain spaces.</p>
+<p>Also, the <code>-b</code> flag in the <code>samtools</code> command tells it that we want our output in the binary BAM format, which will be smaller than the more readable SAM file.</p>
+<p>What output files were made?</p>
+<p><strong>14. If we look at this file, we will notice that the locations of the reads are random. For many downstream analyses, we will want to sort it. We can also do this with SAMtools. The <code>-T</code> flag specifies a prefix for temporary files created during sorting. </strong></p>
+<details class=chunk-details><summary class=chunk-summary><span class=chunk-summary-text>Code</span></summary>
+<pre class="foldable"><code>samtools view mountain_chickadee.filtered.bam | less 
+samtools sort mountain_chickadee.filtered.bam -T tmp_mntchck &gt; mountain_chickadee.filtered.sorted.bam</code></pre>
+</details>
+<p>If we look at the file now, we can see that the reads are in order by location.</p>
+<div class="caution" data="latex=&quot;&quot;">
+<p>Remember that we are working with BAM files here, rather than SAM files. BAM files are binary, we we will not be able to read them like text files or view them with less. In this case, we can use samtools to do the conversion for us, using commands like samtools view.</p>
+</div>
+<p><strong>15. Here, we did filtering and sorting as separate steps, but they could’ve been done in a single step. </strong></p>
+<p>You will notice we have also created several versions of this SAM file. Sometimes, you will want to keep these intermediate files for special analyses, but usually we do not need them. You could delete them once you’ve made your final file, but you could also skip creating these files altogether by using pipes to connect our commands. The pipe (<code>|</code>) tells the terminal to pass the output directly into the next command, rather than into a file.</p>
+<details class=chunk-details><summary class=chunk-summary><span class=chunk-summary-text>Code</span></summary>
+<pre class="foldable"><code>bwa mem -t 1 -M -R &#39;@RG\tID:moch21\tLB:moch21\tPL:ILLUMINA\tSM:moch21&#39; ../ebio4100/reference_genome/moch.dovetail.reference.hap1.scaffolds.renamed.fasta mountain_chickadee_trimmed_1P mountain_chickadee_trimmed_2P | samtools view -q 20 -b | samtools sort -T tmp_mntchck &gt; mountain_chickadee.filtered.sorted.bam</code></pre>
+</details>
+<p>Note that the <code>-b</code> flag added to the <code>samtools view</code> command is what tells <code>samtools</code> we want a BAM file output, rather than SAM.</p>
+<p><strong>16. Finally, most programs will expect BAM files to be indexed. This allows programs to quickly navigate large files. </strong></p>
+<details class=chunk-details><summary class=chunk-summary><span class=chunk-summary-text>Code</span></summary>
+<pre class="foldable"><code>samtools index mountain_chickadee.filtered.sorted.bam</code></pre>
+</details>
+<p>We can also see that a new file called <code>mountain_chickadee.filtered.sorted.bam.bai</code> was created. This is the index and downstream programs will expect it to be in the same folder as the main file.</p>
+</div>
+<div id="read-groups" class="section level2 hasAnchor" number="3.6">
+<h2><span class="header-section-number">3.6</span> Read Groups<a href="activity-3-alignment-of-whole-genome-data.html#read-groups" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Earlier we used the -R flag to add a string to our file. This was the read group. Some downstream programs will require read group information. If we want to merge BAM files together, we will also want the reads assigned to groups. If you do not add a group, or if a downstream program requires different group information, you can add or change read groups in a bam file. There are several ways to do this, but below is an example using <code>samtools</code>.</p>
+<details class=chunk-details><summary class=chunk-summary><span class=chunk-summary-text>Code</span></summary>
+<pre class="foldable"><code>
+samtools addreplacerg -r &quot;ID:HNJTWDSX3:2&quot; -r &quot;LB:2&quot; -r &quot;PL:ILLUMINA&quot; -r &quot;PU:HNJTWDSX3:2:moch21&quot; -r &quot;SM:moch21&quot; mountain_chickadee.filtered.sorted.bam -o mountain_chickadee.filtered.sorted.newrg.bam 
+
+samtools index mountain_chickadee.filtered.sorted.newrg.bam 
+</code></pre>
+</details>
+</div>
+<div id="how-good-was-our-alignment" class="section level2 hasAnchor" number="3.7">
+<h2><span class="header-section-number">3.7</span> How good was our alignment?<a href="activity-3-alignment-of-whole-genome-data.html#how-good-was-our-alignment" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p><strong>17. Use <code>samtools flagstat</code> to look at some metrics for our alignment. </strong></p>
+<details class=chunk-details><summary class=chunk-summary><span class=chunk-summary-text>Code</span></summary>
+<pre class="foldable"><code>
+samtools flagstat mountain_chickadee.filtered.sorted.bam &gt; flagstat.txt
+
+cat flagstat.txt
+</code></pre>
+</details>
+<p>What information do we get from this file?</p>
+<div class="learning" data="latex=&quot;&quot;">
+<p>As mentioned in lecture, SAM flags store a lot of information about a sequence. If you’d like to learn more about these encodings, check out the <a href="https://samtools.github.io/hts-specs/SAMv1.pdf">documentation (Page 7)</a> or this <a href="https://www.youtube.com/watch?v=qm4NGV79t4o">YouTube explainer</a>. You can look up the meaning of specific SAM flags <a href="https://broadinstitute.github.io/picard/explain-flags.html">here.</a></p>
+</div>
+</div>
+<div id="assignment-2" class="section level2 hasAnchor" number="3.8">
+<h2><span class="header-section-number">3.8</span> Assignment<a href="activity-3-alignment-of-whole-genome-data.html#assignment-2" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Create a script that will copy the files <code>$shared/chickadee_data/MOCH/20H102_S21_L002_R1_001.fastq.gz</code> and <code>$shared/chickadee_data/MOCH/20H102_S21_L002_R2_001.fastq.gz</code> to your scratch directory (you probably want to make a specific folder for this), and then trim, align, and sort the bam file. You can add the read group using the same read group information we used above. Try running the script, which will probably run past the end of class. Copy the script to the folder <code>$turnin/day_3/</code> to turn it in. (Add your name to the file name!)</p>
+<p><em>Hint 1:</em></p>
+<details class=chunk-details><summary class=chunk-summary><span class=chunk-summary-text>Code</span></summary>
+<pre class="foldable"><code>The header of your script should look something like: 
+#!/bin/bash
+
+#SBATCH --nodes=1
+#SBATCH --ntasks=1
+#SBATCH --time=6:00:00
+#SBATCH --partition=amilan 
+#SBATCH --output=bamfiles.out
+#SBATCH --qos=normal</code></pre>
+</details>
+<p><em>Hint 2:</em></p>
+<details class=chunk-details><summary class=chunk-summary><span class=chunk-summary-text>Code</span></summary>
+<pre class="foldable"><code>Do not forget to load the modules you need. </code></pre>
+</details>
+<p><em>Hint 3:</em></p>
+<details class=chunk-details><summary class=chunk-summary><span class=chunk-summary-text>Code</span></summary>
+<pre class="foldable"><code>To run a script, use: 
+sbatch script_name.sh</code></pre>
+</details>
+<div class="learning" data="latex=&quot;&quot;">
+<p>If you would like more information on the programs we tried today, here are links to check out.
+<a href="https://github.com/usadellab/Trimmomatic">Trimmomatic Documentation</a></p>
+<p><a href="https://bio-bwa.sourceforge.net/bwa.shtml">BWA Documentation</a></p>
+<p><a href="https://www.htslib.org/doc/samtools.html">Samtools Documentation</a></p>
+<p><a href="https://samtools.github.io/bcftools/bcftools.html">BCFtools Manual</a></p>
+</div>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="fasta-files-and-visual-alignment-with-mafft.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="references.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+  "sharing": null,
+  "fontsettings": {
+    "theme": "white",
+    "family": "sans",
+    "size": 2
+  },
+  "edit": {
+    "link": "https://github.com/USERNAME/REPO/edit/BRANCH/04-alignment.Rmd",
+    "text": "Edit"
+  },
+  "history": {
+    "link": null,
+    "text": null
+  },
+  "view": {
+    "link": null,
+    "text": null
+  },
+  "download": ["_main.pdf", "_main.epub"],
+  "search": {
+    "engine": "fuse",
+    "options": null
+  },
+  "toc": {
+    "collapse": "subsection",
+    "scroll_highlight": true
+  }
+});
+});
+</script>
+
+</body>
+
+</html>

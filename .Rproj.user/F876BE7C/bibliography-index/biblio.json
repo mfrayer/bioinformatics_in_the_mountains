@@ -1,30 +1,82 @@
 {
     "sources": [
         {
-            "URL": "http://yihui.org/knitr/",
+            "DOI": "https://doi.org/10.1016/j.sbi.2006.04.004",
+            "ISSN": "0959-440X",
+            "URL": "https://www.sciencedirect.com/science/article/pii/S0959440X06000704",
+            "abstract": "Multiple sequence alignments are an essential tool for protein structure and function prediction, phylogeny inference and other common tasks in sequence analysis. Recently developed systems have advanced the state of the art with respect to accuracy, ability to scale to thousands of proteins and flexibility in comparing proteins that do not share the same domain architecture. New multiple alignment benchmark databases include PREFAB, SABMARK, OXBENCH and IRMBASE. Although CLUSTALW is still the most popular alignment tool to date, recent methods offer significantly better alignment quality and, in some cases, reduced computational cost.",
             "author": [
                 {
-                    "family": "Xie",
-                    "given": "Yihui"
+                    "family": "Edgar",
+                    "given": "Robert C."
+                },
+                {
+                    "family": "Batzoglou",
+                    "given": "Serafim"
                 }
             ],
-            "edition": "2nd",
-            "id": "xie2015",
+            "container-title": "Current Opinion in Structural Biology",
+            "id": "edgar_multiple_2006",
+            "issue": "3",
             "issued": {
                 "date-parts": [
                     [
-                        2015
+                        2006
                     ]
                 ]
             },
-            "note": "ISBN 978-1498716963",
-            "publisher": "Chapman; Hall/CRC",
-            "publisher-place": "Boca Raton, Florida",
-            "title": "Dynamic documents with R and knitr",
-            "type": "book"
+            "page": "368-373",
+            "title": "Multiple sequence alignment",
+            "type": "article-journal",
+            "volume": "16"
+        },
+        {
+            "DOI": "10.1093/bib/bbx108",
+            "ISSN": "1477-4054",
+            "URL": "https://doi.org/10.1093/bib/bbx108",
+            "abstract": "This article describes several features in the MAFFT online service for multiple sequence alignment (MSA). As a result of recent advances in sequencing technologies, huge numbers of biological sequences are available and the need for MSAs with large numbers of sequences is increasing. To extract biologically relevant information from such data, sophistication of algorithms is necessary but not sufficient. Intuitive and interactive tools for experimental biologists to semiautomatically handle large data are becoming important. We are working on development of MAFFT toward these two directions. Here, we explain (i) the Web interface for recently developed options for large data and (ii) interactive usage to refine sequence data sets and MSAs.",
+            "accessed": {
+                "date-parts": [
+                    [
+                        2025,
+                        7,
+                        8
+                    ]
+                ]
+            },
+            "author": [
+                {
+                    "family": "Katoh",
+                    "given": "Kazutaka"
+                },
+                {
+                    "family": "Rozewicki",
+                    "given": "John"
+                },
+                {
+                    "family": "Yamada",
+                    "given": "Kazunori D"
+                }
+            ],
+            "container-title": "Briefings in Bioinformatics",
+            "id": "katoh_mafft_2019",
+            "issue": "4",
+            "issued": {
+                "date-parts": [
+                    [
+                        2019,
+                        7
+                    ]
+                ]
+            },
+            "page": "1160-1166",
+            "title": "MAFFT online service: Multiple sequence alignment, interactive sequence choice and visualization",
+            "title-short": "MAFFT online service",
+            "type": "article-journal",
+            "volume": "20"
         }
     ],
     "project_biblios": [
-        "book.bib"
+        "EBIO4100.bib"
     ]
 }
