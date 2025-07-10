@@ -31,7 +31,7 @@
   
   
 <link rel="prev" href="fasta-files-and-visual-alignment-with-mafft.html"/>
-<link rel="next" href="references.html"/>
+<link rel="next" href="variant-calling.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -133,6 +133,14 @@ div.csl-indent {
 <li class="chapter" data-level="3.6" data-path="alignment-of-whole-genome-data.html"><a href="alignment-of-whole-genome-data.html#read-groups"><i class="fa fa-check"></i><b>3.6</b> Read Groups</a></li>
 <li class="chapter" data-level="3.7" data-path="alignment-of-whole-genome-data.html"><a href="alignment-of-whole-genome-data.html#how-good-was-our-alignment"><i class="fa fa-check"></i><b>3.7</b> How good was our alignment?</a></li>
 <li class="chapter" data-level="3.8" data-path="alignment-of-whole-genome-data.html"><a href="alignment-of-whole-genome-data.html#assignment-2"><i class="fa fa-check"></i><b>3.8</b> Assignment</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="variant-calling.html"><a href="variant-calling.html"><i class="fa fa-check"></i><b>4</b> Variant calling</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="variant-calling.html"><a href="variant-calling.html#remove-duplicates-from-the-bam-file"><i class="fa fa-check"></i><b>4.1</b> Remove duplicates from the BAM file</a></li>
+<li class="chapter" data-level="4.2" data-path="variant-calling.html"><a href="variant-calling.html#call-variants-with-gatk"><i class="fa fa-check"></i><b>4.2</b> Call Variants with GATK</a></li>
+<li class="chapter" data-level="4.3" data-path="variant-calling.html"><a href="variant-calling.html#call-variants-with-bcftools"><i class="fa fa-check"></i><b>4.3</b> Call variants with bcftools</a></li>
+<li class="chapter" data-level="4.4" data-path="variant-calling.html"><a href="variant-calling.html#are-they-all-the-same"><i class="fa fa-check"></i><b>4.4</b> Are they all the same?</a></li>
+<li class="chapter" data-level="4.5" data-path="variant-calling.html"><a href="variant-calling.html#assignment-3"><i class="fa fa-check"></i><b>4.5</b> Assignment</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
@@ -274,7 +282,7 @@ module load samtools </code></pre>
 </details>
 <p><strong>13. Align the reads with <code>bwa mem</code>, and then use samtools view to remove the low quality alignments. </strong></p>
 <details class=chunk-details><summary class=chunk-summary><span class=chunk-summary-text>Code</span></summary>
-<pre class="foldable"><code>bwa mem -t 1 -M -R &#39;@RG\tID:moch\tLB:moch\tPL:ILLUMINA\tSM:moch&#39; $shared/reference_genome/moch.dovetail.reference.hap1.scaffolds.renamed.fasta mountain_chickadee_trimmed_1P mountain_chickadee_trimmed_2P | samtools view -q20 -b &gt; mountain_chickadee.filtered.bam</code></pre>
+<pre class="foldable"><code>bwa mem -t 1 -M -R &#39;@RG\tID:moch\tLB:moch\tPL:ILLUMINA\tSM:moch&#39; $shared/reference/moch.dovetail.reference.hap1.scaffolds.renamed.fasta mountain_chickadee_trimmed_1P mountain_chickadee_trimmed_2P | samtools view -q20 -b &gt; mountain_chickadee.filtered.bam</code></pre>
 </details>
 <p>We will name this sample <code>moch</code>. Names for samples should be as simple as possible, while still being unique. They should not contain spaces.</p>
 <p>Also, the <code>-b</code> flag in the <code>samtools</code> command tells it that we want our output in the binary BAM format, which will be smaller than the more readable SAM file.</p>
@@ -291,7 +299,7 @@ samtools sort mountain_chickadee.filtered.bam -T tmp_mntchck &gt; mountain_chick
 <p><strong>15. Here, we did filtering and sorting as separate steps, but they could’ve been done in a single step. </strong></p>
 <p>You will notice we have also created several versions of this SAM file. Sometimes, you will want to keep these intermediate files for special analyses, but usually we do not need them. You could delete them once you’ve made your final file, but you could also skip creating these files altogether by using pipes to connect our commands. The pipe (<code>|</code>) tells the terminal to pass the output directly into the next command, rather than into a file.</p>
 <details class=chunk-details><summary class=chunk-summary><span class=chunk-summary-text>Code</span></summary>
-<pre class="foldable"><code>bwa mem -t 1 -M -R &#39;@RG\tID:moch21\tLB:moch21\tPL:ILLUMINA\tSM:moch21&#39; ../ebio4100/reference_genome/moch.dovetail.reference.hap1.scaffolds.renamed.fasta mountain_chickadee_trimmed_1P mountain_chickadee_trimmed_2P | samtools view -q 20 -b | samtools sort -T tmp_mntchck &gt; mountain_chickadee.filtered.sorted.bam</code></pre>
+<pre class="foldable"><code>bwa mem -t 1 -M -R &#39;@RG\tID:moch21\tLB:moch21\tPL:ILLUMINA\tSM:moch21&#39; $shared/reference/moch.dovetail.reference.hap1.scaffolds.renamed.fasta mountain_chickadee_trimmed_1P mountain_chickadee_trimmed_2P | samtools view -q 20 -b | samtools sort -T tmp_mntchck &gt; mountain_chickadee.filtered.sorted.bam</code></pre>
 </details>
 <p>Note that the <code>-b</code> flag added to the <code>samtools view</code> command is what tells <code>samtools</code> we want a BAM file output, rather than SAM.</p>
 <p><strong>16. Finally, most programs will expect BAM files to be indexed. This allows programs to quickly navigate large files. </strong></p>
@@ -366,7 +374,7 @@ sbatch script_name.sh</code></pre>
         </div>
       </div>
 <a href="fasta-files-and-visual-alignment-with-mafft.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="references.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="variant-calling.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

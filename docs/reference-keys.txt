@@ -23,3 +23,9 @@ alignment-with-bwa
 read-groups
 how-good-was-our-alignment
 assignment-2
+variant-calling
+remove-duplicates-from-the-bam-file
+call-variants-with-gatk
+call-variants-with-bcftools
+are-they-all-the-same
+assignment-3

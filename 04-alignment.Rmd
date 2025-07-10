@@ -168,7 +168,7 @@ module load samtools
 **13. Align the reads with `bwa mem`, and then use samtools view to remove the low quality alignments. **
 
 ```{cat, class.source='foldable'}
-bwa mem -t 1 -M -R '@RG\tID:moch\tLB:moch\tPL:ILLUMINA\tSM:moch' $shared/reference_genome/moch.dovetail.reference.hap1.scaffolds.renamed.fasta mountain_chickadee_trimmed_1P mountain_chickadee_trimmed_2P | samtools view -q20 -b > mountain_chickadee.filtered.bam
+bwa mem -t 1 -M -R '@RG\tID:moch\tLB:moch\tPL:ILLUMINA\tSM:moch' $shared/reference/moch.dovetail.reference.hap1.scaffolds.renamed.fasta mountain_chickadee_trimmed_1P mountain_chickadee_trimmed_2P | samtools view -q20 -b > mountain_chickadee.filtered.bam
 ```
 
 We will name this sample `moch`. Names for samples should be as simple as possible, while still being unique. They should not contain spaces.  
@@ -195,7 +195,7 @@ Remember that we are working with BAM files here, rather than SAM files. BAM fil
 You will notice we have also created several versions of this SAM file. Sometimes, you will want to keep these intermediate files for special analyses, but usually we do not need them. You could delete them once you've made your final file, but you could also skip creating these files altogether by using pipes to connect our commands. The pipe (`|`) tells the terminal to pass the output directly into the next command, rather than into a file. 
 
 ```{cat, class.source='foldable'}
-bwa mem -t 1 -M -R '@RG\tID:moch21\tLB:moch21\tPL:ILLUMINA\tSM:moch21' ../ebio4100/reference_genome/moch.dovetail.reference.hap1.scaffolds.renamed.fasta mountain_chickadee_trimmed_1P mountain_chickadee_trimmed_2P | samtools view -q 20 -b | samtools sort -T tmp_mntchck > mountain_chickadee.filtered.sorted.bam
+bwa mem -t 1 -M -R '@RG\tID:moch21\tLB:moch21\tPL:ILLUMINA\tSM:moch21' $shared/reference/moch.dovetail.reference.hap1.scaffolds.renamed.fasta mountain_chickadee_trimmed_1P mountain_chickadee_trimmed_2P | samtools view -q 20 -b | samtools sort -T tmp_mntchck > mountain_chickadee.filtered.sorted.bam
 ```
 
 Note that the `-b` flag added to the `samtools view` command is what tells `samtools` we want a BAM file output, rather than SAM. 

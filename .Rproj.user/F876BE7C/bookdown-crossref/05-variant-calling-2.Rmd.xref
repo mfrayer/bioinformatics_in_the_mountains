@@ -1,7 +1,0 @@
-h1:activity-4-variant-calling Activity 4: Variant calling
-h2:remove-duplicates-from-the-bam-file Remove duplicates from the BAM file
-h2:call-variants-with-gatk Call Variants with GATK
-h2:call-variants-with-bcftools Call variants with bcftools
-h2:are-they-all-the-same Are they all the same?
-h2:assignment Assignment
-
