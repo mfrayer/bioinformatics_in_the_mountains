@@ -23,7 +23,7 @@
 <meta name="author" content="Megan Frayer" />
 
 
-<meta name="date" content="2025-07-09" />
+<meta name="date" content="2025-07-10" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -59,6 +59,29 @@
 <style type="text/css">
   
   div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
 </style>
 
 <link rel="stylesheet" href="style.css" type="text/css" />
@@ -172,16 +195,17 @@ samtools index mountain_chickadee.filtered.sorted.nodup.bam</code></pre>
 <pre class="foldable"><code>
 module load gatk
 
-gatk --java-options &quot;-Djava.io.tmpdir=$SLURM_SCRATCH&quot; HaplotypeCaller -R /scratch/alpine/mefr3284/ebio4100/reference_genome/moch.dovetail.reference.hap1.scaffolds.renamed.fasta -I mountain_chickadee.filtered.sorted.bam -O moch_gatk.g.vcf.gz -ERC GVCF
+gatk --java-options &quot;-Djava.io.tmpdir=$SLURM_SCRATCH&quot; HaplotypeCaller -R /scratch/alpine/mefr3284/ebio4100/reference/moch.dovetail.reference.hap1.scaffolds.renamed.fasta -I mountain_chickadee.filtered.sorted.nodup.bam -O moch_gatk.g.vcf.gz -ERC GVCF
 </code></pre>
 </details>
 <p><strong>4. Run GenotypeGVCFs. </strong></p>
 <details class=chunk-details><summary class=chunk-summary><span class=chunk-summary-text>Code</span></summary>
 <pre class="foldable"><code>
-gatk --java-options &quot;-Djava.io.tmpdir=$SLURM_SCRATCH&quot; GenotypeGVCFs -R /scratch/alpine/mefr3284/ebio4100/reference_genome/moch.dovetail.reference.hap1.scaffolds.renamed.fasta -V moch_gatk.g.vcf.gz -O moch_gatk.vcf.gz
+gatk --java-options &quot;-Djava.io.tmpdir=$SLURM_SCRATCH&quot; GenotypeGVCFs -R /scratch/alpine/mefr3284/ebio4100/reference/moch.dovetail.reference.hap1.scaffolds.renamed.fasta -V moch_gatk.g.vcf.gz -O moch_gatk.vcf.gz
 </code></pre>
 </details>
 <p>Notice that an index file was also made! (<code>moch_gatk.g.vcf.gz.tbi</code>)</p>
+<p>GATK has really good documentation, including this <a href="https://gatk.broadinstitute.org/hc/en-us">Best Practices workflow</a> that describes the gold standard for genome processing.</p>
 </div>
 <div id="call-variants-with-bcftools" class="section level2 hasAnchor" number="4.3">
 <h2><span class="header-section-number">4.3</span> Call variants with bcftools<a href="variant-calling.html#call-variants-with-bcftools" class="anchor-section" aria-label="Anchor link to header"></a></h2>
@@ -192,7 +216,7 @@ gatk --java-options &quot;-Djava.io.tmpdir=$SLURM_SCRATCH&quot; GenotypeGVCFs -R
 <pre class="foldable"><code>
 module load BCFtools
 
-bcftools mpileup -f /scratch/alpine/mefr3284/ebio4100/reference_genome/moch.dovetail.reference.hap1.scaffolds.renamed.fasta mountain_chickadee.filtered.sorted.bam -a DP,AD -Ou | bcftools call -mv -Oz -f GQ -o moch_bcftools.vcf.gz
+bcftools mpileup -f /scratch/alpine/mefr3284/ebio4100/reference/moch.dovetail.reference.hap1.scaffolds.renamed.fasta mountain_chickadee.filtered.sorted.nodup.bam -a DP,AD -Ou | bcftools call -mv -Oz -f GQ -o moch_bcftools.vcf.gz
 
 tabix -fp vcf moch_bcftools.vcf.gz
 </code></pre>
@@ -236,92 +260,6 @@ grep PSC stats.txt
   overflow-x: auto;
 }
 </style>
-<table style="width:100%;">
-<colgroup>
-<col width="7%" />
-<col width="7%" />
-<col width="7%" />
-<col width="7%" />
-<col width="7%" />
-<col width="7%" />
-<col width="7%" />
-<col width="7%" />
-<col width="7%" />
-<col width="7%" />
-<col width="7%" />
-<col width="7%" />
-<col width="7%" />
-<col width="7%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th>PSC</th>
-<th>[2]id</th>
-<th>[3]sample</th>
-<th>[4]nRefHom</th>
-<th>[5]nNonRefHom</th>
-<th>[6]nHets</th>
-<th>[7]nTransitions</th>
-<th>[8]nTransversions</th>
-<th>[9]nIndels</th>
-<th>[10]average depth</th>
-<th>[11]nSingletons</th>
-<th>[12]nHapRef</th>
-<th>[13]nHapAlt</th>
-<th>[14]nMissing</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>PSC</td>
-<td>0</td>
-<td>moch21</td>
-<td>0</td>
-<td>94</td>
-<td>0</td>
-<td>43</td>
-<td>51</td>
-<td>227</td>
-<td>1.9</td>
-<td>321</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-</tr>
-<tr class="even">
-<td>PSC</td>
-<td>1</td>
-<td>moch21</td>
-<td>0</td>
-<td>5263</td>
-<td>0</td>
-<td>3367</td>
-<td>1896</td>
-<td>202</td>
-<td>1.0</td>
-<td>5465</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-</tr>
-<tr class="odd">
-<td>PSC</td>
-<td>2</td>
-<td>moch21</td>
-<td>0</td>
-<td>2745</td>
-<td>1</td>
-<td>1878</td>
-<td>868</td>
-<td>30</td>
-<td>2.0</td>
-<td>2776</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-</tr>
-</tbody>
-</table>
 <pre style="max-width: 1000px;"><code>|PSC|[2]id|[3]sample|[4]nRefHom|[5]nNonRefHom|[6]nHets|[7]nTransitions|[8]nTransversions|[9]nIndels|[10]average depth|[11]nSingletons|[12]nHapRef|[13]nHapAlt|[14]nMissing|
 |---|---|---|---|---|---|---|---|---|---|---|---|---|---|
 |PSC|0|moch21|0|94|0|43|51|227|1.9|321|0|0|0|

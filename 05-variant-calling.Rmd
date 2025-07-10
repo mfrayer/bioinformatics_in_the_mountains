@@ -41,7 +41,7 @@ Note: GATK provides cluster-specific instructions when you load the module.
 
 module load gatk
 
-gatk --java-options "-Djava.io.tmpdir=$SLURM_SCRATCH" HaplotypeCaller -R /scratch/alpine/mefr3284/ebio4100/reference_genome/moch.dovetail.reference.hap1.scaffolds.renamed.fasta -I mountain_chickadee.filtered.sorted.bam -O moch_gatk.g.vcf.gz -ERC GVCF
+gatk --java-options "-Djava.io.tmpdir=$SLURM_SCRATCH" HaplotypeCaller -R /scratch/alpine/mefr3284/ebio4100/reference/moch.dovetail.reference.hap1.scaffolds.renamed.fasta -I mountain_chickadee.filtered.sorted.nodup.bam -O moch_gatk.g.vcf.gz -ERC GVCF
 
 ```
 
@@ -49,7 +49,7 @@ gatk --java-options "-Djava.io.tmpdir=$SLURM_SCRATCH" HaplotypeCaller -R /scratc
 
 ```{cat, class.source='foldable'}
 
-gatk --java-options "-Djava.io.tmpdir=$SLURM_SCRATCH" GenotypeGVCFs -R /scratch/alpine/mefr3284/ebio4100/reference_genome/moch.dovetail.reference.hap1.scaffolds.renamed.fasta -V moch_gatk.g.vcf.gz -O moch_gatk.vcf.gz
+gatk --java-options "-Djava.io.tmpdir=$SLURM_SCRATCH" GenotypeGVCFs -R /scratch/alpine/mefr3284/ebio4100/reference/moch.dovetail.reference.hap1.scaffolds.renamed.fasta -V moch_gatk.g.vcf.gz -O moch_gatk.vcf.gz
 
 ```
 
@@ -70,7 +70,7 @@ There are also two steps to this variant calling, but we can pipe from one to th
 
 module load BCFtools
 
-bcftools mpileup -f /scratch/alpine/mefr3284/ebio4100/reference_genome/moch.dovetail.reference.hap1.scaffolds.renamed.fasta mountain_chickadee.filtered.sorted.bam -a DP,AD -Ou | bcftools call -mv -Oz -f GQ -o moch_bcftools.vcf.gz
+bcftools mpileup -f /scratch/alpine/mefr3284/ebio4100/reference/moch.dovetail.reference.hap1.scaffolds.renamed.fasta mountain_chickadee.filtered.sorted.nodup.bam -a DP,AD -Ou | bcftools call -mv -Oz -f GQ -o moch_bcftools.vcf.gz
 
 tabix -fp vcf moch_bcftools.vcf.gz
 
@@ -132,7 +132,7 @@ Below is a sample table (yours may or may not be identical). You will notice tha
 ```
 
 
-```{r class.source="scrolling", echo=FALSE, message=FALSE, warnings=FALSE, results='asis'}
+```{r class.source="scrolling", echo=FALSE, message=FALSE, warnings=FALSE, results='asis',eval=FALSE}
 tabl <- "
 |PSC|[2]id|[3]sample|[4]nRefHom|[5]nNonRefHom|[6]nHets|[7]nTransitions|[8]nTransversions|[9]nIndels|[10]average depth|[11]nSingletons|[12]nHapRef|[13]nHapAlt|[14]nMissing|
 |---|---|---|---|---|---|---|---|---|---|---|---|---|---|
