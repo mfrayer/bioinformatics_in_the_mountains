@@ -3,13 +3,15 @@
 Today we will use the bam file that we made in the last class to call variants (`mountain_chickadee.filtered.sorted.bam`). We will call variants using two popular approaches. 
 If your file was deleted, you can copy a new one from the shared folder. 
 
-**1. Make folders for today, and copy your file into it.**
+**1. Make folders for today, and copy your file into it. Then, start an interactive job.**
 
 ```{cat, class.source='foldable'}
 cd /scratch/alpine/usrname
 mkdir day_4 
 cp $shared/day_4/* day_4/
 cd day_4 
+
+sinteractive --partition=alpine -t 4:00:00
 ```
 
 
@@ -24,6 +26,8 @@ To remove duplicates, we will use Picard. Picard is a large and powerful program
 ```{cat, class.source='foldable'}
 module load picard 
 picard MarkDuplicates -INPUT mountain_chickadee.filtered.sorted.bam -OUTPUT mountain_chickadee.filtered.sorted.nodup.bam -METRICS_FILE mountain_chickadee.duplicate.metrics -REMOVE_DUPLICATES true -ASSUME_SORTED true -TMP_DIR tmp_mountain_chickadee -VALIDATION_STRINGENCY LENIENT
+
+module load samtools 
 samtools index mountain_chickadee.filtered.sorted.nodup.bam
 ```
 
@@ -68,7 +72,7 @@ There are also two steps to this variant calling, but we can pipe from one to th
 
 ```{cat, class.source='foldable'}
 
-module load BCFtools
+module load bcftools
 
 bcftools mpileup -f /scratch/alpine/mefr3284/ebio4100/reference/moch.dovetail.reference.hap1.scaffolds.renamed.fasta mountain_chickadee.filtered.sorted.nodup.bam -a DP,AD -Ou | bcftools call -mv -Oz -f GQ -o moch_bcftools.vcf.gz
 
@@ -157,7 +161,7 @@ The hard truth is that we don't know the real genotypes-- both of these files pr
 
 ## Assignment 
 
-Create a script that will call variants in the BAM file you made in yesterday's assignment (`20H102_S21_L002_R2_001`). You can use either program. When you are done, copy it to the folder `$turnin/day_4/`. Make sure you add your name to the file name! Try to run it on the cluster, it may take a few hours. 
+Create a script that will remove duplicates and call variants in the BAM file you made in yesterday's assignment (`20H102_S21_L002_R2_001.filtered.sorted.bam`). You can use either program. When you are done, copy it to the folder `$turnin/day_4/`. Make sure you add your name to the file name! Try to run it on the cluster, it may take a few hours. 
 
 *Hint 1:*
 

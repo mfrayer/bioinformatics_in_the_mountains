@@ -1,0 +1,147 @@
+# Variant filtering 
+
+## Introduction to BCFtools 
+
+Yesterday we used the variant caller built into BCFtools, but BCFtools is actually a very large program with a lot of functions for processing VCF files. 
+
+Take a minute to look at the [manual](https://samtools.github.io/bcftools/bcftools.html) and see the different functions. 
+
+**1. Make folders for today, and copy your file into it. Then, start an interactive job.**
+
+```{cat, class.source='foldable'}
+cd /scratch/alpine/usrname
+mkdir day_5
+cp $shared/day_5/* day_5/
+cd day_5 
+
+sinteractive --partition=alpine -t 4:00:00
+```
+
+
+## Filter for quality
+
+**2. Filter your VCF based on quality.** 
+
+Flags `-i` and `-e` are inverses of each other ("include" vs "exclude"), so the two commands below should be equivalent. 
+
+Note that on this cluster, we need to load the samtools module in order to get access to `bgzip`. BCFtools prefers bgzipped VCF files. 
+
+```{cat, class.source='foldable'}
+module load bcftools
+module load samtools 
+
+bcftools view -i "QUAL>30" moch_bcftools.vcf.gz | bgzip -c > moch.filteredI.vcf.gz
+
+bcftools view -e "QUAL<30" moch_bcftools.vcf.gz | bgzip -c > moch.filteredE.vcf.gz
+
+```
+
+**3. How did the file change? How many sites are in the file now? **
+
+```{cat, class.source='foldable'}
+bcftools view -H moch_bcftools.vcf.gz | wc -l
+bcftools view -H moch.filteredI.vcf.gz | wc -l
+bcftools view -H moch.filteredE.vcf.gz | wc -l
+```
+
+**4. What if we use filter instead of view?**
+
+```{cat, class.source='foldable'}
+bcftools filter -i "QUAL>30" moch_bcftools.vcf.gz | bgzip -c > moch.filteredI2.vcf.gz
+bcftools view -H moch_bcftools.vcf.gz | wc -l
+bcftools view -H moch.filteredI.vcf.gz | wc -l
+bcftools view -H moch.filteredI2.vcf.gz | wc -l
+```
+
+How did the file change? 
+
+If you're not sure, try `bcftools view -r Chr8_1:436750-436760` with both files. 
+
+## Filter for biallelic SNPs
+
+Many statistical analyses will require you to select only the biallelic SNPs (i.e. records where there are two possible variants).
+
+**5. Filter for biallelic SNPs.**
+
+```{cat, class.source='foldable'}
+bcftools view -type SNP -m 2 -M 2 moch.filteredE.vcf.gz > moch.filtered.bSNPs.vcf.gz 
+```
+
+**6. How did the file change? How many sites are in the file now? **
+
+```{cat, class.source='foldable'}
+bcftools view -H moch.filteredE.vcf.gz | wc -l
+bcftools view -H moch.filtered.bSNPs.vcf.gz | wc -l
+```
+
+
+## Filter for frequency
+
+Many analyses will be affected by low frequency variants (i.e. variants that only occur in a small number of haplotypes in your sample). We can also use `bcftools` to filter based on frequency. 
+
+The commands below will not be useful on our VCF file because it only contains one individual. Instead of running them, look up the flags -ac and -q in the [BCFtools Manual](https://samtools.github.io/bcftools/bcftools.html). 
+
+**7. What would each of these commands do in a multisample VCF? What will they do if we run them on our file? **
+
+```{cat, class.source='foldable'}
+bcftools view -ac 2 moch.filtered.vcf.gz > moch.filtered.minAC2.vcf.gz 
+bcftools view -q > 0.5 moch.filtered.vcf.gz > moch.filtered.minFreq05.vcf.gz 
+```
+
+## bcftools query 
+
+`bcftools query` is a really useful tool for creating custom tables from your VCF files. 
+
+*8. Make a table that shows the allele depth for each variant. **
+
+```{cat, class.source='foldable'}
+bcftools query -f '%CHROM %POS %REF %ALT [%AD ]\n' moch.filteredI.vcf.gz > moch.alleleDepth.table
+```
+
+*9. What is the distribution of allele depths that were used to call these variants? **
+
+Once we make a custom table with `query`, we can easily process them with other tools. You might use it as inputs for customs scripts in R or python, or you can even parse them with command line tools. 
+
+There are three new commands that can help us answer the question posed here. 
+1. `cut` can be used to split columns in tab-delimited files. Since we made our table space-delimited, we specify that with the `-d" "` flag. The flag `-f5` tells cut to return only column 5. 
+2. `sort` sorts the rows. They can be sorted numerically, but in this case we just want the matching rows to group together. 
+3. `uniq` selects the unique rows from the input. `uniq` only compares one line to the next, so you often need to combine `uniq` with `sort` to make sure that matching lines are next to each other. Combining `sort` and `unique` is often useful for checking for errors in files. The `-c` flag with `uniq` will return the number of lines of each type, rather than just the lines themselves. 
+
+```{cat, class.source='foldable'}
+cut -d" " -f5 moch.alleleDepth.table | sort | uniq -c  
+```
+
+**10. How many alternative alleles are A, T, G, or C? **
+
+```{cat, class.source='foldable'}
+cut -d" " -f4 moch.alleleDepth.table | grep '^[ATGC]$' | sort | uniq -c
+```
+
+## Assignment 
+
+Create a script that will filter for quality and remove indels in the VCF file you created yesterday. When you are done, copy it to the folder `$turnin/day_5/`. Make sure you add your name to the file name! 
+
+*Hint 1:* 
+
+```{cat, class.source='foldable'}
+
+Your header could look like: 
+  
+#!/bin/bash
+
+#SBATCH --nodes=1
+#SBATCH --ntasks=1
+#SBATCH --time=0:30:00
+#SBATCH --partition=amilan 
+#SBATCH --output=filtering.out
+#SBATCH --qos=normal  
+
+```
+
+
+*Hint 2:* 
+
+```{cat, class.source='foldable'}
+You can combine multiple filtering flags into one bcftools command.  
+```
+
