@@ -29,3 +29,10 @@ call-variants-with-gatk
 call-variants-with-bcftools
 are-they-all-the-same
 assignment-3
+variant-filtering
+introduction-to-bcftools
+filter-for-quality
+filter-for-biallelic-snps
+filter-for-frequency
+bcftools-query
+assignment-4

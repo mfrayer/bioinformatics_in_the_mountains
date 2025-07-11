@@ -23,7 +23,7 @@
 <meta name="author" content="Megan Frayer" />
 
 
-<meta name="date" content="2025-07-10" />
+<meta name="date" content="2025-07-11" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -31,7 +31,7 @@
   
   
 <link rel="prev" href="alignment-of-whole-genome-data.html"/>
-<link rel="next" href="references.html"/>
+<link rel="next" href="variant-filtering.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -142,6 +142,15 @@ div.csl-indent {
 <li class="chapter" data-level="4.4" data-path="variant-calling.html"><a href="variant-calling.html#are-they-all-the-same"><i class="fa fa-check"></i><b>4.4</b> Are they all the same?</a></li>
 <li class="chapter" data-level="4.5" data-path="variant-calling.html"><a href="variant-calling.html#assignment-3"><i class="fa fa-check"></i><b>4.5</b> Assignment</a></li>
 </ul></li>
+<li class="chapter" data-level="5" data-path="variant-filtering.html"><a href="variant-filtering.html"><i class="fa fa-check"></i><b>5</b> Variant filtering</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="variant-filtering.html"><a href="variant-filtering.html#introduction-to-bcftools"><i class="fa fa-check"></i><b>5.1</b> Introduction to BCFtools</a></li>
+<li class="chapter" data-level="5.2" data-path="variant-filtering.html"><a href="variant-filtering.html#filter-for-quality"><i class="fa fa-check"></i><b>5.2</b> Filter for quality</a></li>
+<li class="chapter" data-level="5.3" data-path="variant-filtering.html"><a href="variant-filtering.html#filter-for-biallelic-snps"><i class="fa fa-check"></i><b>5.3</b> Filter for biallelic SNPs</a></li>
+<li class="chapter" data-level="5.4" data-path="variant-filtering.html"><a href="variant-filtering.html#filter-for-frequency"><i class="fa fa-check"></i><b>5.4</b> Filter for frequency</a></li>
+<li class="chapter" data-level="5.5" data-path="variant-filtering.html"><a href="variant-filtering.html#bcftools-query"><i class="fa fa-check"></i><b>5.5</b> bcftools query</a></li>
+<li class="chapter" data-level="5.6" data-path="variant-filtering.html"><a href="variant-filtering.html#assignment-4"><i class="fa fa-check"></i><b>5.6</b> Assignment</a></li>
+</ul></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
@@ -167,12 +176,14 @@ div.csl-indent {
 <h1><span class="header-section-number">Activity 4</span> Variant calling<a href="variant-calling.html#variant-calling" class="anchor-section" aria-label="Anchor link to header"></a></h1>
 <p>Today we will use the bam file that we made in the last class to call variants (<code>mountain_chickadee.filtered.sorted.bam</code>). We will call variants using two popular approaches.
 If your file was deleted, you can copy a new one from the shared folder.</p>
-<p><strong>1. Make folders for today, and copy your file into it.</strong></p>
+<p><strong>1. Make folders for today, and copy your file into it. Then, start an interactive job.</strong></p>
 <details class=chunk-details><summary class=chunk-summary><span class=chunk-summary-text>Code</span></summary>
 <pre class="foldable"><code>cd /scratch/alpine/usrname
 mkdir day_4 
 cp $shared/day_4/* day_4/
-cd day_4 </code></pre>
+cd day_4 
+
+sinteractive --partition=alpine -t 4:00:00</code></pre>
 </details>
 <div id="remove-duplicates-from-the-bam-file" class="section level2 hasAnchor" number="4.1">
 <h2><span class="header-section-number">4.1</span> Remove duplicates from the BAM file<a href="variant-calling.html#remove-duplicates-from-the-bam-file" class="anchor-section" aria-label="Anchor link to header"></a></h2>
@@ -182,6 +193,8 @@ cd day_4 </code></pre>
 <details class=chunk-details><summary class=chunk-summary><span class=chunk-summary-text>Code</span></summary>
 <pre class="foldable"><code>module load picard 
 picard MarkDuplicates -INPUT mountain_chickadee.filtered.sorted.bam -OUTPUT mountain_chickadee.filtered.sorted.nodup.bam -METRICS_FILE mountain_chickadee.duplicate.metrics -REMOVE_DUPLICATES true -ASSUME_SORTED true -TMP_DIR tmp_mountain_chickadee -VALIDATION_STRINGENCY LENIENT
+
+module load samtools 
 samtools index mountain_chickadee.filtered.sorted.nodup.bam</code></pre>
 </details>
 <p>In the case of this small set of reads, there are no duplicates, so we have not changed anything in the file. If you look at the file <code>mountain_chickadee.duplicate.metrics</code> you can see the counts of reads that it examined.</p>
@@ -214,7 +227,7 @@ gatk --java-options &quot;-Djava.io.tmpdir=$SLURM_SCRATCH&quot; GenotypeGVCFs -R
 <p>There are also two steps to this variant calling, but we can pipe from one to the other without making the large intermediate file.</p>
 <details class=chunk-details><summary class=chunk-summary><span class=chunk-summary-text>Code</span></summary>
 <pre class="foldable"><code>
-module load BCFtools
+module load bcftools
 
 bcftools mpileup -f /scratch/alpine/mefr3284/ebio4100/reference/moch.dovetail.reference.hap1.scaffolds.renamed.fasta mountain_chickadee.filtered.sorted.nodup.bam -a DP,AD -Ou | bcftools call -mv -Oz -f GQ -o moch_bcftools.vcf.gz
 
@@ -270,7 +283,7 @@ grep PSC stats.txt
 </div>
 <div id="assignment-3" class="section level2 hasAnchor" number="4.5">
 <h2><span class="header-section-number">4.5</span> Assignment<a href="variant-calling.html#assignment-3" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>Create a script that will call variants in the BAM file you made in yesterday’s assignment (<code>20H102_S21_L002_R2_001</code>). You can use either program. When you are done, copy it to the folder <code>$turnin/day_4/</code>. Make sure you add your name to the file name! Try to run it on the cluster, it may take a few hours.</p>
+<p>Create a script that will remove duplicates and call variants in the BAM file you made in yesterday’s assignment (<code>20H102_S21_L002_R2_001.filtered.sorted.bam</code>). You can use either program. When you are done, copy it to the folder <code>$turnin/day_4/</code>. Make sure you add your name to the file name! Try to run it on the cluster, it may take a few hours.</p>
 <p><em>Hint 1:</em></p>
 <details class=chunk-details><summary class=chunk-summary><span class=chunk-summary-text>Code</span></summary>
 <pre class="foldable"><code>
@@ -307,7 +320,7 @@ Make sure you have the names and locations of the files correct!
         </div>
       </div>
 <a href="alignment-of-whole-genome-data.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="references.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="variant-filtering.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>References | EBIO4100: Bioinformatics in the Mountains</title>
+  <title>Activity 5 Variant filtering | EBIO4100: Bioinformatics in the Mountains</title>
   <meta name="description" content="This bookdown organizes the course materials for EBIO4100: Intro to Bioinformatics, taught Summer 2025." />
   <meta name="generator" content="bookdown 0.43 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="References | EBIO4100: Bioinformatics in the Mountains" />
+  <meta property="og:title" content="Activity 5 Variant filtering | EBIO4100: Bioinformatics in the Mountains" />
   <meta property="og:type" content="book" />
   <meta property="og:image" content="/images/logo_hagar.JPG" />
   <meta property="og:description" content="This bookdown organizes the course materials for EBIO4100: Intro to Bioinformatics, taught Summer 2025." />
   <meta name="github-repo" content="mfrayer/bioinformatics_in_the_mountains" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="References | EBIO4100: Bioinformatics in the Mountains" />
+  <meta name="twitter:title" content="Activity 5 Variant filtering | EBIO4100: Bioinformatics in the Mountains" />
   
   <meta name="twitter:description" content="This bookdown organizes the course materials for EBIO4100: Intro to Bioinformatics, taught Summer 2025." />
   <meta name="twitter:image" content="/images/logo_hagar.JPG" />
@@ -30,8 +30,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="variant-filtering.html"/>
-
+<link rel="prev" href="variant-calling.html"/>
+<link rel="next" href="references.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -172,16 +172,119 @@ div.csl-indent {
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="references" class="section level1 unnumbered hasAnchor">
-<h1>References<a href="references.html#references" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="variant-filtering" class="section level1 hasAnchor" number="5">
+<h1><span class="header-section-number">Activity 5</span> Variant filtering<a href="variant-filtering.html#variant-filtering" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="introduction-to-bcftools" class="section level2 hasAnchor" number="5.1">
+<h2><span class="header-section-number">5.1</span> Introduction to BCFtools<a href="variant-filtering.html#introduction-to-bcftools" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Yesterday we used the variant caller built into BCFtools, but BCFtools is actually a very large program with a lot of functions for processing VCF files.</p>
+<p>Take a minute to look at the <a href="https://samtools.github.io/bcftools/bcftools.html">manual</a> and see the different functions.</p>
+<p><strong>1. Make folders for today, and copy your file into it. Then, start an interactive job.</strong></p>
+<details class=chunk-details><summary class=chunk-summary><span class=chunk-summary-text>Code</span></summary>
+<pre class="foldable"><code>cd /scratch/alpine/usrname
+mkdir day_5
+cp $shared/day_5/* day_5/
+cd day_5 
 
-<div id="refs" class="references csl-bib-body hanging-indent" entry-spacing="0">
-<div class="csl-entry">
-Edgar, Robert C., and Serafim Batzoglou. 2006. <span>“Multiple Sequence Alignment.”</span> <em>Current Opinion in Structural Biology</em> 16 (3): 368–73. https://doi.org/<a href="https://doi.org/10.1016/j.sbi.2006.04.004">https://doi.org/10.1016/j.sbi.2006.04.004</a>.
+sinteractive --partition=alpine -t 4:00:00</code></pre>
+</details>
 </div>
-<div class="csl-entry">
-Katoh, Kazutaka, John Rozewicki, and Kazunori D Yamada. 2019. <span>“<span>MAFFT</span> Online Service: Multiple Sequence Alignment, Interactive Sequence Choice and Visualization.”</span> <em>Briefings in Bioinformatics</em> 20 (4): 1160–66. <a href="https://doi.org/10.1093/bib/bbx108">https://doi.org/10.1093/bib/bbx108</a>.
+<div id="filter-for-quality" class="section level2 hasAnchor" number="5.2">
+<h2><span class="header-section-number">5.2</span> Filter for quality<a href="variant-filtering.html#filter-for-quality" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p><strong>2. Filter your VCF based on quality.</strong></p>
+<p>Flags <code>-i</code> and <code>-e</code> are inverses of each other (“include” vs “exclude”), so the two commands below should be equivalent.</p>
+<p>Note that on this cluster, we need to load the samtools module in order to get access to <code>bgzip</code>. BCFtools prefers bgzipped VCF files.</p>
+<details class=chunk-details><summary class=chunk-summary><span class=chunk-summary-text>Code</span></summary>
+<pre class="foldable"><code>module load bcftools
+module load samtools 
+
+bcftools view -i &quot;QUAL&gt;30&quot; moch_bcftools.vcf.gz | bgzip -c &gt; moch.filteredI.vcf.gz
+
+bcftools view -e &quot;QUAL&lt;30&quot; moch_bcftools.vcf.gz | bgzip -c &gt; moch.filteredE.vcf.gz
+</code></pre>
+</details>
+<p><strong>3. How did the file change? How many sites are in the file now? </strong></p>
+<details class=chunk-details><summary class=chunk-summary><span class=chunk-summary-text>Code</span></summary>
+<pre class="foldable"><code>bcftools view -H moch_bcftools.vcf.gz | wc -l
+bcftools view -H moch.filteredI.vcf.gz | wc -l
+bcftools view -H moch.filteredE.vcf.gz | wc -l</code></pre>
+</details>
+<p><strong>4. What if we use filter instead of view?</strong></p>
+<details class=chunk-details><summary class=chunk-summary><span class=chunk-summary-text>Code</span></summary>
+<pre class="foldable"><code>bcftools filter -i &quot;QUAL&gt;30&quot; moch_bcftools.vcf.gz | bgzip -c &gt; moch.filteredI2.vcf.gz
+bcftools view -H moch_bcftools.vcf.gz | wc -l
+bcftools view -H moch.filteredI.vcf.gz | wc -l
+bcftools view -H moch.filteredI2.vcf.gz | wc -l</code></pre>
+</details>
+<p>How did the file change?</p>
+<p>If you’re not sure, try <code>bcftools view -r Chr8_1:436750-436760</code> with both files.</p>
 </div>
+<div id="filter-for-biallelic-snps" class="section level2 hasAnchor" number="5.3">
+<h2><span class="header-section-number">5.3</span> Filter for biallelic SNPs<a href="variant-filtering.html#filter-for-biallelic-snps" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Many statistical analyses will require you to select only the biallelic SNPs (i.e. records where there are two possible variants).</p>
+<p><strong>5. Filter for biallelic SNPs.</strong></p>
+<details class=chunk-details><summary class=chunk-summary><span class=chunk-summary-text>Code</span></summary>
+<pre class="foldable"><code>bcftools view -type SNP -m 2 -M 2 moch.filteredE.vcf.gz &gt; moch.filtered.bSNPs.vcf.gz </code></pre>
+</details>
+<p><strong>6. How did the file change? How many sites are in the file now? </strong></p>
+<details class=chunk-details><summary class=chunk-summary><span class=chunk-summary-text>Code</span></summary>
+<pre class="foldable"><code>bcftools view -H moch.filteredE.vcf.gz | wc -l
+bcftools view -H moch.filtered.bSNPs.vcf.gz | wc -l</code></pre>
+</details>
+</div>
+<div id="filter-for-frequency" class="section level2 hasAnchor" number="5.4">
+<h2><span class="header-section-number">5.4</span> Filter for frequency<a href="variant-filtering.html#filter-for-frequency" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Many analyses will be affected by low frequency variants (i.e. variants that only occur in a small number of haplotypes in your sample). We can also use <code>bcftools</code> to filter based on frequency.</p>
+<p>The commands below will not be useful on our VCF file because it only contains one individual. Instead of running them, look up the flags -ac and -q in the <a href="https://samtools.github.io/bcftools/bcftools.html">BCFtools Manual</a>.</p>
+<p><strong>7. What would each of these commands do in a multisample VCF? What will they do if we run them on our file? </strong></p>
+<details class=chunk-details><summary class=chunk-summary><span class=chunk-summary-text>Code</span></summary>
+<pre class="foldable"><code>bcftools view -ac 2 moch.filtered.vcf.gz &gt; moch.filtered.minAC2.vcf.gz 
+bcftools view -q &gt; 0.5 moch.filtered.vcf.gz &gt; moch.filtered.minFreq05.vcf.gz </code></pre>
+</details>
+</div>
+<div id="bcftools-query" class="section level2 hasAnchor" number="5.5">
+<h2><span class="header-section-number">5.5</span> bcftools query<a href="variant-filtering.html#bcftools-query" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p><code>bcftools query</code> is a really useful tool for creating custom tables from your VCF files.</p>
+<p>*8. Make a table that shows the allele depth for each variant. **</p>
+<details class=chunk-details><summary class=chunk-summary><span class=chunk-summary-text>Code</span></summary>
+<pre class="foldable"><code>bcftools query -f &#39;%CHROM %POS %REF %ALT [%AD ]\n&#39; moch.filteredI.vcf.gz &gt; moch.alleleDepth.table</code></pre>
+</details>
+<p>*9. What is the distribution of allele depths that were used to call these variants? **</p>
+<p>Once we make a custom table with <code>query</code>, we can easily process them with other tools. You might use it as inputs for customs scripts in R or python, or you can even parse them with command line tools.</p>
+<p>There are three new commands that can help us answer the question posed here.
+1. <code>cut</code> can be used to split columns in tab-delimited files. Since we made our table space-delimited, we specify that with the <code>-d" "</code> flag. The flag <code>-f5</code> tells cut to return only column 5.
+2. <code>sort</code> sorts the rows. They can be sorted numerically, but in this case we just want the matching rows to group together.
+3. <code>uniq</code> selects the unique rows from the input. <code>uniq</code> only compares one line to the next, so you often need to combine <code>uniq</code> with <code>sort</code> to make sure that matching lines are next to each other. Combining <code>sort</code> and <code>unique</code> is often useful for checking for errors in files. The <code>-c</code> flag with <code>uniq</code> will return the number of lines of each type, rather than just the lines themselves.</p>
+<details class=chunk-details><summary class=chunk-summary><span class=chunk-summary-text>Code</span></summary>
+<pre class="foldable"><code>cut -d&quot; &quot; -f5 moch.alleleDepth.table | sort | uniq -c  </code></pre>
+</details>
+<p><strong>10. How many alternative alleles are A, T, G, or C? </strong></p>
+<details class=chunk-details><summary class=chunk-summary><span class=chunk-summary-text>Code</span></summary>
+<pre class="foldable"><code>cut -d&quot; &quot; -f4 moch.alleleDepth.table | grep &#39;^[ATGC]$&#39; | sort | uniq -c</code></pre>
+</details>
+</div>
+<div id="assignment-4" class="section level2 hasAnchor" number="5.6">
+<h2><span class="header-section-number">5.6</span> Assignment<a href="variant-filtering.html#assignment-4" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Create a script that will filter for quality and remove indels in the VCF file you created yesterday. When you are done, copy it to the folder <code>$turnin/day_5/</code>. Make sure you add your name to the file name!</p>
+<p><em>Hint 1:</em></p>
+<details class=chunk-details><summary class=chunk-summary><span class=chunk-summary-text>Code</span></summary>
+<pre class="foldable"><code>
+Your header could look like: 
+  
+#!/bin/bash
+
+#SBATCH --nodes=1
+#SBATCH --ntasks=1
+#SBATCH --time=0:30:00
+#SBATCH --partition=amilan 
+#SBATCH --output=filtering.out
+#SBATCH --qos=normal  
+</code></pre>
+</details>
+<p><em>Hint 2:</em></p>
+<details class=chunk-details><summary class=chunk-summary><span class=chunk-summary-text>Code</span></summary>
+<pre class="foldable"><code>You can combine multiple filtering flags into one bcftools command.  </code></pre>
+</details>
+
 </div>
 </div>
             </section>
@@ -189,8 +292,8 @@ Katoh, Kazutaka, John Rozewicki, and Kazunori D Yamada. 2019. <span>“<span>MAF
           </div>
         </div>
       </div>
-<a href="variant-filtering.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-
+<a href="variant-calling.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="references.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -211,7 +314,7 @@ gitbook.start({
     "size": 2
   },
   "edit": {
-    "link": "https://github.com/USERNAME/REPO/edit/BRANCH/13-bib.Rmd",
+    "link": "https://github.com/USERNAME/REPO/edit/BRANCH/06-variant-filtering.Rmd",
     "text": "Edit"
   },
   "history": {
