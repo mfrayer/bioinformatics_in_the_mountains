@@ -1,0 +1,134 @@
+# Basic Phylogenetics
+
+## UPGMA Tree
+
+**1. Our first activity today will be to build a UPGMA tree by hand from a small multiple sequence alignment (below). ** 
+
+```{cat, class.source='foldable'}
+>seqA
+CGTTACAGCAGTAGGCGAGTGTACT
+
+>seqB
+CGTTACAGCAGTAGGCGGGTGTACT
+
+>seqC
+CGATACATCAGTAGGCCAGTGTACT
+
+>seqD
+CGATACATCAGTAGGCGAGTGTACT
+
+>seqE
+CGTTACAGCCGTAGGGGAGTGTACT
+
+>seqF
+CGTTACAGCCGTATGCGAGTGTACT
+
+>seqG
+CGTTAGAGCAGTAGTCGACAATACG
+
+```
+
+::: {.learning data=latex=""}
+Here is a [useful walk through](https://www.youtube.com/watch?v=061ukTACDvY&list=PLjPAsbaa7pgGOrSPNBojU6lFCsJj7pvdJ&index=6) of how this algorithm works! 
+:::
+
+
+## MAFFT 
+
+Earlier this week we used [MAFFT](https://mafft.cbrc.jp/alignment/server/) for multiple sequence alignment, but we can also use it to build trees from those alignments. 
+
+**2. Put this sequence into MAFFT and create a UPGMA tree. Does this match what we made? **
+
+
+Now let's try to build a tree using the chickadee data from `day_2` (also now available in the `day_6` folder). 
+
+**3. Enter the chickadee data into MAFFT and create a tree. What does it look like?**
+
+**4. How is the tree different if you do UPGMA vs Neighbor Joining?** 
+
+## IQ-TREE 
+
+As we discussed in the morning, UPGMA and Neighbor-Joining algorithms make many simplistic assumptions about how sequences can evolve along a tree. Most trees are built using more complicated models. We will use the IQ-TREE web server to try out one of these approaches. 
+
+For this step, we will use the *Mimulus* data available in the `day_6` folder. These files are in a format we haven't seen yet called Phyllip. 
+
+**5. Make a phylogeny on IQ-TREE.**
+
+Go to the [IQ-TREE webserver](https://www.hiv.lanl.gov/content/sequence/IQTREE/iqtree.html) and put one of the files into the text box. Create a tree with the default settings. 
+
+**6. Now change the settings (and write down what you did!).**
+
+Did the tree change? 
+
+**7. From the last tree that you made, get the Newick format tree. (Click "Newick" above the image of your tree.) Send it to me with an explanation of your settings.** 
+
+You can email it or put it in a file on the cluster, whatever is easiest for you. 
+
+**8. Try running ultrafast bootstraps. What new information does this give us?**
+
+**9. Now, create a tree with the second Mimulus file. Use the same settings as one of your other trees so that we can make a direct comparison.**
+
+Do the trees differ? 
+
+**10. If you haven't yet, try rooting the tree using one of the two forms of midpoint rooting.**
+
+How does the tree change? 
+
+**11. Assuming we get it transferred properly before we get to this step, build a tree from the third Mimulus file. Make sure you use the same settings as one of your previous trees so you can make a direct comparison.**
+
+How does this file differ from the previous files? How does the tree differ? 
+
+**12. Hopefully by this point, we can compare the trees everyone made with different settings.**
+
+How different are the trees? 
+
+**13. Using all of the trees we made, what do we think is the relationship between these samples?** 
+
+## Assignment 
+
+For today's assignment, I want you to make a tree for a specific region of the chickadee genome. I have provided a script to start from. [Check out this paper to find some gene regions that might be interesting!](https://www.cell.com/current-biology/fulltext/S0960-9822(24)00398-1#mmc2) 
+
+After you have made the tree, put the Newick format tree into a file on the cluster. Put it in `$turnin/day_6` with your name in the file name. 
+
+::: {.caution data=latex=""}
+This script has a few issues, some of which are intentional for the sake of time. First, variant calling in a small region like this can produce unusual results and should be done with caution. Second, you would likely want to more carefully define the limits of your gene location using annotations, which we will discuss next week. Third, we are using bams that still have duplicates because there was an issue with the black-capped chickadee "nodup" BAMs. 
+:::
+
+
+
+*Hint 1:* 
+
+```{cat, class.source='foldable'}
+
+The steps you will want to take include: 
+  - calling variants 
+  - selecting sites to include 
+  - making a fasta format file 
+  - putting that fasta into an aligner
+  - creating a tree
+
+```
+
+
+*Hint 2:* 
+
+```{cat, class.source='foldable'}
+You can do all of this without writing a script, but you can also modify the script I provided!
+```
+
+
+
+::: {.learning data=latex=""}
+
+Here is more information on the programs we used today: 
+
+[IQ-TREE](https://iqtree.github.io/)
+
+[MAFFT](https://mafft.cbrc.jp/alignment/software/tips0.html)
+
+This is a link to an online Newick format viewer:
+[ETEToolkit](https://etetoolkit.org/treeview/)
+
+:::
+
+

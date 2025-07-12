@@ -36,3 +36,8 @@ filter-for-biallelic-snps
 filter-for-frequency
 bcftools-query
 assignment-4
+basic-phylogenetics
+upgma-tree
+mafft
+iq-tree
+assignment-5

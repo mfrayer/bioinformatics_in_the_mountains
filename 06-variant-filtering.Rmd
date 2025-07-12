@@ -64,7 +64,7 @@ Many statistical analyses will require you to select only the biallelic SNPs (i.
 **5. Filter for biallelic SNPs.**
 
 ```{cat, class.source='foldable'}
-bcftools view -type SNP -m 2 -M 2 moch.filteredE.vcf.gz > moch.filtered.bSNPs.vcf.gz 
+bcftools view --type snps -m 2 -M 2 moch.filteredE.vcf.gz > moch.filtered.bSNPs.vcf.gz 
 ```
 
 **6. How did the file change? How many sites are in the file now? **
@@ -84,7 +84,7 @@ The commands below will not be useful on our VCF file because it only contains o
 **7. What would each of these commands do in a multisample VCF? What will they do if we run them on our file? **
 
 ```{cat, class.source='foldable'}
-bcftools view -ac 2 moch.filtered.vcf.gz > moch.filtered.minAC2.vcf.gz 
+bcftools view -c 2 moch.filtered.vcf.gz > moch.filtered.minAC2.vcf.gz 
 bcftools view -q > 0.5 moch.filtered.vcf.gz > moch.filtered.minFreq05.vcf.gz 
 ```
 
