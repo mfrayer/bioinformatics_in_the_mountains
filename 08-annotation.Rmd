@@ -88,13 +88,13 @@ This gff3 file was made by the Taylor lab with MAKER. You can find a tutorial fo
 
 Select a gene from [this paper](https://www.cell.com/current-biology/fulltext/S0960-9822(24)00398-1#mmc2) (maybe the one you built a phylogeny for on Saturday). 
 
-**Enter it's name into the [gene ontology database](https://geneontology.org/). **
+**9. Enter it's name into the [gene ontology database](https://geneontology.org/). **
 
 The chickadee genome is too new to be listed in this database, instead select the chicken genome (*Gallus gallus*). 
 
 What kind of information is there? What does it tell you about the gene? Does it make sense given what we know about the gene from the paper? (If your gene name is not found, try CHRNA5).
 
-**In the analysis summary section, change the database you are comparing against. **
+**10. In the analysis summary section, change the database you are comparing against. **
 
 What new information does this give you?  
 
