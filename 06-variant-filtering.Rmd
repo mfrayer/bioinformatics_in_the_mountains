@@ -14,7 +14,7 @@ mkdir day_5
 cp $shared/day_5/* day_5/
 cd day_5 
 
-sinteractive --partition=alpine -t 4:00:00
+sinteractive --partition=amilan -t 4:00:00
 ```
 
 

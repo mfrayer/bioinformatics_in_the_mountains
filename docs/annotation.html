@@ -195,7 +195,7 @@ mkdir day_7
 cp $shared/day_7/* day_7/
 cd day_7 
 
-sinteractive --partition=alpine -t 4:00:00</code></pre>
+sinteractive --partition=amilan -t 4:00:00</code></pre>
 </details>
 <div id="find-features-in-a-sequence" class="section level2 hasAnchor" number="7.1">
 <h2><span class="header-section-number">7.1</span> Find features in a sequence<a href="annotation.html#find-features-in-a-sequence" class="anchor-section" aria-label="Anchor link to header"></a></h2>
@@ -203,11 +203,11 @@ sinteractive --partition=alpine -t 4:00:00</code></pre>
 <p><strong>2. How many potential start codons are in this sequence? </strong></p>
 <p>For simplicity, let’s only worry about one strand direction.</p>
 <details class=chunk-details><summary class=chunk-summary><span class=chunk-summary-text>Code</span></summary>
-<pre class="foldable"><code>grep -o &#39;ATG&#39; chickadee.fasta | wc -l</code></pre>
+<pre class="foldable"><code>grep -o &#39;ATG&#39; searchable_gene.txt | wc -l</code></pre>
 </details>
 <p><strong>3. How many potential stop codons are in this sequence?</strong></p>
 <details class=chunk-details><summary class=chunk-summary><span class=chunk-summary-text>Code</span></summary>
-<pre class="foldable"><code>grep -o &quot;TAA\|TAG\|TGA&quot; chickadee.fasta | wc -l
+<pre class="foldable"><code>grep -o &quot;TAA\|TAG\|TGA&quot; searchable_gene.txt | wc -l
 </code></pre>
 </details>
 <p><strong>4. Pick one potential gene and translate it into a protein.</strong></p>

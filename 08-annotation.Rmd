@@ -8,7 +8,7 @@ mkdir day_7
 cp $shared/day_7/* day_7/
 cd day_7 
 
-sinteractive --partition=alpine -t 4:00:00
+sinteractive --partition=amilan -t 4:00:00
 ```
 
 ## Find features in a sequence 
@@ -20,14 +20,14 @@ Look at the file `searchable_gene.txt` from the `day_7` folder.
 For simplicity, let's only worry about one strand direction. 
 
 ```{cat, class.source='foldable'}
-grep -o 'ATG' chickadee.fasta | wc -l
+grep -o 'ATG' searchable_gene.txt | wc -l
 ```
 
 
 **3. How many potential stop codons are in this sequence?** 
 
 ```{cat, class.source='foldable'}
-grep -o "TAA\|TAG\|TGA" chickadee.fasta | wc -l
+grep -o "TAA\|TAG\|TGA" searchable_gene.txt | wc -l
 
 ```
 
