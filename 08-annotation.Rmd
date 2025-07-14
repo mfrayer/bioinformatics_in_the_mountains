@@ -1,0 +1,113 @@
+# Annotation
+
+**1. Make folders for today, and copy your file into it. Then, start an interactive job.**
+
+```{cat, class.source='foldable'}
+cd /scratch/alpine/usrname
+mkdir day_7
+cp $shared/day_7/* day_7/
+cd day_7 
+
+sinteractive --partition=alpine -t 4:00:00
+```
+
+## Find features in a sequence 
+
+Look at the file `searchable_gene.txt` from the `day_7` folder. 
+
+**2. How many potential start codons are in this sequence? **
+
+For simplicity, let's only worry about one strand direction. 
+
+```{cat, class.source='foldable'}
+grep -o 'ATG' chickadee.fasta | wc -l
+```
+
+
+**3. How many potential stop codons are in this sequence?** 
+
+```{cat, class.source='foldable'}
+grep -o "TAA\|TAG\|TGA" chickadee.fasta | wc -l
+
+```
+
+
+**4. Pick one potential gene and translate it into a protein.**
+
+I recommend picking something small. 
+
+**5. Delete the 10th base pair in your gene. How does this change the predicted protein?** 
+
+## Intro to BEDtools 
+
+The annotation file is in a format called `gff`, which is often used for annotation files. We can easily convert it into a bed file and use BEDtools to process it. Take a look at the [BEDtools documentation](https://bedtools.readthedocs.io/en/latest/) to see what kinds of things it can do. 
+
+
+**6. How many types of features are there in the annotation file?** 
+
+```{cat, class.source='foldable'}
+cut -f3 $shared/reference/PO2749_Poecile_gambeli.annotation.scaf.renamed.gff | sort | uniq -c
+```
+
+**7. Pick a region of the genome (maybe the one you used for your phylogeny yesterday). How many features overlap that region? **
+
+```{cat, class.source='foldable'}
+# Prep the BED file with the location of your gene of interest. 
+echo "Chr10_1\t3458000\t3474000" > region_of_interest.bed
+
+# Compare it to the gff file
+
+module load bedtools 
+
+bedtools intersect -a $shared/reference/PO2749_Poecile_gambeli.annotation.scaf.renamed.gff -b region_of_interest.txt > overlapping_features.gff
+
+```
+
+**8. Using the VCF you generated on Friday, which sites overlap your features of interest? **
+
+Are there any SNPs in this region? If so, what would their effects be? 
+
+```{cat, class.source='foldable'}
+cut -f1,4,5 overlapping_features.gff > overlapping_features.bed
+
+module load bcftools
+
+$filename=[insert name of your large filtered VCF file]
+
+bcftools view -R overlapping_features.bed ../day_6/$filename > region_of_interest.vcf
+
+```
+
+
+::: {.learning data=latex=""}
+This gff3 file was made by the Taylor lab with MAKER. You can find a tutorial for using MAKER [here.](https://darencard.net/blog/2017-05-16-maker-genome-annotation/)
+:::
+
+
+## Gene Ontology 
+
+Select a gene from [this paper](https://www.cell.com/current-biology/fulltext/S0960-9822(24)00398-1#mmc2) (maybe the one you built a phylogeny for on Saturday). 
+
+**Enter it's name into the [gene ontology database](https://geneontology.org/). **
+
+The chickadee genome is too new to be listed in this database, instead select the chicken genome (*Gallus gallus*). 
+
+What kind of information is there? What does it tell you about the gene? Does it make sense given what we know about the gene from the paper? (If your gene name is not found, try CHRNA5).
+
+**In the analysis summary section, change the database you are comparing against. **
+
+What new information does this give you?  
+
+
+
+## Assignment 
+
+For today's assignment, put a text file in `$turnin/day_7` that has the following 4 lines: 
+
+1. The gene you found and translated at the start of this session. 
+2. The amino acid sequence you predicted. 
+3. The sequence after your deletion. 
+4. The new predicted amino acid sequence. 
+
+Make sure to put your last name in the file name! 
+

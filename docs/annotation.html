@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Activity 2 FASTA files and visual alignment with MAFFT | EBIO4100: Bioinformatics in the Mountains</title>
+  <title>Activity 7 Annotation | EBIO4100: Bioinformatics in the Mountains</title>
   <meta name="description" content="This bookdown organizes the course materials for EBIO4100: Intro to Bioinformatics, taught Summer 2025." />
   <meta name="generator" content="bookdown 0.43 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Activity 2 FASTA files and visual alignment with MAFFT | EBIO4100: Bioinformatics in the Mountains" />
+  <meta property="og:title" content="Activity 7 Annotation | EBIO4100: Bioinformatics in the Mountains" />
   <meta property="og:type" content="book" />
   <meta property="og:image" content="/images/logo_hagar.JPG" />
   <meta property="og:description" content="This bookdown organizes the course materials for EBIO4100: Intro to Bioinformatics, taught Summer 2025." />
   <meta name="github-repo" content="mfrayer/bioinformatics_in_the_mountains" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Activity 2 FASTA files and visual alignment with MAFFT | EBIO4100: Bioinformatics in the Mountains" />
+  <meta name="twitter:title" content="Activity 7 Annotation | EBIO4100: Bioinformatics in the Mountains" />
   
   <meta name="twitter:description" content="This bookdown organizes the course materials for EBIO4100: Intro to Bioinformatics, taught Summer 2025." />
   <meta name="twitter:image" content="/images/logo_hagar.JPG" />
@@ -30,8 +30,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="computer-set-up-and-introduction-to-the-command-line.html"/>
-<link rel="next" href="alignment-of-whole-genome-data.html"/>
+<link rel="prev" href="basic-phylogenetics.html"/>
+<link rel="next" href="references.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -186,103 +186,89 @@ div.csl-indent {
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="fasta-files-and-visual-alignment-with-mafft" class="section level1 hasAnchor" number="2">
-<h1><span class="header-section-number">Activity 2</span> FASTA files and visual alignment with MAFFT<a href="fasta-files-and-visual-alignment-with-mafft.html#fasta-files-and-visual-alignment-with-mafft" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<div id="exploring-a-fasta-file" class="section level2 hasAnchor" number="2.1">
-<h2><span class="header-section-number">2.1</span> Exploring a fasta file<a href="fasta-files-and-visual-alignment-with-mafft.html#exploring-a-fasta-file" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p><strong>1. Start by making a new folder in your scratch directory and copying today’s file there.</strong></p>
+<div id="annotation" class="section level1 hasAnchor" number="7">
+<h1><span class="header-section-number">Activity 7</span> Annotation<a href="annotation.html#annotation" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p><strong>1. Make folders for today, and copy your file into it. Then, start an interactive job.</strong></p>
 <details class=chunk-details><summary class=chunk-summary><span class=chunk-summary-text>Code</span></summary>
 <pre class="foldable"><code>cd /scratch/alpine/usrname
-mkdir day_2
-cp /scratch/alpine/mefr3284/ebio4100/day_2/* day_2/
-ls </code></pre>
+mkdir day_7
+cp $shared/day_7/* day_7/
+cd day_7 
+
+sinteractive --partition=alpine -t 4:00:00</code></pre>
 </details>
-<p><strong>2. Look at the file. </strong></p>
-<details class=chunk-details><summary class=chunk-summary><span class=chunk-summary-text>Code</span></summary>
-<pre class="foldable"><code>less chickadee.fasta </code></pre>
-</details>
-<p>How are the headers marked? What information is included there?</p>
-<p><strong>3. How many samples are included in this file? </strong></p>
-<details class=chunk-details><summary class=chunk-summary><span class=chunk-summary-text>Code</span></summary>
-<pre class="foldable"><code>grep &quot;&gt;&quot; chickadee.fasta | wc -l </code></pre>
-</details>
-<p><strong>4. We can search for patterns within the data using grep. </strong></p>
-<details class=chunk-details><summary class=chunk-summary><span class=chunk-summary-text>Code</span></summary>
-<pre class="foldable"><code>grep --color=always &#39;TAAACAA&#39; chickadee.fasta | head -10
-grep --color=always &#39;TA[TA]TA&#39; chickadee.fasta | head -10</code></pre>
-</details>
-<p><strong>5. How many times does the pattern TAAACAA appear in these sequences? </strong></p>
-<details class=chunk-details><summary class=chunk-summary><span class=chunk-summary-text>Code</span></summary>
-<pre class="foldable"><code>grep -o &#39;TAAACAA&#39; chickadee.fasta | wc -l</code></pre>
-</details>
-<p><strong>6. How many potential start codons are there? </strong></p>
-<p>Hint: The “start codon” initiates translation of an amino acid chain. The RNA codon is <code>AUG</code>.</p>
+<div id="find-features-in-a-sequence" class="section level2 hasAnchor" number="7.1">
+<h2><span class="header-section-number">7.1</span> Find features in a sequence<a href="annotation.html#find-features-in-a-sequence" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Look at the file <code>searchable_gene.txt</code> from the <code>day_7</code> folder.</p>
+<p><strong>2. How many potential start codons are in this sequence? </strong></p>
+<p>For simplicity, let’s only worry about one strand direction.</p>
 <details class=chunk-details><summary class=chunk-summary><span class=chunk-summary-text>Code</span></summary>
 <pre class="foldable"><code>grep -o &#39;ATG&#39; chickadee.fasta | wc -l</code></pre>
 </details>
-<div class="learning" data="latex=&quot;&quot;">
-<p>The command <code>grep</code> is really powerful! If you’re interested in trying more grep commands, <a href="https://bioinformaticsworkbook.org/Appendix/Unix/unix-basics-3grep.html#gsc.tab=0">here’s a useful list of things you can do with grep.</a></p>
-</div>
-<p><strong>7. How long are each of these sequences?</strong></p>
-<p>This sounds like an easy question, but it is harder than it looks! We need to take into account:</p>
-<ol style="list-style-type: decimal">
-<li>Each read is split across multiple lines.</li>
-<li>Each individual is represented by both an identifier line and a sequence line.</li>
-<li>We want to count only the length of the sequence lines, but associate them with the sample lines.</li>
-</ol>
-<p>Using what we have learned so far, this would be challenging. But I think it is useful to think about. The structure of the fasta file (and the possible variations on it) make things challenging, and this problem gets bigger as the file formats get more complicated. That is why in general, it is a great idea to use existing programs to process data, particularly ones that are well documented and have been thoroughly tested.</p>
+<p><strong>3. How many potential stop codons are in this sequence?</strong></p>
 <details class=chunk-details><summary class=chunk-summary><span class=chunk-summary-text>Code</span></summary>
-<pre class="foldable"><code>Because I do not want to leave the question unanswered, here is a command that will work. It uses awk, which is a really useful linux program for processing.  
-  
-awk &#39;/^&gt;/{if (l!=&quot;&quot;) print l; print; l=0; next}{l+=length($0)}END{print l}&#39; chickadee.fasta  </code></pre>
-</details>
-</div>
-<div id="visual-alignment" class="section level2 hasAnchor" number="2.2">
-<h2><span class="header-section-number">2.2</span> Visual Alignment<a href="fasta-files-and-visual-alignment-with-mafft.html#visual-alignment" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p><strong>8. In pairs, try to align these two sequences by hand. </strong></p>
-<p>These are protein sequences, so each letter represents an amino acid.</p>
-<details class=chunk-details><summary class=chunk-summary><span class=chunk-summary-text>Code</span></summary>
-<pre class="foldable"><code>
-&gt;seq1
-HEAGAWGHEE
-
-&gt;seq2
-PAWHEAE
+<pre class="foldable"><code>grep -o &quot;TAA\|TAG\|TGA&quot; chickadee.fasta | wc -l
 </code></pre>
 </details>
-<p>How many ways can you align these? What if you allow gaps?</p>
+<p><strong>4. Pick one potential gene and translate it into a protein.</strong></p>
+<p>I recommend picking something small.</p>
+<p><strong>5. Delete the 10th base pair in your gene. How does this change the predicted protein?</strong></p>
 </div>
-<div id="mafft-multiple-sequence-alignment" class="section level2 hasAnchor" number="2.3">
-<h2><span class="header-section-number">2.3</span> MAFFT Multiple Sequence Alignment<a href="fasta-files-and-visual-alignment-with-mafft.html#mafft-multiple-sequence-alignment" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>Multiple sequence aligners do as the name suggests– align multiple sequences at once. There are a variety of algorithms implemented in a variety of programs that perform multiple alignment. Today, we will be using MAFFT (Multiple Alignment Fast Fourier Transform), which is one of the most popular programs and can implement multiple algorithms.</p>
-<p>Follow this link to the <a href="https://mafft.cbrc.jp/alignment/server/index.html">online implementation of MAFFT</a>.</p>
-<div class="learning" data="latex=&quot;&quot;">
-<p>We aren’t going to discuss the inner workings of multiple sequence alignment, but here is a video and two papers you can check out if you are interested.</p>
-<p><a href="https://www.youtube.com/watch?v=iOZvZJf3BzU">Lecture walking through the process</a></p>
-<p><a href="https://www.sciencedirect.com/science/article/pii/S0959440X06000704">An older but comprehensive comparison</a> <span class="citation">(<a href="#ref-edgar_multiple_2006">Edgar and Batzoglou 2006</a>)</span></p>
-<p><a href="https://doi.org/10.1093/bib/bbx108">The most recent MAFFT paper</a> <span class="citation">(<a href="#ref-katoh_mafft_2019">Katoh, Rozewicki, and Yamada 2019</a>)</span></p>
-</div>
-<p><strong>9. Copy and paste the sequences above into the text box and submit it. You should be able to use all of the default settings. </strong></p>
-<p>Is this alignment the same one you came up with?</p>
-<p><strong>10. Now try running our chickadee dataset.</strong></p>
-<p>You will need to download it from the cluster– I recommend using the OnDemand Portal.</p>
-<p>Look at the resulting alignment in the View tab. What has been added to the input data?</p>
-<p>Do you see any patterns in the data? (It’s okay if you don’t– this is a difficult way to look at data!)</p>
-<p>What other information can you get from MAFFT?</p>
-</div>
-<div id="assignment-1" class="section level2 hasAnchor" number="2.4">
-<h2><span class="header-section-number">2.4</span> Assignment<a href="fasta-files-and-visual-alignment-with-mafft.html#assignment-1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>Download the new fasta file from MAFFT, and then upload it to the cluster using the OnDemand portal. Copy it to <code>/scratch/alpine/mefr3284/Assignments/day_2/</code>, adding your name to the file name.</p>
+<div id="intro-to-bedtools" class="section level2 hasAnchor" number="7.2">
+<h2><span class="header-section-number">7.2</span> Intro to BEDtools<a href="annotation.html#intro-to-bedtools" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>The annotation file is in a format called <code>gff</code>, which is often used for annotation files. We can easily convert it into a bed file and use BEDtools to process it. Take a look at the <a href="https://bedtools.readthedocs.io/en/latest/">BEDtools documentation</a> to see what kinds of things it can do.</p>
+<p><strong>6. How many types of features are there in the annotation file?</strong></p>
+<details class=chunk-details><summary class=chunk-summary><span class=chunk-summary-text>Code</span></summary>
+<pre class="foldable"><code>cut -f3 $shared/reference/PO2749_Poecile_gambeli.annotation.scaf.renamed.gff | sort | uniq -c</code></pre>
+</details>
+<p><strong>7. Pick a region of the genome (maybe the one you used for your phylogeny yesterday). How many features overlap that region? </strong></p>
+<details class=chunk-details><summary class=chunk-summary><span class=chunk-summary-text>Code</span></summary>
+<pre class="foldable"><code># Prep the BED file with the location of your gene of interest. 
+echo &quot;Chr10_1\t3458000\t3474000&quot; &gt; region_of_interest.bed
 
+# Compare it to the gff file
+
+module load bedtools 
+
+bedtools intersect -a $shared/reference/PO2749_Poecile_gambeli.annotation.scaf.renamed.gff -b region_of_interest.txt &gt; overlapping_features.gff
+</code></pre>
+</details>
+<p><strong>8. Using the VCF you generated on Friday, which sites overlap your features of interest? </strong></p>
+<p>Are there any SNPs in this region? If so, what would their effects be?</p>
+<details class=chunk-details><summary class=chunk-summary><span class=chunk-summary-text>Code</span></summary>
+<pre class="foldable"><code>cut -f1,4,5 overlapping_features.gff &gt; overlapping_features.bed
+
+module load bcftools
+
+$filename=[insert name of your large filtered VCF file]
+
+bcftools view -R overlapping_features.bed ../day_6/$filename &gt; region_of_interest.vcf
+</code></pre>
+</details>
+<div class="learning" data="latex=&quot;&quot;">
+<p>This gff3 file was made by the Taylor lab with MAKER. You can find a tutorial for using MAKER <a href="https://darencard.net/blog/2017-05-16-maker-genome-annotation/">here.</a></p>
 </div>
 </div>
-<h3>References<a href="references.html#references" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<div id="refs" class="references csl-bib-body hanging-indent" entry-spacing="0">
-<div id="ref-edgar_multiple_2006" class="csl-entry">
-Edgar, Robert C., and Serafim Batzoglou. 2006. <span>“Multiple Sequence Alignment.”</span> <em>Current Opinion in Structural Biology</em> 16 (3): 368–73. https://doi.org/<a href="https://doi.org/10.1016/j.sbi.2006.04.004">https://doi.org/10.1016/j.sbi.2006.04.004</a>.
+<div id="gene-ontology" class="section level2 hasAnchor" number="7.3">
+<h2><span class="header-section-number">7.3</span> Gene Ontology<a href="annotation.html#gene-ontology" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Select a gene from <a href="https://www.cell.com/current-biology/fulltext/S0960-9822(24)00398-1#mmc2">this paper</a> (maybe the one you built a phylogeny for on Saturday).</p>
+<p><strong>Enter it’s name into the <a href="https://geneontology.org/">gene ontology database</a>. </strong></p>
+<p>The chickadee genome is too new to be listed in this database, instead select the chicken genome (<em>Gallus gallus</em>).</p>
+<p>What kind of information is there? What does it tell you about the gene? Does it make sense given what we know about the gene from the paper? (If your gene name is not found, try CHRNA5).</p>
+<p><strong>In the analysis summary section, change the database you are comparing against. </strong></p>
+<p>What new information does this give you?</p>
 </div>
-<div id="ref-katoh_mafft_2019" class="csl-entry">
-Katoh, Kazutaka, John Rozewicki, and Kazunori D Yamada. 2019. <span>“<span>MAFFT</span> Online Service: Multiple Sequence Alignment, Interactive Sequence Choice and Visualization.”</span> <em>Briefings in Bioinformatics</em> 20 (4): 1160–66. <a href="https://doi.org/10.1093/bib/bbx108">https://doi.org/10.1093/bib/bbx108</a>.
+<div id="assignment-6" class="section level2 hasAnchor" number="7.4">
+<h2><span class="header-section-number">7.4</span> Assignment<a href="annotation.html#assignment-6" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>For today’s assignment, put a text file in <code>$turnin/day_7</code> that has the following 4 lines:</p>
+<ol style="list-style-type: decimal">
+<li>The gene you found and translated at the start of this session.</li>
+<li>The amino acid sequence you predicted.</li>
+<li>The sequence after your deletion.</li>
+<li>The new predicted amino acid sequence.</li>
+</ol>
+<p>Make sure to put your last name in the file name!</p>
+
 </div>
 </div>
             </section>
@@ -290,8 +276,8 @@ Katoh, Kazutaka, John Rozewicki, and Kazunori D Yamada. 2019. <span>“<span>MAF
           </div>
         </div>
       </div>
-<a href="computer-set-up-and-introduction-to-the-command-line.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="alignment-of-whole-genome-data.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="basic-phylogenetics.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="references.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -312,7 +298,7 @@ gitbook.start({
     "size": 2
   },
   "edit": {
-    "link": "https://github.com/USERNAME/REPO/edit/BRANCH/03-fasta.Rmd",
+    "link": "https://github.com/USERNAME/REPO/edit/BRANCH/08-annotation.Rmd",
     "text": "Edit"
   },
   "history": {

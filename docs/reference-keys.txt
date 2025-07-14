@@ -41,3 +41,8 @@ upgma-tree
 mafft
 iq-tree
 assignment-5
+annotation
+find-features-in-a-sequence
+intro-to-bedtools
+gene-ontology
+assignment-6
