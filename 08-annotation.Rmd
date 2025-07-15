@@ -53,13 +53,13 @@ cut -f3 $shared/reference/PO2749_Poecile_gambeli.annotation.scaf.renamed.gff | s
 
 ```{cat, class.source='foldable'}
 # Prep the BED file with the location of your gene of interest. 
-echo "Chr10_1\t3458000\t3474000" > region_of_interest.bed
+echo -e "Chr10_1\t3458000\t3474000" > region_of_interest.bed
 
 # Compare it to the gff file
 
 module load bedtools 
 
-bedtools intersect -a $shared/reference/PO2749_Poecile_gambeli.annotation.scaf.renamed.gff -b region_of_interest.txt > overlapping_features.gff
+bedtools intersect -a $shared/reference/PO2749_Poecile_gambeli.annotation.scaf.renamed.gff -b region_of_interest.bed > overlapping_features.gff
 
 ```
 
@@ -72,9 +72,9 @@ cut -f1,4,5 overlapping_features.gff > overlapping_features.bed
 
 module load bcftools
 
-$filename=[insert name of your large filtered VCF file]
+filename=[insert name of your large filtered VCF file]
 
-bcftools view -R overlapping_features.bed ../day_6/$filename > region_of_interest.vcf
+bcftools view -R overlapping_features.bed $filename > region_of_interest.vcf
 
 ```
 

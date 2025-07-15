@@ -1,0 +1,201 @@
+# Reproducibility 
+
+
+## How do you draw shapes? 
+
+We will do this activity together. 
+
+
+**1. Make a folder for today. Then, start an interactive job.**
+
+```{cat, class.source='foldable'}
+cd /scratch/alpine/usrname
+mkdir day_8
+cd day_8
+
+sinteractive --partition=amilan -t 4:00:00
+```
+
+
+## Practice annotating code 
+
+Below is a script for processing read data like we did last week.
+
+```{cat, class.source='foldable'}
+
+#!/bin/bash
+
+#SBATCH --nodes=1 --ntasks=1
+#SBATCH --time=24:00:00
+#SBATCH --partition=amilan 
+#SBATCH --output=vcfs.out
+
+module purge
+module load picard 
+module load samtools
+module load bcftools 
+
+for birds in /projects/mefr3284/bamfiles/*.filtered.sorted.bam ; do
+        out=$(basename ${birds%%.*})
+        picard MarkDuplicates -INPUT $birds -OUTPUT ../bamfiles/$out.filtered.sorted.nodup.bam -METRICS_FILE $out.duplicate.metrics -REMOVE_DUPLICATES true -ASSUME_SORTED true -TMP_DIR tmp_$out -VALIDATION_STRINGENCY LENIENT 
+        samtools index ../bamfiles/$out.filtered.sorted.nodup.bam
+        bcftools mpileup -f /scratch/alpine/mefr3284/ebio4100/reference/moch.dovetail.reference.hap1.scaffolds.renamed.fasta ../bamfiles/$out.filtered.sorted.nodup.bam -a DP,AD -Ou | bcftools call -mv -Oz -f GQ -o /scratch/alpine/mefr3284/vcf/$out.vcf.gz
+        tabix -fp vcf /scratch/alpine/mefr3284/vcf/$out.vcf.gz
+done
+
+```
+
+
+**2. Copy and paste this script into a file, and practice annotating it.**
+
+Suggestions: Include notes on where the data is coming from, document the version of the module that you used, document the steps of the script. 
+
+You can find the version of the modules by looking in `module avail` or by loading the module and running something like `bcftools --version`. 
+
+**3. When you think you are done, give your script to a classmate. Read your classmates annotations and make any suggestions where you think something is unclear or missing. Could you easily figure out what this code did if you hadn't seen it before?** 
+
+::: {.learning data=latex=""}
+A great place to start for more information on reproducibility is Karl Broman's [Steps Toward Reproducible Research](https://kbroman.org/steps2rr/) tutorial and the [associated resources page](https://kbroman.org/steps2rr/pages/resources.html)! 
+:::
+
+
+## Version Control Software 
+
+While there are many types of version control software, we will learn a bit about Git today because it is the most widely used among academic bioinformaticians.
+
+**4. Load the git module.**
+
+```{cat, class.source='foldable'}
+module load git
+```
+
+**5. Turn your day 7 folder into a git repository. **
+
+```{cat, class.source='foldable'}
+git init 
+```
+
+You will get a warning about the branch name. Feel free to rename it to main if you choose. 
+
+```{cat, class.source='foldable'}
+git branch -m main
+```
+
+**6. What does your repository look like? **
+
+```{cat, class.source='foldable'}
+git status
+```
+
+**7. Make a file that you can track. **
+
+We often want to start a new repository with a README file that will explain the contents of our repository. You can learn more about GitHub's [readme recommendations here](https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-readmes).
+
+```{cat, class.source='foldable'}
+touch README.md
+```
+
+**8. Now check the status again. **
+
+```{cat, class.source='foldable'}
+git status
+```
+
+What does it look like? How is git currently treating this file? 
+
+**9. Add this file to your repository, and commit your changes. **
+
+```{cat, class.source='foldable'}
+git add README.md
+git commit -m "added readme" 
+```
+
+**10. Make a `.gitignore` file.**
+
+These files are very important for bioinformatics work. Git is intended to track your small text files, you should not track your very large raw data files. Add them to the `.gitignore` to prevent this tracking.
+
+```{cat, class.source='foldable'}
+echo "sample.fastq.gz" > .gitignore 
+git add .gitignore 
+git commit -m "added gitignore" 
+```
+
+This file is a hidden file. You won't see it if you run a normal ls command. Instead, run `ls -a` to see the hidden files. 
+
+**11. Make a change to your README.md.**
+
+Open the file and add some information about the folder. 
+
+Example: 
+```{cat, class.source='foldable'}
+# EBIO4100
+
+This is a repository for EBIO4100.
+
+## Contents 
+
+This repo contains test files used to learn Git. 
+
+## Files ignored by Git
+
+Files ignored by Git are listed in the `.gitignore` file. 
+
+
+```
+
+These headers marked with `#` are not comments. This is a special syntax called Markdown. Markdown is a way to add formatting to simple text files that can then be interpreted by other programs. It works great for git because changes to these plain text files can be easily tracked. It can also be directly interpreted by GitHub. Here is a [link for more Markdown options.](https://docs.github.com/en/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax) 
+
+**12. Now, track these changes.** 
+
+```{cat, class.source='foldable'}
+git add README.md
+git commit -m "edited readme" 
+```
+
+**13. See what has changed in this file.** 
+
+```{cat, class.source='foldable'}
+git diff --cached
+```
+
+If you have a GitHub account, it can be connected to this git repository using the git config options, which are described by the module and also this [tutorial](https://kbroman.org/github_tutorial/pages/first_time.html).
+
+## Explore github 
+
+GitHub is a platform where coders can store, share, and collaborate on code. 
+
+You can clone repositories from GitHub to your computer or the cluster. 
+
+**14. Try cloning a sample repository to your scratch folder.**
+
+```{cat, class.source='foldable'}
+cd /scratch/alpine/usrname
+git clone https://github.com/mfrayer/ebio4100_sample_repo.git
+
+```
+
+What is in your folder now? 
+
+**15. Visit the [GitHub repository for this book](https://github.com/mfrayer/bioinformatics_in_the_mountains).** 
+
+What information can you see about the repository? What languages was it written in? How many times have I deployed updates to the website? 
+
+There is also a place to note issues or make pull requests (suggested changes to the contents of the repository). 
+
+**16. Optional: If you want to make a GitHub account (or if you have one already), go ahead and try to make a pull request for a suggested change to this book! **
+
+
+## Assignment
+
+Select one of the scripts that you turned in last week and annotate it. Copy it to the `$turnin/day_8` folder. Remember to include information about where the data came from, as well as the versions for the modules you used.
+
+
+::: {.learning data=latex=""}
+
+Here is more information on the programs we used today: 
+
+[Git](https://git-scm.com/about/branching-and-merging)
+
+[GitHub](https://github.com/about)
+
+:::
