@@ -46,3 +46,9 @@ find-features-in-a-sequence
 intro-to-bedtools
 gene-ontology
 assignment-6
+reproducibility
+how-do-you-draw-shapes
+practice-annotating-code
+version-control-software
+explore-github
+assignment-7

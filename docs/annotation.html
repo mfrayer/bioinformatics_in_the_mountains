@@ -23,7 +23,7 @@
 <meta name="author" content="Megan Frayer" />
 
 
-<meta name="date" content="2025-07-14" />
+<meta name="date" content="2025-07-15" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -31,7 +31,7 @@
   
   
 <link rel="prev" href="basic-phylogenetics.html"/>
-<link rel="next" href="references.html"/>
+<link rel="next" href="reproducibility.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -165,6 +165,14 @@ div.csl-indent {
 <li class="chapter" data-level="7.3" data-path="annotation.html"><a href="annotation.html#gene-ontology"><i class="fa fa-check"></i><b>7.3</b> Gene Ontology</a></li>
 <li class="chapter" data-level="7.4" data-path="annotation.html"><a href="annotation.html#assignment-6"><i class="fa fa-check"></i><b>7.4</b> Assignment</a></li>
 </ul></li>
+<li class="chapter" data-level="8" data-path="reproducibility.html"><a href="reproducibility.html"><i class="fa fa-check"></i><b>8</b> Reproducibility</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="reproducibility.html"><a href="reproducibility.html#how-do-you-draw-shapes"><i class="fa fa-check"></i><b>8.1</b> How do you draw shapes?</a></li>
+<li class="chapter" data-level="8.2" data-path="reproducibility.html"><a href="reproducibility.html#practice-annotating-code"><i class="fa fa-check"></i><b>8.2</b> Practice annotating code</a></li>
+<li class="chapter" data-level="8.3" data-path="reproducibility.html"><a href="reproducibility.html#version-control-software"><i class="fa fa-check"></i><b>8.3</b> Version Control Software</a></li>
+<li class="chapter" data-level="8.4" data-path="reproducibility.html"><a href="reproducibility.html#explore-github"><i class="fa fa-check"></i><b>8.4</b> Explore github</a></li>
+<li class="chapter" data-level="8.5" data-path="reproducibility.html"><a href="reproducibility.html#assignment-7"><i class="fa fa-check"></i><b>8.5</b> Assignment</a></li>
+</ul></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
@@ -224,13 +232,13 @@ sinteractive --partition=amilan -t 4:00:00</code></pre>
 <p><strong>7. Pick a region of the genome (maybe the one you used for your phylogeny yesterday). How many features overlap that region? </strong></p>
 <details class=chunk-details><summary class=chunk-summary><span class=chunk-summary-text>Code</span></summary>
 <pre class="foldable"><code># Prep the BED file with the location of your gene of interest. 
-echo &quot;Chr10_1\t3458000\t3474000&quot; &gt; region_of_interest.bed
+echo -e &quot;Chr10_1\t3458000\t3474000&quot; &gt; region_of_interest.bed
 
 # Compare it to the gff file
 
 module load bedtools 
 
-bedtools intersect -a $shared/reference/PO2749_Poecile_gambeli.annotation.scaf.renamed.gff -b region_of_interest.txt &gt; overlapping_features.gff
+bedtools intersect -a $shared/reference/PO2749_Poecile_gambeli.annotation.scaf.renamed.gff -b region_of_interest.bed &gt; overlapping_features.gff
 </code></pre>
 </details>
 <p><strong>8. Using the VCF you generated on Friday, which sites overlap your features of interest? </strong></p>
@@ -240,9 +248,9 @@ bedtools intersect -a $shared/reference/PO2749_Poecile_gambeli.annotation.scaf.r
 
 module load bcftools
 
-$filename=[insert name of your large filtered VCF file]
+filename=[insert name of your large filtered VCF file]
 
-bcftools view -R overlapping_features.bed ../day_6/$filename &gt; region_of_interest.vcf
+bcftools view -R overlapping_features.bed $filename &gt; region_of_interest.vcf
 </code></pre>
 </details>
 <div class="learning" data="latex=&quot;&quot;">
@@ -277,7 +285,7 @@ bcftools view -R overlapping_features.bed ../day_6/$filename &gt; region_of_inte
         </div>
       </div>
 <a href="basic-phylogenetics.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="references.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="reproducibility.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

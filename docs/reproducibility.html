@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Activity 2 FASTA files and visual alignment with MAFFT | EBIO4100: Bioinformatics in the Mountains</title>
+  <title>Activity 8 Reproducibility | EBIO4100: Bioinformatics in the Mountains</title>
   <meta name="description" content="This bookdown organizes the course materials for EBIO4100: Intro to Bioinformatics, taught Summer 2025." />
   <meta name="generator" content="bookdown 0.43 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Activity 2 FASTA files and visual alignment with MAFFT | EBIO4100: Bioinformatics in the Mountains" />
+  <meta property="og:title" content="Activity 8 Reproducibility | EBIO4100: Bioinformatics in the Mountains" />
   <meta property="og:type" content="book" />
   <meta property="og:image" content="/images/logo_hagar.JPG" />
   <meta property="og:description" content="This bookdown organizes the course materials for EBIO4100: Intro to Bioinformatics, taught Summer 2025." />
   <meta name="github-repo" content="mfrayer/bioinformatics_in_the_mountains" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Activity 2 FASTA files and visual alignment with MAFFT | EBIO4100: Bioinformatics in the Mountains" />
+  <meta name="twitter:title" content="Activity 8 Reproducibility | EBIO4100: Bioinformatics in the Mountains" />
   
   <meta name="twitter:description" content="This bookdown organizes the course materials for EBIO4100: Intro to Bioinformatics, taught Summer 2025." />
   <meta name="twitter:image" content="/images/logo_hagar.JPG" />
@@ -30,8 +30,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="computer-set-up-and-introduction-to-the-command-line.html"/>
-<link rel="next" href="alignment-of-whole-genome-data.html"/>
+<link rel="prev" href="annotation.html"/>
+<link rel="next" href="references.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -194,103 +194,150 @@ div.csl-indent {
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="fasta-files-and-visual-alignment-with-mafft" class="section level1 hasAnchor" number="2">
-<h1><span class="header-section-number">Activity 2</span> FASTA files and visual alignment with MAFFT<a href="fasta-files-and-visual-alignment-with-mafft.html#fasta-files-and-visual-alignment-with-mafft" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<div id="exploring-a-fasta-file" class="section level2 hasAnchor" number="2.1">
-<h2><span class="header-section-number">2.1</span> Exploring a fasta file<a href="fasta-files-and-visual-alignment-with-mafft.html#exploring-a-fasta-file" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p><strong>1. Start by making a new folder in your scratch directory and copying today’s file there.</strong></p>
+<div id="reproducibility" class="section level1 hasAnchor" number="8">
+<h1><span class="header-section-number">Activity 8</span> Reproducibility<a href="reproducibility.html#reproducibility" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="how-do-you-draw-shapes" class="section level2 hasAnchor" number="8.1">
+<h2><span class="header-section-number">8.1</span> How do you draw shapes?<a href="reproducibility.html#how-do-you-draw-shapes" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>We will do this activity together.</p>
+<p><strong>1. Make a folder for today. Then, start an interactive job.</strong></p>
 <details class=chunk-details><summary class=chunk-summary><span class=chunk-summary-text>Code</span></summary>
 <pre class="foldable"><code>cd /scratch/alpine/usrname
-mkdir day_2
-cp /scratch/alpine/mefr3284/ebio4100/day_2/* day_2/
-ls </code></pre>
-</details>
-<p><strong>2. Look at the file. </strong></p>
-<details class=chunk-details><summary class=chunk-summary><span class=chunk-summary-text>Code</span></summary>
-<pre class="foldable"><code>less chickadee.fasta </code></pre>
-</details>
-<p>How are the headers marked? What information is included there?</p>
-<p><strong>3. How many samples are included in this file? </strong></p>
-<details class=chunk-details><summary class=chunk-summary><span class=chunk-summary-text>Code</span></summary>
-<pre class="foldable"><code>grep &quot;&gt;&quot; chickadee.fasta | wc -l </code></pre>
-</details>
-<p><strong>4. We can search for patterns within the data using grep. </strong></p>
-<details class=chunk-details><summary class=chunk-summary><span class=chunk-summary-text>Code</span></summary>
-<pre class="foldable"><code>grep --color=always &#39;TAAACAA&#39; chickadee.fasta | head -10
-grep --color=always &#39;TA[TA]TA&#39; chickadee.fasta | head -10</code></pre>
-</details>
-<p><strong>5. How many times does the pattern TAAACAA appear in these sequences? </strong></p>
-<details class=chunk-details><summary class=chunk-summary><span class=chunk-summary-text>Code</span></summary>
-<pre class="foldable"><code>grep -o &#39;TAAACAA&#39; chickadee.fasta | wc -l</code></pre>
-</details>
-<p><strong>6. How many potential start codons are there? </strong></p>
-<p>Hint: The “start codon” initiates translation of an amino acid chain. The RNA codon is <code>AUG</code>.</p>
-<details class=chunk-details><summary class=chunk-summary><span class=chunk-summary-text>Code</span></summary>
-<pre class="foldable"><code>grep -o &#39;ATG&#39; chickadee.fasta | wc -l</code></pre>
-</details>
-<div class="learning" data="latex=&quot;&quot;">
-<p>The command <code>grep</code> is really powerful! If you’re interested in trying more grep commands, <a href="https://bioinformaticsworkbook.org/Appendix/Unix/unix-basics-3grep.html#gsc.tab=0">here’s a useful list of things you can do with grep.</a></p>
-</div>
-<p><strong>7. How long are each of these sequences?</strong></p>
-<p>This sounds like an easy question, but it is harder than it looks! We need to take into account:</p>
-<ol style="list-style-type: decimal">
-<li>Each read is split across multiple lines.</li>
-<li>Each individual is represented by both an identifier line and a sequence line.</li>
-<li>We want to count only the length of the sequence lines, but associate them with the sample lines.</li>
-</ol>
-<p>Using what we have learned so far, this would be challenging. But I think it is useful to think about. The structure of the fasta file (and the possible variations on it) make things challenging, and this problem gets bigger as the file formats get more complicated. That is why in general, it is a great idea to use existing programs to process data, particularly ones that are well documented and have been thoroughly tested.</p>
-<details class=chunk-details><summary class=chunk-summary><span class=chunk-summary-text>Code</span></summary>
-<pre class="foldable"><code>Because I do not want to leave the question unanswered, here is a command that will work. It uses awk, which is a really useful linux program for processing.  
-  
-awk &#39;/^&gt;/{if (l!=&quot;&quot;) print l; print; l=0; next}{l+=length($0)}END{print l}&#39; chickadee.fasta  </code></pre>
+mkdir day_8
+cd day_8
+
+sinteractive --partition=amilan -t 4:00:00</code></pre>
 </details>
 </div>
-<div id="visual-alignment" class="section level2 hasAnchor" number="2.2">
-<h2><span class="header-section-number">2.2</span> Visual Alignment<a href="fasta-files-and-visual-alignment-with-mafft.html#visual-alignment" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p><strong>8. In pairs, try to align these two sequences by hand. </strong></p>
-<p>These are protein sequences, so each letter represents an amino acid.</p>
+<div id="practice-annotating-code" class="section level2 hasAnchor" number="8.2">
+<h2><span class="header-section-number">8.2</span> Practice annotating code<a href="reproducibility.html#practice-annotating-code" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Below is a script for processing read data like we did last week.</p>
 <details class=chunk-details><summary class=chunk-summary><span class=chunk-summary-text>Code</span></summary>
 <pre class="foldable"><code>
-&gt;seq1
-HEAGAWGHEE
+#!/bin/bash
 
-&gt;seq2
-PAWHEAE
+#SBATCH --nodes=1 --ntasks=1
+#SBATCH --time=24:00:00
+#SBATCH --partition=amilan 
+#SBATCH --output=vcfs.out
+
+module purge
+module load picard 
+module load samtools
+module load bcftools 
+
+for birds in /projects/mefr3284/bamfiles/*.filtered.sorted.bam ; do
+        out=$(basename ${birds%%.*})
+        picard MarkDuplicates -INPUT $birds -OUTPUT ../bamfiles/$out.filtered.sorted.nodup.bam -METRICS_FILE $out.duplicate.metrics -REMOVE_DUPLICATES true -ASSUME_SORTED true -TMP_DIR tmp_$out -VALIDATION_STRINGENCY LENIENT 
+        samtools index ../bamfiles/$out.filtered.sorted.nodup.bam
+        bcftools mpileup -f /scratch/alpine/mefr3284/ebio4100/reference/moch.dovetail.reference.hap1.scaffolds.renamed.fasta ../bamfiles/$out.filtered.sorted.nodup.bam -a DP,AD -Ou | bcftools call -mv -Oz -f GQ -o /scratch/alpine/mefr3284/vcf/$out.vcf.gz
+        tabix -fp vcf /scratch/alpine/mefr3284/vcf/$out.vcf.gz
+done
 </code></pre>
 </details>
-<p>How many ways can you align these? What if you allow gaps?</p>
-</div>
-<div id="mafft-multiple-sequence-alignment" class="section level2 hasAnchor" number="2.3">
-<h2><span class="header-section-number">2.3</span> MAFFT Multiple Sequence Alignment<a href="fasta-files-and-visual-alignment-with-mafft.html#mafft-multiple-sequence-alignment" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>Multiple sequence aligners do as the name suggests– align multiple sequences at once. There are a variety of algorithms implemented in a variety of programs that perform multiple alignment. Today, we will be using MAFFT (Multiple Alignment Fast Fourier Transform), which is one of the most popular programs and can implement multiple algorithms.</p>
-<p>Follow this link to the <a href="https://mafft.cbrc.jp/alignment/server/index.html">online implementation of MAFFT</a>.</p>
+<p><strong>2. Copy and paste this script into a file, and practice annotating it.</strong></p>
+<p>Suggestions: Include notes on where the data is coming from, document the version of the module that you used, document the steps of the script.</p>
+<p>You can find the version of the modules by looking in <code>module avail</code> or by loading the module and running something like <code>bcftools --version</code>.</p>
+<p><strong>3. When you think you are done, give your script to a classmate. Read your classmates annotations and make any suggestions where you think something is unclear or missing. Could you easily figure out what this code did if you hadn’t seen it before?</strong></p>
 <div class="learning" data="latex=&quot;&quot;">
-<p>We aren’t going to discuss the inner workings of multiple sequence alignment, but here is a video and two papers you can check out if you are interested.</p>
-<p><a href="https://www.youtube.com/watch?v=iOZvZJf3BzU">Lecture walking through the process</a></p>
-<p><a href="https://www.sciencedirect.com/science/article/pii/S0959440X06000704">An older but comprehensive comparison</a> <span class="citation">(<a href="#ref-edgar_multiple_2006">Edgar and Batzoglou 2006</a>)</span></p>
-<p><a href="https://doi.org/10.1093/bib/bbx108">The most recent MAFFT paper</a> <span class="citation">(<a href="#ref-katoh_mafft_2019">Katoh, Rozewicki, and Yamada 2019</a>)</span></p>
+<p>A great place to start for more information on reproducibility is Karl Broman’s <a href="https://kbroman.org/steps2rr/">Steps Toward Reproducible Research</a> tutorial and the <a href="https://kbroman.org/steps2rr/pages/resources.html">associated resources page</a>!</p>
 </div>
-<p><strong>9. Copy and paste the sequences above into the text box and submit it. You should be able to use all of the default settings. </strong></p>
-<p>Is this alignment the same one you came up with?</p>
-<p><strong>10. Now try running our chickadee dataset.</strong></p>
-<p>You will need to download it from the cluster– I recommend using the OnDemand Portal.</p>
-<p>Look at the resulting alignment in the View tab. What has been added to the input data?</p>
-<p>Do you see any patterns in the data? (It’s okay if you don’t– this is a difficult way to look at data!)</p>
-<p>What other information can you get from MAFFT?</p>
 </div>
-<div id="assignment-1" class="section level2 hasAnchor" number="2.4">
-<h2><span class="header-section-number">2.4</span> Assignment<a href="fasta-files-and-visual-alignment-with-mafft.html#assignment-1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>Download the new fasta file from MAFFT, and then upload it to the cluster using the OnDemand portal. Copy it to <code>/scratch/alpine/mefr3284/Assignments/day_2/</code>, adding your name to the file name.</p>
+<div id="version-control-software" class="section level2 hasAnchor" number="8.3">
+<h2><span class="header-section-number">8.3</span> Version Control Software<a href="reproducibility.html#version-control-software" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>While there are many types of version control software, we will learn a bit about Git today because it is the most widely used among academic bioinformaticians.</p>
+<p><strong>4. Load the git module.</strong></p>
+<details class=chunk-details><summary class=chunk-summary><span class=chunk-summary-text>Code</span></summary>
+<pre class="foldable"><code>module load git</code></pre>
+</details>
+<p><strong>5. Turn your day 7 folder into a git repository. </strong></p>
+<details class=chunk-details><summary class=chunk-summary><span class=chunk-summary-text>Code</span></summary>
+<pre class="foldable"><code>git init </code></pre>
+</details>
+<p>You will get a warning about the branch name. Feel free to rename it to main if you choose.</p>
+<details class=chunk-details><summary class=chunk-summary><span class=chunk-summary-text>Code</span></summary>
+<pre class="foldable"><code>git branch -m main</code></pre>
+</details>
+<p><strong>6. What does your repository look like? </strong></p>
+<details class=chunk-details><summary class=chunk-summary><span class=chunk-summary-text>Code</span></summary>
+<pre class="foldable"><code>git status</code></pre>
+</details>
+<p><strong>7. Make a file that you can track. </strong></p>
+<p>We often want to start a new repository with a README file that will explain the contents of our repository. You can learn more about GitHub’s <a href="https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-readmes">readme recommendations here</a>.</p>
+<details class=chunk-details><summary class=chunk-summary><span class=chunk-summary-text>Code</span></summary>
+<pre class="foldable"><code>touch README.md</code></pre>
+</details>
+<p><strong>8. Now check the status again. </strong></p>
+<details class=chunk-details><summary class=chunk-summary><span class=chunk-summary-text>Code</span></summary>
+<pre class="foldable"><code>git status</code></pre>
+</details>
+<p>What does it look like? How is git currently treating this file?</p>
+<p><strong>9. Add this file to your repository, and commit your changes. </strong></p>
+<details class=chunk-details><summary class=chunk-summary><span class=chunk-summary-text>Code</span></summary>
+<pre class="foldable"><code>git add README.md
+git commit -m &quot;added readme&quot; </code></pre>
+</details>
+<p><strong>10. Make a <code>.gitignore</code> file.</strong></p>
+<p>These files are very important for bioinformatics work. Git is intended to track your small text files, you should not track your very large raw data files. Add them to the <code>.gitignore</code> to prevent this tracking.</p>
+<details class=chunk-details><summary class=chunk-summary><span class=chunk-summary-text>Code</span></summary>
+<pre class="foldable"><code>echo &quot;sample.fastq.gz&quot; &gt; .gitignore 
+git add .gitignore 
+git commit -m &quot;added gitignore&quot; </code></pre>
+</details>
+<p>This file is a hidden file. You won’t see it if you run a normal ls command. Instead, run <code>ls -a</code> to see the hidden files.</p>
+<p><strong>11. Make a change to your README.md.</strong></p>
+<p>Open the file and add some information about the folder.</p>
+<p>Example:</p>
+<details class=chunk-details><summary class=chunk-summary><span class=chunk-summary-text>Code</span></summary>
+<pre class="foldable"><code># EBIO4100
 
+This is a repository for EBIO4100.
+
+## Contents 
+
+This repo contains test files used to learn Git. 
+
+## Files ignored by Git
+
+Files ignored by Git are listed in the `.gitignore` file. 
+</code></pre>
+</details>
+<p>These headers marked with <code>#</code> are not comments. This is a special syntax called Markdown. Markdown is a way to add formatting to simple text files that can then be interpreted by other programs. It works great for git because changes to these plain text files can be easily tracked. It can also be directly interpreted by GitHub. Here is a <a href="https://docs.github.com/en/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax">link for more Markdown options.</a></p>
+<p><strong>12. Now, track these changes.</strong></p>
+<details class=chunk-details><summary class=chunk-summary><span class=chunk-summary-text>Code</span></summary>
+<pre class="foldable"><code>git add README.md
+git commit -m &quot;edited readme&quot; </code></pre>
+</details>
+<p><strong>13. See what has changed in this file.</strong></p>
+<details class=chunk-details><summary class=chunk-summary><span class=chunk-summary-text>Code</span></summary>
+<pre class="foldable"><code>git diff --cached</code></pre>
+</details>
+<p>If you have a GitHub account, it can be connected to this git repository using the git config options, which are described by the module and also this <a href="https://kbroman.org/github_tutorial/pages/first_time.html">tutorial</a>.</p>
 </div>
+<div id="explore-github" class="section level2 hasAnchor" number="8.4">
+<h2><span class="header-section-number">8.4</span> Explore github<a href="reproducibility.html#explore-github" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>GitHub is a platform where coders can store, share, and collaborate on code.</p>
+<p>You can clone repositories from GitHub to your computer or the cluster.</p>
+<p><strong>14. Try cloning a sample repository to your scratch folder.</strong></p>
+<details class=chunk-details><summary class=chunk-summary><span class=chunk-summary-text>Code</span></summary>
+<pre class="foldable"><code>cd /scratch/alpine/usrname
+git clone https://github.com/mfrayer/ebio4100_sample_repo.git
+</code></pre>
+</details>
+<p>What is in your folder now?</p>
+<p><strong>15. Visit the <a href="https://github.com/mfrayer/bioinformatics_in_the_mountains">GitHub repository for this book</a>.</strong></p>
+<p>What information can you see about the repository? What languages was it written in? How many times have I deployed updates to the website?</p>
+<p>There is also a place to note issues or make pull requests (suggested changes to the contents of the repository).</p>
+<p><strong>16. Optional: If you want to make a GitHub account (or if you have one already), go ahead and try to make a pull request for a suggested change to this book! </strong></p>
 </div>
-<h3>References<a href="references.html#references" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<div id="refs" class="references csl-bib-body hanging-indent" entry-spacing="0">
-<div id="ref-edgar_multiple_2006" class="csl-entry">
-Edgar, Robert C., and Serafim Batzoglou. 2006. <span>“Multiple Sequence Alignment.”</span> <em>Current Opinion in Structural Biology</em> 16 (3): 368–73. https://doi.org/<a href="https://doi.org/10.1016/j.sbi.2006.04.004">https://doi.org/10.1016/j.sbi.2006.04.004</a>.
+<div id="assignment-7" class="section level2 hasAnchor" number="8.5">
+<h2><span class="header-section-number">8.5</span> Assignment<a href="reproducibility.html#assignment-7" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Select one of the scripts that you turned in last week and annotate it. Copy it to the <code>$turnin/day_8</code> folder. Remember to include information about where the data came from, as well as the versions for the modules you used.</p>
+<div class="learning" data="latex=&quot;&quot;">
+<p>Here is more information on the programs we used today:</p>
+<p><a href="https://git-scm.com/about/branching-and-merging">Git</a></p>
+<p><a href="https://github.com/about">GitHub</a></p>
 </div>
-<div id="ref-katoh_mafft_2019" class="csl-entry">
-Katoh, Kazutaka, John Rozewicki, and Kazunori D Yamada. 2019. <span>“<span>MAFFT</span> Online Service: Multiple Sequence Alignment, Interactive Sequence Choice and Visualization.”</span> <em>Briefings in Bioinformatics</em> 20 (4): 1160–66. <a href="https://doi.org/10.1093/bib/bbx108">https://doi.org/10.1093/bib/bbx108</a>.
+
 </div>
 </div>
             </section>
@@ -298,8 +345,8 @@ Katoh, Kazutaka, John Rozewicki, and Kazunori D Yamada. 2019. <span>“<span>MAF
           </div>
         </div>
       </div>
-<a href="computer-set-up-and-introduction-to-the-command-line.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="alignment-of-whole-genome-data.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="annotation.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="references.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -320,7 +367,7 @@ gitbook.start({
     "size": 2
   },
   "edit": {
-    "link": "https://github.com/USERNAME/REPO/edit/BRANCH/03-fasta.Rmd",
+    "link": "https://github.com/USERNAME/REPO/edit/BRANCH/09-reproducibility.Rmd",
     "text": "Edit"
   },
   "history": {
