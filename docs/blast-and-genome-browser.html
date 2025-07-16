@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Activity 8 Reproducibility | EBIO4100: Bioinformatics in the Mountains</title>
+  <title>Activity 9 BLAST and Genome Browser | EBIO4100: Bioinformatics in the Mountains</title>
   <meta name="description" content="This bookdown organizes the course materials for EBIO4100: Intro to Bioinformatics, taught Summer 2025." />
   <meta name="generator" content="bookdown 0.43 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Activity 8 Reproducibility | EBIO4100: Bioinformatics in the Mountains" />
+  <meta property="og:title" content="Activity 9 BLAST and Genome Browser | EBIO4100: Bioinformatics in the Mountains" />
   <meta property="og:type" content="book" />
   <meta property="og:image" content="/images/logo_hagar.JPG" />
   <meta property="og:description" content="This bookdown organizes the course materials for EBIO4100: Intro to Bioinformatics, taught Summer 2025." />
   <meta name="github-repo" content="mfrayer/bioinformatics_in_the_mountains" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Activity 8 Reproducibility | EBIO4100: Bioinformatics in the Mountains" />
+  <meta name="twitter:title" content="Activity 9 BLAST and Genome Browser | EBIO4100: Bioinformatics in the Mountains" />
   
   <meta name="twitter:description" content="This bookdown organizes the course materials for EBIO4100: Intro to Bioinformatics, taught Summer 2025." />
   <meta name="twitter:image" content="/images/logo_hagar.JPG" />
@@ -30,8 +30,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="annotation.html"/>
-<link rel="next" href="blast-and-genome-browser.html"/>
+<link rel="prev" href="reproducibility.html"/>
+<link rel="next" href="references.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -202,148 +202,110 @@ div.csl-indent {
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="reproducibility" class="section level1 hasAnchor" number="8">
-<h1><span class="header-section-number">Activity 8</span> Reproducibility<a href="reproducibility.html#reproducibility" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<div id="how-do-you-draw-shapes" class="section level2 hasAnchor" number="8.1">
-<h2><span class="header-section-number">8.1</span> How do you draw shapes?<a href="reproducibility.html#how-do-you-draw-shapes" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>We will do this activity together.</p>
-<p><strong>1. Make a folder for today. Then, start an interactive job.</strong></p>
+<div id="blast-and-genome-browser" class="section level1 hasAnchor" number="9">
+<h1><span class="header-section-number">Activity 9</span> BLAST and Genome Browser<a href="blast-and-genome-browser.html#blast-and-genome-browser" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p><strong>Assignment:</strong> Today’s assignment will be a worksheet on Canvas, which you can fill out as we go through this activity. Make sure you find it in the Day 9 module.</p>
+<div id="ncbi-databases" class="section level2 hasAnchor" number="9.1">
+<h2><span class="header-section-number">9.1</span> NCBI Databases<a href="blast-and-genome-browser.html#ncbi-databases" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Let’s start with the locus that we built a phylogeny for on Saturday.</p>
+<p><strong>1. Search for the locus by name in the NCBI database.</strong></p>
+<p>If your locus cannot be found, complete the rest of the activity using CHRNA5.</p>
+<p><strong>2. Select an entry for your gene of interest.</strong></p>
+<p>What is the accession number? Is there more than one? If your accession number starts with an NM, that means it is from an experimentally verified data set. In contrast, an XM means that it came from a computationally predicted sequence. Some entries have both, often because two entries were combined. If you have an NM vs NR, that indicates a coding vs non-coding. Here is a <a href="https://community.gep.wustl.edu/repository/course_materials_WU/annotation/Genbank_Accessions.pdf">handy guide to accession numbers</a>.</p>
+<p>What type of molecule is your entry from?</p>
+<p>What species is it found in? How close is that species to the chickadees? (The black-capped chickadee’s taxonomic chain is: <code>Eukaryota; Metazoa; Chordata; Craniata; Vertebrata; Euteleostomi; Archelosauria; Archosauria; Dinosauria; Saurischia; Theropoda; Coelurosauria; Aves; Neognathae; Neoaves; Telluraves; Australaves; Passeriformes; Paridae; Poecile; Poecile atricapillus</code>).</p>
+<p>What studies contributed to this entry?</p>
+<p>How many exons does this region have? What are their sequences?</p>
+<p>In the sidebar, highlight the sequence features. How many does it have? What are they?</p>
+<p>Also in the side bar, does this entry have a section called “Reference sequence information”? What information can you get from this section?</p>
+<p><strong>3. In the related information section, select “Protein” (if available).</strong></p>
+<p>What new information is here? Have the accession numbers changed?</p>
+<p>Are the publications different?</p>
+<p>What is the protein sequence? How long is it compared to the gene sequence in the previous entry?</p>
+<p><strong>4. Now, search “Poecile” (the chickadee genus name), but select SRA as the database to search.</strong></p>
+<p>SRA, or Sequence Read Archive, is the home of raw sequencing data on NCBI. What kinds of data sets can you find here?</p>
+<p>Select an entry and look at the information there. How were these reads generated? What DNA source did they come from?</p>
+<p>Entries in the SRA are usually linked to Bioprojects. Select an entry and look at its Bioproject (which should be linked in the “Related Information” section of the side bar). How many entries are connected to this project?</p>
+<p>What is the difference between the “run”, the “experiment”, the “Biosample” and the “Bioproject”?</p>
+<p>Where could you download these sequences?</p>
+</div>
+<div id="blast" class="section level2 hasAnchor" number="9.2">
+<h2><span class="header-section-number">9.2</span> BLAST<a href="blast-and-genome-browser.html#blast" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Next, we will look at an extremely useful tool built into these NCBI databases: <a href="">BLAST</a>.</p>
+<p>BLAST stands for Basic Local Alignment Search Tool. It compares your query sequence to everything in the NCBI database in order to find the highest confidence alignments.</p>
+<p>There are a few versions of BLAST that you will be able to choose from. Your selection will depend on whether you are starting with protein or nucleotide sequences, and whether you would like to compare to the protein or nucleotide databases.</p>
+<p><strong>5. Copy the sequence from your fasta file from Saturday, and run it through the nucleotide BLAST.</strong></p>
+<p>You can just select the first sequence, rather than all 10. Alternatively, you can upload the file directly to BLAST.</p>
+<p>You can compare your sequence to any set of databases (or all of them), but it should work best if you choose “core_nt”.</p>
+<p><strong>6. Look at your results.</strong></p>
+<p>What are the top hits? What species are these from?</p>
+<p>Look at the columns of the data table. What is the E value for the top hits? E value is the number of similar hits that could be found by random chance. Therefore, an e value of 100 means that 100 hits are likely to be found by random chance in the database. The lower the E value, the more confident your hit is.</p>
+<p>Look at the “Graphic Summary” tab. How do the hits compare to each other and your query?</p>
+<p><strong>7. Make a distance tree.</strong></p>
+<p>Click where it says “Distance tree of results” under “Other reports”. How does your predicted sequence fall in this tree? Does it make sense?</p>
+<p>Make sure you can see your query sequence. (You may need to expand a grouping of sequences by right-clicking on the triangles that are at the leaves of the tree.)</p>
+<p><strong>8. Share your tree results with your classmates.</strong></p>
+<p>How do your results compare? Are you getting similar species in your trees?</p>
+<p>It may be helpful to select “Taxonomic Name” from the “Sequence Label” dropdown menu.</p>
+<p><strong>9. Do local alignment of one of the results with your BLAST results.</strong></p>
+<p>Go back to the search page, and click the box that says “compare two or more sequences.” Put your query sequence in the first box, and an accession number (or sequence) from one of your hits into the second box. Alternatively, use the human sequence in the second box.</p>
+<p>When your result comes up, look at the “Alignment tab.” How much sequence identity is there between your query and the hit?</p>
+<p><strong>10. Share your result with your classmates.</strong></p>
+<p>What species did you use? How similar were your results? Based on these results, how highly conserved do you think the gene is?</p>
+</div>
+<div id="genome-browser" class="section level2 hasAnchor" number="9.3">
+<h2><span class="header-section-number">9.3</span> Genome Browser<a href="blast-and-genome-browser.html#genome-browser" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Next, we will explore another database called the <a href="https://genome.ucsc.edu/index.html">UCSC Genome Browser</a>.</p>
+<p><strong>11. From the Genomes menu, select Zebrafinch. Then, search the name of your region of interest. </strong></p>
+<p>You may need to zoom out to get a broader picture of the region. What types of features appear near this gene?</p>
+<p>You may want to toggle the options at the bottom of the screen.</p>
+<p><strong>12. We can download annotation information from the Genome Browser.</strong></p>
+<p>Click on Downloads &gt; Genome Data. Pick any species and see which files are available to be downloaded.</p>
+<p><strong>13. Go to Tools &gt; Liftover.</strong></p>
+<p>This is an extremely useful tool that can help you convert coordinates from one reference genome to another. This is especially useful when comparing your results to those of other studies that may have used older versions of the reference genome. Liftover helps you make sure that you are comparing apples to apples.</p>
+</div>
+<div id="download-data-from-ncbi" class="section level2 hasAnchor" number="9.4">
+<h2><span class="header-section-number">9.4</span> Download Data from NCBI<a href="blast-and-genome-browser.html#download-data-from-ncbi" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p><strong>14. Now, we are going to download data from NCBI to your <code>scratch</code> folder. </strong></p>
+<p>Accessions: SRR7244680 and SRR7244685</p>
 <details class=chunk-details><summary class=chunk-summary><span class=chunk-summary-text>Code</span></summary>
 <pre class="foldable"><code>cd /scratch/alpine/usrname
-mkdir day_8
-cd day_8
 
-sinteractive --partition=amilan -t 4:00:00</code></pre>
+sinteractive --partition=amilan -t 4:00:00
+
+module load sra-toolkit
+
+mkdir /scratch/alpine/usrname/sra</code></pre>
 </details>
-</div>
-<div id="practice-annotating-code" class="section level2 hasAnchor" number="8.2">
-<h2><span class="header-section-number">8.2</span> Practice annotating code<a href="reproducibility.html#practice-annotating-code" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>Below is a script for processing read data like we did last week.</p>
+<p>In order to do this, you will have to go through a very strange configuration process, <a href="https://curc.readthedocs.io/en/latest/software/sratoolkit.html">explained here</a>. We can go through this step together.</p>
+<p>Once you have done the configuration, you can download the data.</p>
 <details class=chunk-details><summary class=chunk-summary><span class=chunk-summary-text>Code</span></summary>
 <pre class="foldable"><code>
-#!/bin/bash
+prefetch SRR7244680 
+fasterq-dump SRR7244680
 
-#SBATCH --nodes=1 --ntasks=1
-#SBATCH --time=24:00:00
-#SBATCH --partition=amilan 
-#SBATCH --output=vcfs.out
-
-module purge
-module load picard 
-module load samtools
-module load bcftools 
-
-for birds in /projects/mefr3284/bamfiles/*.filtered.sorted.bam ; do
-        out=$(basename ${birds%%.*})
-        picard MarkDuplicates -INPUT $birds -OUTPUT ../bamfiles/$out.filtered.sorted.nodup.bam -METRICS_FILE $out.duplicate.metrics -REMOVE_DUPLICATES true -ASSUME_SORTED true -TMP_DIR tmp_$out -VALIDATION_STRINGENCY LENIENT 
-        samtools index ../bamfiles/$out.filtered.sorted.nodup.bam
-        bcftools mpileup -f /scratch/alpine/mefr3284/ebio4100/reference/moch.dovetail.reference.hap1.scaffolds.renamed.fasta ../bamfiles/$out.filtered.sorted.nodup.bam -a DP,AD -Ou | bcftools call -mv -Oz -f GQ -o /scratch/alpine/mefr3284/vcf/$out.vcf.gz
-        tabix -fp vcf /scratch/alpine/mefr3284/vcf/$out.vcf.gz
-done
+prefetch SRR7244685
+fasterq-dump SRR7244685
 </code></pre>
 </details>
-<p><strong>2. Copy and paste this script into a file, and practice annotating it.</strong></p>
-<p>Suggestions: Include notes on where the data is coming from, document the version of the module that you used, document the steps of the script.</p>
-<p>You can find the version of the modules by looking in <code>module avail</code> or by loading the module and running something like <code>bcftools --version</code>.</p>
-<p><strong>3. When you think you are done, give your script to a classmate. Read your classmates annotations and make any suggestions where you think something is unclear or missing. Could you easily figure out what this code did if you hadn’t seen it before?</strong></p>
+<p>If you get any error messages during download, you can run the following code after <code>prefetch</code> to check that the file downloaded correctly. (This effectively performs a checksum).</p>
+<details class=chunk-details><summary class=chunk-summary><span class=chunk-summary-text>Code</span></summary>
+<pre class="foldable"><code>vdb-validate SRR7244680/SRR7244680.sra
+vdb-validate SRR7244685/SRR7244685.sra</code></pre>
+</details>
+<p>Finally, you will notice these files are really large because they are not compressed. Use gzip to compress the files. (This will take a bit of time, depending on time we might use a script).</p>
+<details class=chunk-details><summary class=chunk-summary><span class=chunk-summary-text>Code</span></summary>
+<pre class="foldable"><code>gzip *fastq</code></pre>
+</details>
 <div class="learning" data="latex=&quot;&quot;">
-<p>A great place to start for more information on reproducibility is Karl Broman’s <a href="https://kbroman.org/steps2rr/">Steps Toward Reproducible Research</a> tutorial and the <a href="https://kbroman.org/steps2rr/pages/resources.html">associated resources page</a>!</p>
+<p>You can learn more about the SRA-Toolkit commands we are using <a href="https://github.com/ncbi/sra-tools/wiki/08.-prefetch-and-fasterq-dump">here</a>.</p>
 </div>
 </div>
-<div id="version-control-software" class="section level2 hasAnchor" number="8.3">
-<h2><span class="header-section-number">8.3</span> Version Control Software<a href="reproducibility.html#version-control-software" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>While there are many types of version control software, we will learn a bit about Git today because it is the most widely used among academic bioinformaticians.</p>
-<p><strong>4. Load the git module.</strong></p>
-<details class=chunk-details><summary class=chunk-summary><span class=chunk-summary-text>Code</span></summary>
-<pre class="foldable"><code>module load git</code></pre>
-</details>
-<p><strong>5. Turn your day 7 folder into a git repository. </strong></p>
-<details class=chunk-details><summary class=chunk-summary><span class=chunk-summary-text>Code</span></summary>
-<pre class="foldable"><code>git init </code></pre>
-</details>
-<p>You will get a warning about the branch name. Feel free to rename it to main if you choose.</p>
-<details class=chunk-details><summary class=chunk-summary><span class=chunk-summary-text>Code</span></summary>
-<pre class="foldable"><code>git branch -m main</code></pre>
-</details>
-<p><strong>6. What does your repository look like? </strong></p>
-<details class=chunk-details><summary class=chunk-summary><span class=chunk-summary-text>Code</span></summary>
-<pre class="foldable"><code>git status</code></pre>
-</details>
-<p><strong>7. Make a file that you can track. </strong></p>
-<p>We often want to start a new repository with a README file that will explain the contents of our repository. You can learn more about GitHub’s <a href="https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-readmes">readme recommendations here</a>.</p>
-<details class=chunk-details><summary class=chunk-summary><span class=chunk-summary-text>Code</span></summary>
-<pre class="foldable"><code>touch README.md</code></pre>
-</details>
-<p><strong>8. Now check the status again. </strong></p>
-<details class=chunk-details><summary class=chunk-summary><span class=chunk-summary-text>Code</span></summary>
-<pre class="foldable"><code>git status</code></pre>
-</details>
-<p>What does it look like? How is git currently treating this file?</p>
-<p><strong>9. Add this file to your repository, and commit your changes. </strong></p>
-<details class=chunk-details><summary class=chunk-summary><span class=chunk-summary-text>Code</span></summary>
-<pre class="foldable"><code>git add README.md
-git commit -m &quot;added readme&quot; </code></pre>
-</details>
-<p><strong>10. Make a <code>.gitignore</code> file.</strong></p>
-<p>These files are very important for bioinformatics work. Git is intended to track your small text files, you should not track your very large raw data files. Add them to the <code>.gitignore</code> to prevent this tracking.</p>
-<details class=chunk-details><summary class=chunk-summary><span class=chunk-summary-text>Code</span></summary>
-<pre class="foldable"><code>echo &quot;sample.fastq.gz&quot; &gt; .gitignore 
-git add .gitignore 
-git commit -m &quot;added gitignore&quot; </code></pre>
-</details>
-<p>This file is a hidden file. You won’t see it if you run a normal ls command. Instead, run <code>ls -a</code> to see the hidden files.</p>
-<p><strong>11. Make a change to your README.md.</strong></p>
-<p>Open the file and add some information about the folder.</p>
-<p>Example:</p>
-<details class=chunk-details><summary class=chunk-summary><span class=chunk-summary-text>Code</span></summary>
-<pre class="foldable"><code># EBIO4100
-
-This is a repository for EBIO4100.
-
-## Contents 
-
-This repo contains test files used to learn Git. 
-
-## Files ignored by Git
-
-Files ignored by Git are listed in the `.gitignore` file. 
-</code></pre>
-</details>
-<p>These headers marked with <code>#</code> are not comments. This is a special syntax called Markdown. Markdown is a way to add formatting to simple text files that can then be interpreted by other programs. It works great for git because changes to these plain text files can be easily tracked. It can also be directly interpreted by GitHub. Here is a <a href="https://docs.github.com/en/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax">link for more Markdown options.</a></p>
-<p><strong>12. Now, track these changes.</strong></p>
-<details class=chunk-details><summary class=chunk-summary><span class=chunk-summary-text>Code</span></summary>
-<pre class="foldable"><code>git add README.md
-git commit -m &quot;edited readme&quot; </code></pre>
-</details>
-<p><strong>13. See what has changed in this file.</strong></p>
-<details class=chunk-details><summary class=chunk-summary><span class=chunk-summary-text>Code</span></summary>
-<pre class="foldable"><code>git diff --cached</code></pre>
-</details>
-<p>If you have a GitHub account, it can be connected to this git repository using the git config options, which are described by the module and also this <a href="https://kbroman.org/github_tutorial/pages/first_time.html">tutorial</a>.</p>
-</div>
-<div id="explore-github" class="section level2 hasAnchor" number="8.4">
-<h2><span class="header-section-number">8.4</span> Explore github<a href="reproducibility.html#explore-github" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>GitHub is a platform where coders can store, share, and collaborate on code.</p>
-<p>You can clone repositories from GitHub to your computer or the cluster.</p>
-<p><strong>14. Try cloning a sample repository to your scratch folder.</strong></p>
-<details class=chunk-details><summary class=chunk-summary><span class=chunk-summary-text>Code</span></summary>
-<pre class="foldable"><code>cd /scratch/alpine/usrname
-git clone https://github.com/mfrayer/ebio4100_sample_repo.git
-</code></pre>
-</details>
-<p>What is in your folder now?</p>
-<p><strong>15. Visit the <a href="https://github.com/mfrayer/bioinformatics_in_the_mountains">GitHub repository for this book</a>.</strong></p>
-<p>What information can you see about the repository? What languages was it written in? How many times have I deployed updates to the website?</p>
-<p>There is also a place to note issues or make pull requests (suggested changes to the contents of the repository).</p>
-<p><strong>16. Optional: If you want to make a GitHub account (or if you have one already), go ahead and try to make a pull request for a suggested change to this book! </strong></p>
-</div>
-<div id="assignment-7" class="section level2 hasAnchor" number="8.5">
-<h2><span class="header-section-number">8.5</span> Assignment<a href="reproducibility.html#assignment-7" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>Select one of the scripts that you turned in last week and annotate it. Copy it to the <code>$turnin/day_8</code> folder. Remember to include information about where the data came from, as well as the versions for the modules you used.</p>
+<div id="assignment-8" class="section level2 hasAnchor" number="9.5">
+<h2><span class="header-section-number">9.5</span> Assignment<a href="blast-and-genome-browser.html#assignment-8" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Make sure you submit your assignment on Canvas before you leave!</p>
 <div class="learning" data="latex=&quot;&quot;">
-<p>Here is more information on the programs we used today:</p>
-<p><a href="https://git-scm.com/about/branching-and-merging">Git</a></p>
-<p><a href="https://github.com/about">GitHub</a></p>
+<p>We have only scratched the surface of available resources! Cold Spring Harbor Laboratory provides a library of <a href="https://cshl.libguides.com/c.php?g=523983&amp;p=3582517">Bioinformatics and Genomics databases here</a>.</p>
 </div>
 
 </div>
@@ -353,8 +315,8 @@ git clone https://github.com/mfrayer/ebio4100_sample_repo.git
           </div>
         </div>
       </div>
-<a href="annotation.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="blast-and-genome-browser.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="reproducibility.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="references.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -375,7 +337,7 @@ gitbook.start({
     "size": 2
   },
   "edit": {
-    "link": "https://github.com/USERNAME/REPO/edit/BRANCH/09-reproducibility.Rmd",
+    "link": "https://github.com/USERNAME/REPO/edit/BRANCH/10-blast.Rmd",
     "text": "Edit"
   },
   "history": {

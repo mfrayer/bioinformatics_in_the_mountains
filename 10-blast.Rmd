@@ -1,0 +1,170 @@
+# BLAST and Genome Browser
+
+**Assignment:** Today's assignment will be a worksheet on Canvas, which you can fill out as we go through this activity. Make sure you find it in the Day 9 module. 
+
+## NCBI Databases 
+
+Let's start with the locus that we built a phylogeny for on Saturday. 
+
+**1. Search for the locus by name in the NCBI database.** 
+
+If your locus cannot be found, complete the rest of the activity using CHRNA5. 
+
+**2. Select an entry for your gene of interest.** 
+
+What is the accession number? Is there more than one? If your accession number starts with an NM, that means it is from an experimentally verified data set. In contrast, an XM means that it came from a computationally predicted sequence. Some entries have both, often because two entries were combined. If you have an NM vs NR, that indicates a coding vs non-coding. Here is a [handy guide to accession numbers](https://community.gep.wustl.edu/repository/course_materials_WU/annotation/Genbank_Accessions.pdf).
+
+What type of molecule is your entry from? 
+
+What species is it found in? How close is that species to the chickadees? (The black-capped chickadee's taxonomic chain is: `Eukaryota; Metazoa; Chordata; Craniata; Vertebrata; Euteleostomi; Archelosauria; Archosauria; Dinosauria; Saurischia; Theropoda; Coelurosauria; Aves; Neognathae; Neoaves; Telluraves; Australaves; Passeriformes; Paridae; Poecile; Poecile atricapillus`).
+
+What studies contributed to this entry? 
+
+How many exons does this region have? What are their sequences? 
+
+In the sidebar, highlight the sequence features. How many does it have? What are they? 
+
+Also in the side bar, does this entry have a section called "Reference sequence information"? What information can you get from this section? 
+
+**3. In the related information section, select "Protein" (if available).** 
+
+What new information is here? Have the accession numbers changed? 
+
+Are the publications different? 
+
+What is the protein sequence? How long is it compared to the gene sequence in the previous entry? 
+
+**4. Now, search "Poecile" (the chickadee genus name), but select SRA as the database to search.**
+
+SRA, or Sequence Read Archive, is the home of raw sequencing data on NCBI. What kinds of data sets can you find here? 
+
+Select an entry and look at the information there. How were these reads generated? What DNA source did they come from? 
+
+Entries in the SRA are usually linked to Bioprojects. Select an entry and look at its Bioproject (which should be linked in the "Related Information" section of the side bar). How many entries are connected to this project? 
+
+What is the difference between the "run", the "experiment", the "Biosample" and the "Bioproject"? 
+
+Where could you download these sequences? 
+
+
+## BLAST 
+
+Next, we will look at an extremely useful tool built into these NCBI databases: [BLAST](). 
+
+BLAST stands for Basic Local Alignment Search Tool. It compares your query sequence to everything in the NCBI database in order to find the highest confidence alignments. 
+
+There are a few versions of BLAST that you will be able to choose from. Your selection will depend on whether you are starting with protein or nucleotide sequences, and whether you would like to compare to the protein or nucleotide databases. 
+
+**5. Copy the sequence from your fasta file from Saturday, and run it through the nucleotide BLAST.**
+
+You can just select the first sequence, rather than all 10. Alternatively, you can upload the file directly to BLAST. 
+
+You can compare your sequence to any set of databases (or all of them), but it should work best if you choose "core_nt". 
+
+**6. Look at your results.** 
+
+What are the top hits? What species are these from? 
+
+Look at the columns of the data table. What is the E value for the top hits? E value is the number of similar hits that could be found by random chance. Therefore, an e value of 100 means that 100 hits are likely to be found by random chance in the database. The lower the E value, the more confident your hit is. 
+
+Look at the "Graphic Summary" tab. How do the hits compare to each other and your query? 
+
+**7. Make a distance tree.**
+
+Click where it says "Distance tree of results" under "Other reports". How does your predicted sequence fall in this tree? Does it make sense? 
+
+Make sure you can see your query sequence. (You may need to expand a grouping of sequences by right-clicking on the triangles that are at the leaves of the tree.)
+
+**8. Share your tree results with your classmates.** 
+
+How do your results compare? Are you getting similar species in your trees? 
+
+It may be helpful to select "Taxonomic Name" from the "Sequence Label" dropdown menu. 
+
+**9. Do local alignment of one of the results with your BLAST results.** 
+
+Go back to the search page, and click the box that says "compare two or more sequences." Put your query sequence in the first box, and an accession number (or sequence) from one of your hits into the second box. Alternatively, use the human sequence in the second box. 
+
+When your result comes up, look at the "Alignment tab." How much sequence identity is there between your query and the hit? 
+
+**10. Share your result with your classmates.**
+
+What species did you use? How similar were your results? Based on these results, how highly conserved do you think the gene is? 
+
+## Genome Browser
+
+Next, we will explore another database called the [UCSC Genome Browser](https://genome.ucsc.edu/index.html). 
+
+**11. From the Genomes menu, select Zebrafinch. Then, search the name of your region of interest. **
+
+You may need to zoom out to get a broader picture of the region. What types of features appear near this gene? 
+
+You may want to toggle the options at the bottom of the screen. 
+
+**12. We can download annotation information from the Genome Browser.**
+
+Click on Downloads > Genome Data. Pick any species and see which files are available to be downloaded. 
+
+**13. Go to Tools > Liftover.**
+
+This is an extremely useful tool that can help you convert coordinates from one reference genome to another. This is especially useful when comparing your results to those of other studies that may have used older versions of the reference genome. Liftover helps you make sure that you are comparing apples to apples. 
+
+## Download Data from NCBI
+
+**14. Now, we are going to download data from NCBI to your `scratch` folder.  **
+
+Accessions: SRR7244680 and SRR7244685
+
+```{cat, class.source='foldable'}
+cd /scratch/alpine/usrname
+
+sinteractive --partition=amilan -t 4:00:00
+
+module load sra-toolkit
+
+mkdir /scratch/alpine/usrname/sra
+```
+
+In order to do this, you will have to go through a very strange configuration process, [explained here](https://curc.readthedocs.io/en/latest/software/sratoolkit.html). We can go through this step together. 
+
+Once you have done the configuration, you can download the data. 
+
+```{cat, class.source='foldable'}
+
+prefetch SRR7244680 
+fasterq-dump SRR7244680
+
+prefetch SRR7244685
+fasterq-dump SRR7244685
+
+```
+
+If you get any error messages during download, you can run the following code after `prefetch` to check that the file downloaded correctly. (This effectively performs a checksum).
+
+```{cat, class.source='foldable'}
+vdb-validate SRR7244680/SRR7244680.sra
+vdb-validate SRR7244685/SRR7244685.sra
+```
+
+
+Finally, you will notice these files are really large because they are not compressed. Use gzip to compress the files. (This will take a bit of time, depending on time we might use a script).
+
+```{cat, class.source='foldable'}
+gzip *fastq
+```
+
+
+::: {.learning data=latex=""}
+
+You can learn more about the SRA-Toolkit commands we are using [here](https://github.com/ncbi/sra-tools/wiki/08.-prefetch-and-fasterq-dump).
+
+:::
+
+## Assignment 
+
+Make sure you submit your assignment on Canvas before you leave! 
+
+::: {.learning data=latex=""}
+We have only scratched the surface of available resources! Cold Spring Harbor Laboratory provides a library of [Bioinformatics and Genomics databases here](https://cshl.libguides.com/c.php?g=523983&p=3582517).
+:::
+

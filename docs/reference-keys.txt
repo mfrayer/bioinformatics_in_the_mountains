@@ -52,3 +52,9 @@ practice-annotating-code
 version-control-software
 explore-github
 assignment-7
+blast-and-genome-browser
+ncbi-databases
+blast
+genome-browser
+download-data-from-ncbi
+assignment-8
