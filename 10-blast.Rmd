@@ -6,9 +6,9 @@
 
 Let's start with the locus that we built a phylogeny for on Saturday. 
 
-**1. Search for the locus by name in the NCBI database.** 
+**1. Search for the locus by name in the [NCBI database](https://www.ncbi.nlm.nih.gov/).** 
 
-If your locus cannot be found, complete the rest of the activity using CHRNA5. 
+If your locus cannot be found, complete the rest of the activity using CHRNA5. You should start by selecting the nucleotide database. 
 
 **2. Select an entry for your gene of interest.** 
 
