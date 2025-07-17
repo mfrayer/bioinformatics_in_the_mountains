@@ -42,7 +42,7 @@ module load trimmomatic
 
 java -jar $TRIMMOMATIC PE rnaseq/data/SRR7244680_1.fastq.gz rnaseq/data/SRR7244680_2.fastq.gz rnaseq/analyses/SRR7244680_1P.fastq.gz rnaseq/analyses/SRR7244680_1U.fastq.gz rnaseq/analyses/SRR7244680_2P.fastq.gz rnaseq/analyses/SRR7244680_2U.fastq.gz HEADCROP:10 TRAILING:3 SLIDINGWINDOW:4:15 MINLEN:36
 
-java -jar $TRIMMOMATIC PE rnaseq/data/SRR7244680_1.fastq.gz rnaseq/data/SRR7244680_2.fastq.gz rnaseq/analyses/SRR7244685_1P.fastq.gz rnaseq/analyses/SRR7244685_1U.fastq.gz rnaseq/analyses/SRR7244685_2P.fastq.gz rnaseq/analyses/SRR7244685_2U.fastq.gz HEADCROP:10 TRAILING:3 SLIDINGWINDOW:4:15 MINLEN:36
+java -jar $TRIMMOMATIC PE rnaseq/data/SRR7244685_1.fastq.gz rnaseq/data/SRR7244685_2.fastq.gz rnaseq/analyses/SRR7244685_1P.fastq.gz rnaseq/analyses/SRR7244685_1U.fastq.gz rnaseq/analyses/SRR7244685_2P.fastq.gz rnaseq/analyses/SRR7244685_2U.fastq.gz HEADCROP:10 TRAILING:3 SLIDINGWINDOW:4:15 MINLEN:36
 
 ```
 
