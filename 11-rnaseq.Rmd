@@ -1,0 +1,112 @@
+# RNA-seq
+
+This tutorial is adapted from NYU's [NGS Analysis site](https://learn.gencore.bio.nyu.edu/rna-seq-analysis/aligning-rna-seq-data/).
+
+We are going to try to put together everything we have learned today. Let's start by making a working directory for this project. 
+
+**1. Make folders for today, and copy your file into it. Then, start an interactive job.**
+
+```{cat, class.source='foldable'}
+cd /scratch/alpine/usrname
+mkdir -p rnaseq/data rnaseq/scripts rnaseq/analyses
+cp sra/*fastq.gz rnaseq/data/
+cd rnaseq/scripts
+
+sinteractive --partition=amilan -t 4:00:00
+```
+
+
+## Processing the data 
+
+### Quality Control 
+
+**2. Run quality control on the fastq files.** 
+
+To be reproducible, you can run this step in a script (optional). 
+
+```{cat, class.source='foldable'}
+module load fastqc
+
+fastqc rnaseq/data/*fastq.gz 
+
+```
+
+### Trimming 
+
+**3. Trim the reads.**
+
+To be reproducible, you can run this step in a script (optional). 
+
+```{cat, class.source='foldable'}
+module load trimmomatic
+
+java -jar $TRIMMOMATIC PE rnaseq/data/SRR7244680_1.fastq.gz rnaseq/data/SRR7244680_2.fastq.gz rnaseq/analyses/SRR7244680_1P.fastq.gz rnaseq/analyses/SRR7244680_1U.fastq.gz rnaseq/analyses/SRR7244680_2P.fastq.gz rnaseq/analyses/SRR7244680_2U.fastq.gz HEADCROP:10 TRAILING:3 SLIDINGWINDOW:4:15 MINLEN:36
+
+java -jar $TRIMMOMATIC PE rnaseq/data/SRR7244680_1.fastq.gz rnaseq/data/SRR7244680_2.fastq.gz rnaseq/analyses/SRR7244685_1P.fastq.gz rnaseq/analyses/SRR7244685_1U.fastq.gz rnaseq/analyses/SRR7244685_2P.fastq.gz rnaseq/analyses/SRR7244685_2U.fastq.gz HEADCROP:10 TRAILING:3 SLIDINGWINDOW:4:15 MINLEN:36
+
+```
+
+
+### Alignment 
+
+There are several popular aligners for RNA-seq, but we will use STAR because it is ready to use on the cluster. You can find the manual for STAR [here](https://github.com/alexdobin/STAR/blob/master/doc/STARmanual.pdf). 
+
+Much like BWA, you need to index the genome sequence with STAR before aligning. This *only needs to be done once*, so I have done it for you. Below is the command I used: 
+
+```{cat, class.source='foldable'}
+STAR --runThreadN 8 --runMode genomeGenerate --genomeDir /scratch/alpine/mefr3284/ebio4100/reference --genomeFastaFiles /scratch/alpine/mefr3284/ebio4100/reference/moch.dovetail.reference.hap1.scaffolds.renamed.fasta --sjdbGTFfile /scratch/alpine/mefr3284/ebio4100/reference/PO2749_Poecile_gambeli.annotation.scaf.renamed.gff --sjdbGTFtagExonParentTranscript Parent --sjdbOverhang 150 --genomeChrBinNbits 16 --genomeSAindexNbases 12 --limitSjdbInsertNsj 300000
+```
+
+**4. The next step will be to do the actual alignment.** 
+
+You will need to do this in a batch script, because you will need to request extra resources from the cluster. Your script might look like this: 
+
+```{cat, class.source='foldable'}
+#!/bin/bash 
+
+#SBATCH --nodes=1
+#SBATCH --ntasks=8
+#SBATCH --time=4:00:00
+#SBATCH --partition=amilan 
+#SBATCH --output=mapping.out
+#SBATCH --qos=normal 
+
+module load star
+
+STAR --runThreadN 8 --genomeDir /scratch/alpine/mefr3284/ebio4100/reference --readFilesIn rnaseq/analyses/SRR7244680_1P.fastq.gz rnaseq/analyses/SRR7244680_2P.fastq.gz --outSAMtype BAM SortedByCoordinate --outFileNamePrefix rnaseq/analyses/SRR7244680 --readFilesCommand zcat
+
+STAR --runThreadN 8 --genomeDir /scratch/alpine/mefr3284/ebio4100/reference --readFilesIn rnaseq/analyses/SRR7244685_1P.fastq.gz rnaseq/analyses/SRR7244685_2P.fastq.gz --outSAMtype BAM SortedByCoordinate --outFileNamePrefix rnaseq/analyses/SRR7244680 --readFilesCommand zcat
+
+```
+
+This step should take 20-30 minutes. If you request more resources, it will run faster, but it is likely to *queue* slower, taking more real time. 
+
+### Remove duplicates 
+
+**5. Use picard to remove duplicates.**
+
+```{cat, class.source='foldable'}
+module load picard 
+
+picard MarkDuplicates -INPUT rnaseq/analyses/SRR7244680Aligned.sortedByCoord.out.bam -OUTPUT rnaseq/analyses/SRR7244680.filtered.sorted.nodup.bam -METRICS_FILE rnaseq/analyses/SRR7244680.duplicate.metrics -REMOVE_DUPLICATES true -ASSUME_SORTED true -TMP_DIR rnaseq/analyses/SRR7244680_tmp -MAX_FILE_HANDLES 1000
+
+picard MarkDuplicates -INPUT rnaseq/analyses/SRR7244685Aligned.sortedByCoord.out.bam -OUTPUT rnaseq/analyses/SRR7244685.filtered.sorted.nodup.bam -METRICS_FILE rnaseq/analyses/SRR7244685.duplicate.metrics -REMOVE_DUPLICATES true -ASSUME_SORTED true -TMP_DIR rnaseq/analyses/SRR7244685_tmp -MAX_FILE_HANDLES 1000
+
+module load samtools 
+samtools index rnaseq/analyses/SRR7244680.filtered.sorted.nodup.bam
+samtools index rnaseq/analyses/SRR7244685.filtered.sorted.nodup.bam
+
+
+```
+
+
+## Differential expression 
+
+For this section, we will use an instance of R on the Posit Cloud. You will receive an invitation to the workspace via email. 
+
+**6. Use the Posit Cloud environment to run the Differential Expression script.**
+
+## Assignment 
+
+We will discuss. 
+

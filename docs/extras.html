@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Activity 4 Variant calling | EBIO4100: Bioinformatics in the Mountains</title>
+  <title>Activity 11 Extras | EBIO4100: Bioinformatics in the Mountains</title>
   <meta name="description" content="This bookdown organizes the course materials for EBIO4100: Intro to Bioinformatics, taught Summer 2025." />
   <meta name="generator" content="bookdown 0.43 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Activity 4 Variant calling | EBIO4100: Bioinformatics in the Mountains" />
+  <meta property="og:title" content="Activity 11 Extras | EBIO4100: Bioinformatics in the Mountains" />
   <meta property="og:type" content="book" />
   <meta property="og:image" content="/images/logo_hagar.JPG" />
   <meta property="og:description" content="This bookdown organizes the course materials for EBIO4100: Intro to Bioinformatics, taught Summer 2025." />
   <meta name="github-repo" content="mfrayer/bioinformatics_in_the_mountains" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Activity 4 Variant calling | EBIO4100: Bioinformatics in the Mountains" />
+  <meta name="twitter:title" content="Activity 11 Extras | EBIO4100: Bioinformatics in the Mountains" />
   
   <meta name="twitter:description" content="This bookdown organizes the course materials for EBIO4100: Intro to Bioinformatics, taught Summer 2025." />
   <meta name="twitter:image" content="/images/logo_hagar.JPG" />
@@ -30,8 +30,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="alignment-of-whole-genome-data.html"/>
-<link rel="next" href="variant-filtering.html"/>
+<link rel="prev" href="rna-seq.html"/>
+<link rel="next" href="references.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -218,145 +218,30 @@ div.csl-indent {
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="variant-calling" class="section level1 hasAnchor" number="4">
-<h1><span class="header-section-number">Activity 4</span> Variant calling<a href="variant-calling.html#variant-calling" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<p>Today we will use the bam file that we made in the last class to call variants (<code>mountain_chickadee.filtered.sorted.bam</code>). We will call variants using two popular approaches.
-If your file was deleted, you can copy a new one from the shared folder.</p>
-<p><strong>1. Make folders for today, and copy your file into it. Then, start an interactive job.</strong></p>
-<details class=chunk-details><summary class=chunk-summary><span class=chunk-summary-text>Code</span></summary>
-<pre class="foldable"><code>cd /scratch/alpine/usrname
-mkdir day_4 
-cp $shared/day_4/* day_4/
-cd day_4 
-
-sinteractive --partition=alpine -t 4:00:00</code></pre>
-</details>
-<div id="remove-duplicates-from-the-bam-file" class="section level2 hasAnchor" number="4.1">
-<h2><span class="header-section-number">4.1</span> Remove duplicates from the BAM file<a href="variant-calling.html#remove-duplicates-from-the-bam-file" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>For many analyses, the last thing we need to do with the BAM file is remove duplicates. Reads sometimes get duplicated during library prep (the chemical process we use to prepare isolated DNA for sequencing). This will show up in our BAM file as reads that are completely identical from start to end. For most analyses, we want to remove these because they might give us false information about the frequency of variants they contain.</p>
-<p>To remove duplicates, we will use Picard. Picard is a large and powerful program, you can look at <a href="https://broadinstitute.github.io/picard/">its manual</a> for more information. After removing duplicates, we will need to re-index the file.</p>
-<p><strong>2. Remove duplicates and reindex the file.</strong></p>
-<details class=chunk-details><summary class=chunk-summary><span class=chunk-summary-text>Code</span></summary>
-<pre class="foldable"><code>module load picard 
-picard MarkDuplicates -INPUT mountain_chickadee.filtered.sorted.bam -OUTPUT mountain_chickadee.filtered.sorted.nodup.bam -METRICS_FILE mountain_chickadee.duplicate.metrics -REMOVE_DUPLICATES true -ASSUME_SORTED true -TMP_DIR tmp_mountain_chickadee -VALIDATION_STRINGENCY LENIENT
-
-module load samtools 
-samtools index mountain_chickadee.filtered.sorted.nodup.bam</code></pre>
-</details>
-<p>In the case of this small set of reads, there are no duplicates, so we have not changed anything in the file. If you look at the file <code>mountain_chickadee.duplicate.metrics</code> you can see the counts of reads that it examined.</p>
-</div>
-<div id="call-variants-with-gatk" class="section level2 hasAnchor" number="4.2">
-<h2><span class="header-section-number">4.2</span> Call Variants with GATK<a href="variant-calling.html#call-variants-with-gatk" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>The first variant caller we will try is called GATK. This is one of the most common variant callers. It requires two steps. First, <code>HaplotypeCaller</code> is used to create a GVCF file. Second, <code>GenotypeGVCFs</code> will make out final VCF file. If we had multiple samples, we would run each separately in <code>HaplotypeCaller</code>, and then combine them before running <code>GenotypeGVCFs</code>.</p>
-<p><strong>3. Load the module and run HaplotypeCaller.</strong></p>
-<p>Note: GATK provides cluster-specific instructions when you load the module.</p>
-<details class=chunk-details><summary class=chunk-summary><span class=chunk-summary-text>Code</span></summary>
-<pre class="foldable"><code>
-module load gatk
-
-gatk --java-options &quot;-Djava.io.tmpdir=$SLURM_SCRATCH&quot; HaplotypeCaller -R /scratch/alpine/mefr3284/ebio4100/reference/moch.dovetail.reference.hap1.scaffolds.renamed.fasta -I mountain_chickadee.filtered.sorted.nodup.bam -O moch_gatk.g.vcf.gz -ERC GVCF
-</code></pre>
-</details>
-<p><strong>4. Run GenotypeGVCFs. </strong></p>
-<details class=chunk-details><summary class=chunk-summary><span class=chunk-summary-text>Code</span></summary>
-<pre class="foldable"><code>
-gatk --java-options &quot;-Djava.io.tmpdir=$SLURM_SCRATCH&quot; GenotypeGVCFs -R /scratch/alpine/mefr3284/ebio4100/reference/moch.dovetail.reference.hap1.scaffolds.renamed.fasta -V moch_gatk.g.vcf.gz -O moch_gatk.vcf.gz
-</code></pre>
-</details>
-<p>Notice that an index file was also made! (<code>moch_gatk.g.vcf.gz.tbi</code>)</p>
-<p>GATK has really good documentation, including this <a href="https://gatk.broadinstitute.org/hc/en-us">Best Practices workflow</a> that describes the gold standard for genome processing.</p>
-</div>
-<div id="call-variants-with-bcftools" class="section level2 hasAnchor" number="4.3">
-<h2><span class="header-section-number">4.3</span> Call variants with bcftools<a href="variant-calling.html#call-variants-with-bcftools" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>Another popular variant caller is <code>bcftools mpileup</code>. We will use the program <code>bcftools</code> a lot for processing VCF files. We are going to run both variant callers and compare the output.</p>
-<p><strong>5. Run bcftools mpileup and call.</strong></p>
-<p>There are also two steps to this variant calling, but we can pipe from one to the other without making the large intermediate file.</p>
-<details class=chunk-details><summary class=chunk-summary><span class=chunk-summary-text>Code</span></summary>
-<pre class="foldable"><code>
-module load bcftools
-
-bcftools mpileup -f /scratch/alpine/mefr3284/ebio4100/reference/moch.dovetail.reference.hap1.scaffolds.renamed.fasta mountain_chickadee.filtered.sorted.nodup.bam -a DP,AD -Ou | bcftools call -mv -Oz -f GQ -o moch_bcftools.vcf.gz
-
-tabix -fp vcf moch_bcftools.vcf.gz
-</code></pre>
-</details>
-</div>
-<div id="are-they-all-the-same" class="section level2 hasAnchor" number="4.4">
-<h2><span class="header-section-number">4.4</span> Are they all the same?<a href="variant-calling.html#are-they-all-the-same" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p><strong>6. Look at the files side by side.</strong></p>
-<p>What is similar about them, and what is different? You can check their file sizes, use <code>less</code> to look at each one, and/or open each one in the OnDemand portal and look at them side-by-side that way.</p>
-<p><strong>7. Run <code>bcftools stats</code> to calculate differences. </strong></p>
-<details class=chunk-details><summary class=chunk-summary><span class=chunk-summary-text>Code</span></summary>
-<pre class="foldable"><code>
-bcftools stats -s - moch_gatk.vcf.gz moch_bcftools.vcf.gz &gt; stats.txt
-</code></pre>
-</details>
-<p>Scroll through the output. There is a ton of information here, divided into sections.</p>
-<p><strong>8. Look at the ID section.</strong></p>
-<p>One of the first sections is called “Definition of sets”. Here, ID numbers are described. The first two (0 and 1) should be describe things that are unique to each of the files, and the third one (2) should describe things that are the same between the files.</p>
-<details class=chunk-details><summary class=chunk-summary><span class=chunk-summary-text>Code</span></summary>
-<pre class="foldable"><code>
-grep -B2 &quot;^ID\s&quot; stats.txt
-</code></pre>
-</details>
-<p>This command returns lines that start with (^) ID followed by white space. The -B2 flag returns the two lines prior to any lines that match the criteria.</p>
-<p><strong>9. Next, look at the section “Summary Numbers”. How many records do the VCF files have in common?</strong></p>
-<details class=chunk-details><summary class=chunk-summary><span class=chunk-summary-text>Code</span></summary>
-<pre class="foldable"><code>
-grep -B1 &quot;^SN\s&quot; stats.txt
-</code></pre>
-</details>
-<p><strong>10. Next, look at the section “Per-sample counts” or “PSC”. </strong></p>
-<details class=chunk-details><summary class=chunk-summary><span class=chunk-summary-text>Code</span></summary>
-<pre class="foldable"><code>
-grep PSC stats.txt
-</code></pre>
-</details>
-<p>Below is a sample table (yours may or may not be identical). You will notice that <code>bcftools</code> called many more sites, and the category with the least agreement is the calling of indels (insertions or deletions). Calling indels is very tricky, and a big way for programs to diverge, especially when coverage is low. These files have artificially low coverage, and we will work with the higher coverage version of this dataset later. However, if this was our dataset, we would want to filter this dataset carefully.</p>
-<style type="text/css">
-.scrolling {
-  max-width: 1000px;
-  overflow-x: auto;
-}
-</style>
-<pre style="max-width: 1000px;"><code>|PSC|[2]id|[3]sample|[4]nRefHom|[5]nNonRefHom|[6]nHets|[7]nTransitions|[8]nTransversions|[9]nIndels|[10]average depth|[11]nSingletons|[12]nHapRef|[13]nHapAlt|[14]nMissing|
-|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
-|PSC|0|moch21|0|94|0|43|51|227|1.9|321|0|0|0|
-|PSC|1|moch21|0|5263|0|3367|1896|202|1.0|5465|0|0|0|
-|PSC|2|moch21|0|2745|1|1878|868|30|2.0|2776|0|0|0|</code></pre>
-<p>So which of these variant sets is right?</p>
-<p>The hard truth is that we don’t know the real genotypes– both of these files provide different hypotheses for the genotypes based on the alignment we provided. It is important to think carefully about your data, the analyses you are trying to do, and the assumptions of the model in order to decide which program is right for your analysis.</p>
-</div>
-<div id="assignment-3" class="section level2 hasAnchor" number="4.5">
-<h2><span class="header-section-number">4.5</span> Assignment<a href="variant-calling.html#assignment-3" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>Create a script that will remove duplicates and call variants in the BAM file you made in yesterday’s assignment (<code>20H102_S21_L002_R2_001.filtered.sorted.bam</code>). You can use either program. When you are done, copy it to the folder <code>$turnin/day_4/</code>. Make sure you add your name to the file name! Try to run it on the cluster, it may take a few hours.</p>
-<p><em>Hint 1:</em></p>
-<details class=chunk-details><summary class=chunk-summary><span class=chunk-summary-text>Code</span></summary>
-<pre class="foldable"><code>
-Your header could look like: 
-  
-#!/bin/bash
-
-#SBATCH --nodes=1
-#SBATCH --ntasks=1
-#SBATCH --time=6:00:00
-#SBATCH --partition=amilan 
-#SBATCH --output=vcfs.out
-#SBATCH --qos=normal
-</code></pre>
-</details>
-<p><em>Hint 2:</em></p>
-<details class=chunk-details><summary class=chunk-summary><span class=chunk-summary-text>Code</span></summary>
-<pre class="foldable"><code>
-Make sure you have the names and locations of the files correct! 
-</code></pre>
-</details>
-<div class="learning" data="latex=&quot;&quot;">
-<p>If you would like more information on the programs we tried today, here are links to check out.</p>
-<p><a href="https://gatk.broadinstitute.org/hc/en-us">GATK User Guide</a></p>
-<p><a href="https://samtools.github.io/bcftools/bcftools.html">BCFtools Manual</a></p>
-<p><a href="https://broadinstitute.github.io/picard/">Picard Documentation</a></p>
-</div>
+<div id="extras" class="section level1 hasAnchor" number="11">
+<h1><span class="header-section-number">Activity 11</span> Extras<a href="extras.html#extras" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="resources-for-further-learning" class="section level2 hasAnchor" number="11.1">
+<h2><span class="header-section-number">11.1</span> Resources for further learning<a href="extras.html#resources-for-further-learning" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>There are tons of useful resources out there, and many of them are free! Below I have listed a few that I have found useful, but this is by no means an exhaustive list.</p>
+<p>Tutorials for programming and data skills:</p>
+<ul>
+<li><p><a href="https://carpentries.org/lessons/">The Carpentries</a></p></li>
+<li><p><a href="https://kbroman.org/tutorials">Dr. Karl Broman’s Tutorials</a></p></li>
+</ul>
+<p>Tutorials for bioinformatics:</p>
+<ul>
+<li><a href="https://learn.gencore.bio.nyu.edu/">NYU Bioinformatics Tutorials</a></li>
+</ul>
+<p>Books about bioinformatics:</p>
+<ul>
+<li><p><a href="https://www.oreilly.com/library/view/bioinformatics-data-skills/9781449367480/">Bioinformatics Data Skills</a></p></li>
+<li><p><a href="https://www.sciencedirect.com/book/9780124104716/bioinformatics-for-beginners">Bioinformatics for Beginners</a> – This one is available to you online from the university.</p></li>
+</ul>
+<p>Helpful YouTube Series:</p>
+<ul>
+<li><p><a href="https://www.youtube.com/playlist?list=PLCbXw1opqIQeNfF26-wWegdGoCC1aut0P">Dr. Aaron Quinlan’s Applied Computational Biology Course</a></p></li>
+<li><p><a href="https://www.youtube.com/playlist?list=PLjPAsbaa7pgGOrSPNBojU6lFCsJj7pvdJ">Prof Greg’s Intro to Phylogenetics</a></p></li>
+</ul>
 
 </div>
 </div>
@@ -365,8 +250,8 @@ Make sure you have the names and locations of the files correct!
           </div>
         </div>
       </div>
-<a href="alignment-of-whole-genome-data.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="variant-filtering.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="rna-seq.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="references.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -387,7 +272,7 @@ gitbook.start({
     "size": 2
   },
   "edit": {
-    "link": "https://github.com/USERNAME/REPO/edit/BRANCH/05-variant-calling.Rmd",
+    "link": "https://github.com/USERNAME/REPO/edit/BRANCH/12-extras.Rmd",
     "text": "Edit"
   },
   "history": {

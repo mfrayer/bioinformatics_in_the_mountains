@@ -49,7 +49,7 @@ Where could you download these sequences?
 
 ## BLAST 
 
-Next, we will look at an extremely useful tool built into these NCBI databases: [BLAST](). 
+Next, we will look at an extremely useful tool built into these NCBI databases: [BLAST](https://blast.ncbi.nlm.nih.gov/Blast.cgi?PROGRAM=blastn&PAGE_TYPE=BlastSearch&LINK_LOC=blasthome). 
 
 BLAST stands for Basic Local Alignment Search Tool. It compares your query sequence to everything in the NCBI database in order to find the highest confidence alignments. 
 

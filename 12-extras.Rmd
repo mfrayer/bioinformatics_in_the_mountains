@@ -1,0 +1,31 @@
+# Extras
+
+## Resources for further learning
+
+There are tons of useful resources out there, and many of them are free! Below I have listed a few that I have found useful, but this is by no means an exhaustive list.  
+
+
+Tutorials for programming and data skills: 
+
+- [The Carpentries](https://carpentries.org/lessons/) 
+
+- [Dr. Karl Broman's Tutorials](https://kbroman.org/tutorials)
+
+Tutorials for bioinformatics:
+
+- [NYU Bioinformatics Tutorials](https://learn.gencore.bio.nyu.edu/)
+
+Books about bioinformatics: 
+
+- [Bioinformatics Data Skills](https://www.oreilly.com/library/view/bioinformatics-data-skills/9781449367480/)
+
+- [Bioinformatics for Beginners](https://www.sciencedirect.com/book/9780124104716/bioinformatics-for-beginners) -- This one is available to you online from the university. 
+
+
+Helpful YouTube Series:
+
+- [Dr. Aaron Quinlan's Applied Computational Biology Course](https://www.youtube.com/playlist?list=PLCbXw1opqIQeNfF26-wWegdGoCC1aut0P)
+
+- [Prof Greg's Intro to Phylogenetics](https://www.youtube.com/playlist?list=PLjPAsbaa7pgGOrSPNBojU6lFCsJj7pvdJ)
+
+

@@ -58,3 +58,13 @@ blast
 genome-browser
 download-data-from-ncbi
 assignment-8
+rna-seq
+processing-the-data
+quality-control
+trimming-1
+alignment
+remove-duplicates
+differential-expression
+assignment-9
+extras
+resources-for-further-learning

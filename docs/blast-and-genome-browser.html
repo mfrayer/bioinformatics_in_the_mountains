@@ -23,7 +23,7 @@
 <meta name="author" content="Megan Frayer" />
 
 
-<meta name="date" content="2025-07-16" />
+<meta name="date" content="2025-07-17" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -31,7 +31,7 @@
   
   
 <link rel="prev" href="reproducibility.html"/>
-<link rel="next" href="references.html"/>
+<link rel="next" href="rna-seq.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -181,6 +181,22 @@ div.csl-indent {
 <li class="chapter" data-level="9.4" data-path="blast-and-genome-browser.html"><a href="blast-and-genome-browser.html#download-data-from-ncbi"><i class="fa fa-check"></i><b>9.4</b> Download Data from NCBI</a></li>
 <li class="chapter" data-level="9.5" data-path="blast-and-genome-browser.html"><a href="blast-and-genome-browser.html#assignment-8"><i class="fa fa-check"></i><b>9.5</b> Assignment</a></li>
 </ul></li>
+<li class="chapter" data-level="10" data-path="rna-seq.html"><a href="rna-seq.html"><i class="fa fa-check"></i><b>10</b> RNA-seq</a>
+<ul>
+<li class="chapter" data-level="10.1" data-path="rna-seq.html"><a href="rna-seq.html#processing-the-data"><i class="fa fa-check"></i><b>10.1</b> Processing the data</a>
+<ul>
+<li class="chapter" data-level="10.1.1" data-path="rna-seq.html"><a href="rna-seq.html#quality-control"><i class="fa fa-check"></i><b>10.1.1</b> Quality Control</a></li>
+<li class="chapter" data-level="10.1.2" data-path="rna-seq.html"><a href="rna-seq.html#trimming-1"><i class="fa fa-check"></i><b>10.1.2</b> Trimming</a></li>
+<li class="chapter" data-level="10.1.3" data-path="rna-seq.html"><a href="rna-seq.html#alignment"><i class="fa fa-check"></i><b>10.1.3</b> Alignment</a></li>
+<li class="chapter" data-level="10.1.4" data-path="rna-seq.html"><a href="rna-seq.html#remove-duplicates"><i class="fa fa-check"></i><b>10.1.4</b> Remove duplicates</a></li>
+</ul></li>
+<li class="chapter" data-level="10.2" data-path="rna-seq.html"><a href="rna-seq.html#differential-expression"><i class="fa fa-check"></i><b>10.2</b> Differential expression</a></li>
+<li class="chapter" data-level="10.3" data-path="rna-seq.html"><a href="rna-seq.html#assignment-9"><i class="fa fa-check"></i><b>10.3</b> Assignment</a></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="extras.html"><a href="extras.html"><i class="fa fa-check"></i><b>11</b> Extras</a>
+<ul>
+<li class="chapter" data-level="11.1" data-path="extras.html"><a href="extras.html#resources-for-further-learning"><i class="fa fa-check"></i><b>11.1</b> Resources for further learning</a></li>
+</ul></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
@@ -231,7 +247,7 @@ div.csl-indent {
 </div>
 <div id="blast" class="section level2 hasAnchor" number="9.2">
 <h2><span class="header-section-number">9.2</span> BLAST<a href="blast-and-genome-browser.html#blast" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>Next, we will look at an extremely useful tool built into these NCBI databases: <a href="">BLAST</a>.</p>
+<p>Next, we will look at an extremely useful tool built into these NCBI databases: <a href="https://blast.ncbi.nlm.nih.gov/Blast.cgi?PROGRAM=blastn&amp;PAGE_TYPE=BlastSearch&amp;LINK_LOC=blasthome">BLAST</a>.</p>
 <p>BLAST stands for Basic Local Alignment Search Tool. It compares your query sequence to everything in the NCBI database in order to find the highest confidence alignments.</p>
 <p>There are a few versions of BLAST that you will be able to choose from. Your selection will depend on whether you are starting with protein or nucleotide sequences, and whether you would like to compare to the protein or nucleotide databases.</p>
 <p><strong>5. Copy the sequence from your fasta file from Saturday, and run it through the nucleotide BLAST.</strong></p>
@@ -316,7 +332,7 @@ vdb-validate SRR7244685/SRR7244685.sra</code></pre>
         </div>
       </div>
 <a href="reproducibility.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="references.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="rna-seq.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
