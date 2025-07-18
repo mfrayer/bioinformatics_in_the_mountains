@@ -23,7 +23,7 @@
 <meta name="author" content="Megan Frayer" />
 
 
-<meta name="date" content="2025-07-17" />
+<meta name="date" content="2025-07-18" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -335,6 +335,7 @@ java -jar $TRIMMOMATIC PE mountain_chickadee_R1.fastq.gz mountain_chickadee_R2.f
 <pre class="foldable"><code>module load bwa
 module load samtools </code></pre>
 </details>
+<p>Note that before you run bwa for the first time, you need to index the reference genome with bwa. This creates a file that helps bwa quickly and efficiently navigate the file. This only needs to be done once per genome, so it has already been done for you. If you need to do it in the future, the command is <code>bwa index $shared/reference/moch.dovetail.reference.hap1.scaffolds.renamed.fasta</code>.</p>
 <p><strong>13. Align the reads with <code>bwa mem</code>, and then use samtools view to remove the low quality alignments. </strong></p>
 <details class=chunk-details><summary class=chunk-summary><span class=chunk-summary-text>Code</span></summary>
 <pre class="foldable"><code>bwa mem -t 1 -M -R &#39;@RG\tID:moch\tLB:moch\tPL:ILLUMINA\tSM:moch&#39; $shared/reference/moch.dovetail.reference.hap1.scaffolds.renamed.fasta mountain_chickadee_trimmed_1P mountain_chickadee_trimmed_2P | samtools view -q20 -b &gt; mountain_chickadee.filtered.bam</code></pre>

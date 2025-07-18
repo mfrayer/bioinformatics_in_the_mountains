@@ -75,7 +75,7 @@ module load star
 
 STAR --runThreadN 8 --genomeDir /scratch/alpine/mefr3284/ebio4100/reference --readFilesIn rnaseq/analyses/SRR7244680_1P.fastq.gz rnaseq/analyses/SRR7244680_2P.fastq.gz --outSAMtype BAM SortedByCoordinate --outFileNamePrefix rnaseq/analyses/SRR7244680 --readFilesCommand zcat
 
-STAR --runThreadN 8 --genomeDir /scratch/alpine/mefr3284/ebio4100/reference --readFilesIn rnaseq/analyses/SRR7244685_1P.fastq.gz rnaseq/analyses/SRR7244685_2P.fastq.gz --outSAMtype BAM SortedByCoordinate --outFileNamePrefix rnaseq/analyses/SRR7244680 --readFilesCommand zcat
+STAR --runThreadN 8 --genomeDir /scratch/alpine/mefr3284/ebio4100/reference --readFilesIn rnaseq/analyses/SRR7244685_1P.fastq.gz rnaseq/analyses/SRR7244685_2P.fastq.gz --outSAMtype BAM SortedByCoordinate --outFileNamePrefix rnaseq/analyses/SRR7244685 --readFilesCommand zcat
 
 ```
 

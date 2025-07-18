@@ -165,6 +165,8 @@ module load bwa
 module load samtools 
 ```
 
+Note that before you run bwa for the first time, you need to index the reference genome with bwa. This creates a file that helps bwa quickly and efficiently navigate the file. This only needs to be done once per genome, so it has already been done for you. If you need to do it in the future, the command is `bwa index $shared/reference/moch.dovetail.reference.hap1.scaffolds.renamed.fasta`. 
+
 **13. Align the reads with `bwa mem`, and then use samtools view to remove the low quality alignments. **
 
 ```{cat, class.source='foldable'}
